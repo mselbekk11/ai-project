@@ -1,6 +1,6 @@
 import * as React from "react";
 import { GalleryVerticalEnd } from "lucide-react";
-
+import { usePathname } from "next/navigation";
 import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
 
 import {
@@ -18,14 +18,14 @@ const data = {
   navMain: [
     {
       title: "Home",
+      url: "/",
+    },
+    {
+      title: "page 2",
       url: "#",
     },
     {
-      title: "Contacts",
-      url: "#",
-    },
-    {
-      title: "Boom",
+      title: "page 3",
       url: "#",
     },
   ],
@@ -33,6 +33,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
+  const pathname = usePathname();
 
   return (
     <Sidebar {...props}>
@@ -52,6 +53,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            {data.navMain.map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild>
+                  <a
+                    href={item.url}
+                    className={`font-medium ${
+                      pathname === item.url
+                        ? "bg-accent text-accent-foreground"
+                        : ""
+                    }`}
+                  >
+                    {item.title}
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu></SidebarMenu>
