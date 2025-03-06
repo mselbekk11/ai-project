@@ -21,7 +21,7 @@ const data = {
       url: "/",
     },
     {
-      title: "page 2",
+      title: "Train model",
       url: "#",
     },
     {
