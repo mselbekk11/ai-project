@@ -14,6 +14,23 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
+const data = {
+  navMain: [
+    {
+      title: "Home",
+      url: "#",
+    },
+    {
+      title: "Contacts",
+      url: "#",
+    },
+    {
+      title: "Boom",
+      url: "#",
+    },
+  ],
+};
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
 
