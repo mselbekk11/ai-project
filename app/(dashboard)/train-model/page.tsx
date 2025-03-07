@@ -64,7 +64,7 @@ export default function Home() {
           </div>
 
           <div className="space-y-2">
-            <Label>Training Images</Label>
+            <Label>Training Imagess</Label>
             <ImageUpload
               images={images}
               onChange={setImages}
