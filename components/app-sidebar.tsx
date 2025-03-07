@@ -15,20 +15,17 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 const data = {
   navMain: [
     {
       title: "Home",
-      url: "/",
+      url: "/home",
     },
     {
       title: "Train model",
-      url: "#",
-    },
-    {
-      title: "page 3",
-      url: "#",
+      url: "/train-model",
     },
   ],
 };
@@ -43,14 +40,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#" className="hover:bg-transparent">
+              <Link href="/home" className="hover:bg-transparent">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <GalleryVerticalEnd className="size-4" />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">TryAI</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -61,7 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {data.navMain.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
-                  <a
+                  <Link
                     href={item.url}
                     className={`font-medium ${
                       pathname === item.url
@@ -70,7 +67,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     }`}
                   >
                     {item.title}
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
