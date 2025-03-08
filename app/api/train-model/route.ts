@@ -9,6 +9,7 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     console.log('FormData received:', {
       modelName: formData.get('modelName'),
+      gender: formData.get('gender'),
       imageCount: formData.getAll('images').length,
     });
     
@@ -19,6 +20,7 @@ export async function POST(req: Request) {
     astriaFormData.append('tune[model_type]', 'lora');
     astriaFormData.append('tune[name]', 'flux');
     astriaFormData.append('tune[token]', 'model');
+    astriaFormData.append('tune[gender]', formData.get('gender') as string);
 
     // Add images
     const images = formData.getAll('images');

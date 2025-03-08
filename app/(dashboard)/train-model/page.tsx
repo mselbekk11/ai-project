@@ -11,6 +11,7 @@ export default function Home() {
   const [modelName, setModelName] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
+  const [gender, setGender] = useState("Male");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ export default function Home() {
     try {
       const formData = new FormData();
       formData.append("modelName", modelName);
+      formData.append("gender", gender);
       images.forEach((image) => {
         formData.append("images", image);
       });
@@ -64,12 +66,23 @@ export default function Home() {
           </div>
 
           <div className="space-y-2">
-            <Label>Training Imagess</Label>
-            <ImageUpload
-              images={images}
-              onChange={setImages}
-              maxImages={20} // Adjust based on Astria's requirements
-            />
+            <Label htmlFor="gender">Gender</Label>
+            <select
+              id="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              className="w-full rounded-md border border-input bg-background px-3 py-2"
+              required
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="unisex">Unisex</option>
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <Label>Training Images</Label>
+            <ImageUpload images={images} onChange={setImages} maxImages={20} />
           </div>
 
           <Button
