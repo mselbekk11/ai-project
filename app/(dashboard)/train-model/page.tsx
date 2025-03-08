@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { ImageUpload } from "@/components/image-upload"; // We'll create this component next
+import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
+  const { user } = useUser();
   const [modelName, setModelName] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
@@ -22,6 +24,7 @@ export default function Home() {
       const formData = new FormData();
       formData.append("modelName", modelName);
       formData.append("gender", gender);
+      formData.append("user_id", user?.id || "");
       images.forEach((image) => {
         formData.append("images", image);
       });

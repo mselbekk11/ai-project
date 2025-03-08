@@ -14,4 +14,15 @@ export default defineSchema({
   numbers: defineTable({
     value: v.number(),
   }),
+  headshot_models: defineTable({
+    created_at: v.number(), // Convex uses unix timestamps
+    user_id: v.string(),
+    model_id: v.string(),
+    name: v.string(),
+    images: v.array(v.string()),
+    eta: v.optional(v.number()),
+    trained_at: v.optional(v.number()),
+    expires_at: v.optional(v.number()),
+    status: v.optional(v.union(v.literal("finished"), v.literal("processing"))),
+  }),
 });
