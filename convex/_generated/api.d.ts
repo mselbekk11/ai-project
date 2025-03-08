@@ -14,7 +14,6 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as headshot_models from "../headshot_models.js";
-import type * as myFunctions from "../myFunctions.js";
 import type * as users from "../users.js";
 
 /**
@@ -27,7 +26,6 @@ import type * as users from "../users.js";
  */
 declare const fullApi: ApiFromModules<{
   headshot_models: typeof headshot_models;
-  myFunctions: typeof myFunctions;
   users: typeof users;
 }>;
 export declare const api: FilterApi<

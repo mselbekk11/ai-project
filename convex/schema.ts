@@ -11,9 +11,6 @@ export default defineSchema({
     name: v.string(),
     email: v.string(),
   }).index("by_token", ["tokenIdentifier"]),
-  numbers: defineTable({
-    value: v.number(),
-  }),
   headshot_models: defineTable({
     created_at: v.number(), // Convex uses unix timestamps
     user_id: v.string(),
