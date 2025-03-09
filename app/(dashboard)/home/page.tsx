@@ -33,9 +33,7 @@ export default function Home() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Your models</CardTitle>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                Train model
-              </Button>
+              <Button>Train model</Button>
             </CardHeader>
             <CardContent>
               <Table>
