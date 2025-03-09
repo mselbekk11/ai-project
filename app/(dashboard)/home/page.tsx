@@ -15,6 +15,7 @@ import {
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function Home() {
   const { user } = useUser();
@@ -33,7 +34,9 @@ export default function Home() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Your models</CardTitle>
-              <Button>Train model</Button>
+              <Link href="/train-model">
+                <Button>Train model</Button>
+              </Link>
             </CardHeader>
             <CardContent>
               <Table>
