@@ -61,9 +61,10 @@ export async function POST(req: Request) {
 
     await convex.mutation(api.headshot_models.createHeadshotModel, {
       name: formData.get('modelName') as string,
-      model_id: String(astriaData.id), // Convert number to string
+      model_id: String(astriaData.id),
       images: imageUrls,
-      user_id: formData.get('user_id') as string, // You'll need to pass this from the client
+      user_id: formData.get('user_id') as string,
+      gender: formData.get('gender') as string,
     });
 
     return NextResponse.json(astriaData);

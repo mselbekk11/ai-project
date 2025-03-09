@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,43 +12,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
-  // Sample data for the models
-  const models = [
-    {
-      id: 1,
-      name: "Morgan",
-      status: "finished",
-      type: "man",
-      samples: [
-        "/placeholder.svg?height=40&width=40",
-        "/placeholder.svg?height=40&width=40",
-        "/placeholder.svg?height=40&width=40",
-      ],
-      extraSamples: 1,
-    },
-    {
-      id: 2,
-      name: "Morgan Viking",
-      status: "finished",
-      type: "man",
-      samples: [
-        "/placeholder.svg?height=40&width=40",
-        "/placeholder.svg?height=40&width=40",
-        "/placeholder.svg?height=40&width=40",
-      ],
-      extraSamples: 5,
-    },
-    {
-      id: 3,
-      name: "Morgan Viking",
-      status: "finished",
-      type: "man",
-      samples: [],
-      extraSamples: 0,
-    },
-  ];
+  const { user } = useUser();
+  const models = useQuery(api.headshot_models.listUserModels, {
+    user_id: user?.id ?? "",
+  });
+
+  if (!models) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col">
@@ -71,30 +49,30 @@ export default function Home() {
                 </TableHeader>
                 <TableBody>
                   {models.map((model) => (
-                    <TableRow key={model.id}>
+                    <TableRow key={model._id}>
                       <TableCell className="font-medium">
                         {model.name}
                       </TableCell>
                       <TableCell>
                         <Badge className="bg-blue-600 hover:bg-blue-600">
-                          {model.status}
+                          {model.status ?? "processing"}
                         </Badge>
                       </TableCell>
-                      <TableCell>{model.type}</TableCell>
+                      <TableCell>{model.gender ?? "unknown"}</TableCell>
                       <TableCell>
                         <div className="flex items-center">
-                          {model.samples.slice(0, 3).map((sample, index) => (
+                          {model.images.slice(0, 3).map((image, index) => (
                             <Avatar
                               key={index}
                               className={index > 0 ? "-ml-2" : ""}
                             >
-                              <AvatarImage src={sample} alt="Sample image" />
+                              <AvatarImage src={image} alt="Sample image" />
                               <AvatarFallback>S</AvatarFallback>
                             </Avatar>
                           ))}
-                          {model.extraSamples > 0 && (
+                          {model.images.length > 3 && (
                             <span className="ml-2 text-sm text-muted-foreground">
-                              +{model.extraSamples}
+                              +{model.images.length - 3}
                             </span>
                           )}
                         </div>

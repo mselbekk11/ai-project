@@ -17,6 +17,7 @@ export default defineSchema({
     model_id: v.string(),
     name: v.string(),
     images: v.array(v.string()),
+    gender: v.optional(v.string()),
     eta: v.optional(v.number()),
     trained_at: v.optional(v.number()),
     expires_at: v.optional(v.number()),
