@@ -10,10 +10,12 @@ export async function POST(req: Request) {
 
   try {
     const formData = await req.formData();
+    const imageUrls = formData.getAll('images') as string[];
+    
     console.log('FormData received:', {
       modelName: formData.get('modelName'),
       gender: formData.get('gender'),
-      imageCount: formData.getAll('images').length,
+      imageCount: imageUrls.length,
     });
     
     // Create the Astria-specific FormData
@@ -25,18 +27,22 @@ export async function POST(req: Request) {
     astriaFormData.append('tune[token]', 'model');
     astriaFormData.append('tune[gender]', formData.get('gender') as string);
 
-    // Add images
-    const images = formData.getAll('images');
-    images.forEach((image) => {
-      astriaFormData.append('tune[images][]', image);
+    // Add image URLs to the request
+    imageUrls.forEach((imageUrl) => {
+      astriaFormData.append('tune[image_urls][]', imageUrl);
     });
 
-    console.log('Sending request to Astria...');
+    console.log('Sending request to Astria...', {
+      imageUrls,
+      modelName: formData.get('modelName'),
+      gender: formData.get('gender'),
+    });
     
     const astriaResponse = await fetch(`${ASTRIA_BASEURL}/tunes`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.ASTRIA_API_KEY}`,
+        'Accept': 'application/json',
       },
       body: astriaFormData,
     });
@@ -52,17 +58,11 @@ export async function POST(req: Request) {
     const astriaData = JSON.parse(responseText);
     console.log('Astria API success:', astriaData);
 
-    // Store in Convex
-    const imageUrls = formData.getAll('images').map(image => {
-      // You might want to store these images somewhere and get their URLs
-      // For now, we'll just use placeholder URLs
-      return URL.createObjectURL(image as Blob);
-    });
-
+    // Store in Convex with the actual image URLs
     await convex.mutation(api.headshot_models.createHeadshotModel, {
       name: formData.get('modelName') as string,
       model_id: String(astriaData.id),
-      images: imageUrls,
+      images: imageUrls, // Use the actual URLs
       user_id: formData.get('user_id') as string,
       gender: formData.get('gender') as string,
     });

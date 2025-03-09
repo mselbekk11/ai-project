@@ -1,68 +1,59 @@
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { UploadDropzone } from "@/utils/uploadthing";
 
 interface ImageUploadProps {
-  images: File[];
-  onChange: (files: File[]) => void;
+  onChange: (urls: string[]) => void;
   maxImages?: number;
+  value: string[];
 }
 
 export function ImageUpload({
-  images,
   onChange,
   maxImages = 20,
+  value = [],
 }: ImageUploadProps) {
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      const remainingSlots = maxImages - images.length;
-      const newFiles = acceptedFiles.slice(0, remainingSlots);
-      onChange([...images, ...newFiles]);
-    },
-    [images, maxImages, onChange],
-  );
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "image/*": [".png", ".jpg", ".jpeg", ".webp"],
-    },
-    disabled: images.length >= maxImages,
-  });
+  const [urls, setUrls] = useState<string[]>(value);
 
   const removeImage = (index: number) => {
-    const newImages = [...images];
-    newImages.splice(index, 1);
-    onChange(newImages);
+    const newUrls = [...urls];
+    newUrls.splice(index, 1);
+    setUrls(newUrls);
+    onChange(newUrls);
   };
 
   return (
     <div className="space-y-4">
-      <div
-        {...getRootProps()}
+      <UploadDropzone
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          if (res) {
+            const newUrls = [...urls, ...res.map((r) => r.url)];
+            setUrls(newUrls);
+            onChange(newUrls);
+          }
+        }}
+        onUploadError={(error: Error) => {
+          console.error("Upload error:", error);
+          alert("Upload failed: " + error.message);
+        }}
         className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer
-          ${isDragActive ? "border-primary" : "border-gray-300"}
-          ${images.length >= maxImages ? "opacity-50 cursor-not-allowed" : ""}
-        `}
-      >
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here...</p>
-        ) : (
-          <p>Drag & drop images here, or click to select files</p>
-        )}
-        <p className="text-sm text-gray-500 mt-2">
-          {images.length}/{maxImages} images uploaded
-        </p>
-      </div>
+          ${urls.length >= maxImages ? "opacity-50 cursor-not-allowed" : ""}`}
+      />
 
-      {images.length > 0 && (
+      <p className="text-sm text-gray-500 mt-2">
+        {urls.length}/{maxImages} images uploaded
+      </p>
+
+      {urls.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {images.map((file, index) => (
+          {urls.map((url, index) => (
             <div key={index} className="relative aspect-square">
               <Image
-                src={URL.createObjectURL(file)}
+                src={url}
                 alt={`Upload ${index + 1}`}
                 fill
                 className="object-cover rounded-lg"
