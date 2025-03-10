@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import NavTitle from "@/components/NavTitle";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,7 +29,9 @@ export default function Page({ children }: Props) {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Home</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    <NavTitle />
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
