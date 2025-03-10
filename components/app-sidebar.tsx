@@ -16,16 +16,19 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { House, Brain } from "lucide-react";
 
 const data = {
   navMain: [
     {
       title: "Home",
       url: "/home",
+      icon: <House className="size-4" />,
     },
     {
       title: "Train model",
       url: "/train-model",
+      icon: <Brain className="size-4" />,
     },
   ],
 };
@@ -60,12 +63,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuButton asChild>
                   <Link
                     href={item.url}
-                    className={`font-medium ${
+                    className={`flex items-center gap-2 font-medium ${
                       pathname === item.url
                         ? "bg-accent text-accent-foreground"
                         : ""
                     }`}
                   >
+                    {item.icon}
                     {item.title}
                   </Link>
                 </SidebarMenuButton>

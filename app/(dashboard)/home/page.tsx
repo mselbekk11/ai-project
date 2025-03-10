@@ -34,16 +34,16 @@ export default function Home() {
               <Table>
                 <TableHeader>
                   <TableRow className="border-b border-zinc-800 hover:bg-transparent">
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
                       Name
                     </TableHead>
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
                       Status
                     </TableHead>
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
                       Type
                     </TableHead>
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
                       Images
                     </TableHead>
                   </TableRow>
@@ -70,7 +70,7 @@ export default function Home() {
                           {model.images.slice(0, 3).map((image, index) => (
                             <Avatar
                               key={index}
-                              className={`w-8 h-8 ${index > 0 ? "-ml-2" : ""}`}
+                              className={`w-6 h-6 border border-zinc-800 ${index > 0 ? "-ml-2" : ""}`}
                             >
                               <AvatarImage src={image} alt="Sample image" />
                               <AvatarFallback>S</AvatarFallback>
