@@ -90,7 +90,7 @@ export default function UserDropdown() {
                 </span>
               )} */}
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="center" className="w-60  text-white border">
+        <DropdownMenuContent align="center" className="w-60 border">
           <div className="px-2 py-2">
             <p className="font-medium text-sm">{`${user?.firstName} ${user?.lastName}`}</p>
             <p className="text-xs text-gray-400">{`${user?.emailAddresses[0].emailAddress}`}</p>
@@ -127,7 +127,9 @@ export default function UserDropdown() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`h-6 w-6 rounded-full ${theme === "system" ? "bg-gray-700" : ""}`}
+                  className={`h-6 w-6 rounded-full ${
+                    theme === "system" ? "bg-accent" : ""
+                  }`}
                   onClick={() => setTheme("system")}
                 >
                   <Monitor className="h-4 w-4" />
@@ -136,7 +138,9 @@ export default function UserDropdown() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`h-6 w-6 rounded-full ${theme === "light" ? "bg-gray-700" : ""}`}
+                  className={`h-6 w-6 rounded-full ${
+                    theme === "light" ? "bg-accent" : ""
+                  }`}
                   onClick={() => setTheme("light")}
                 >
                   <Sun className="h-4 w-4" />
@@ -145,7 +149,9 @@ export default function UserDropdown() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`h-6 w-6 rounded-full ${theme === "dark" ? "bg-gray-700" : ""}`}
+                  className={`h-6 w-6 rounded-full ${
+                    theme === "dark" ? "bg-accent" : ""
+                  }`}
                   onClick={() => setTheme("dark")}
                 >
                   <Moon className="h-4 w-4" />

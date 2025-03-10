@@ -33,36 +33,33 @@ export default function Home() {
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow className="border-b border-zinc-800 hover:bg-transparent">
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
+                  <TableRow className="border-b hover:bg-transparent">
+                    <TableHead className="h-12 px-4 text-sm  font-semibold">
                       Name
                     </TableHead>
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
+                    <TableHead className="h-12 px-4 text-sm font-semibold">
                       Status
                     </TableHead>
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
+                    <TableHead className="h-12 px-4 text-sm font-semibold">
                       Type
                     </TableHead>
-                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-semibold">
+                    <TableHead className="h-12 px-4 text-sm font-semibold">
                       Images
                     </TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody className="border-b border-zinc-800">
+                <TableBody className="border-b ">
                   {models.map((model) => (
-                    <TableRow
-                      key={model._id}
-                      className="border-b border-zinc-800 hover:bg-zinc-900/50"
-                    >
-                      <TableCell className="py-0 h-12 px-4 text-sm text-white">
+                    <TableRow key={model._id} className="border-b  hover">
+                      <TableCell className="py-0 h-12 px-4 text-sm">
                         {model.name}
                       </TableCell>
                       <TableCell className="py-0 h-12 px-4">
-                        <Badge className="bg-zinc-800 text-white hover:bg-zinc-800">
+                        <Badge className="">
                           {model.status ?? "processing"}
                         </Badge>
                       </TableCell>
-                      <TableCell className="py-0 h-12 px-4 text-sm text-zinc-400">
+                      <TableCell className="py-0 h-12 px-4 text-sm">
                         {model.gender ?? "unknown"}
                       </TableCell>
                       <TableCell className="py-0 h-12 px-4">
@@ -70,15 +67,15 @@ export default function Home() {
                           {model.images.slice(0, 3).map((image, index) => (
                             <Avatar
                               key={index}
-                              className={`w-6 h-6 border border-zinc-800 ${index > 0 ? "-ml-2" : ""}`}
+                              className={`w-6 h-6 border  ${index > 0 ? "-ml-2" : ""}`}
                             >
                               <AvatarImage src={image} alt="Sample image" />
                               <AvatarFallback>S</AvatarFallback>
                             </Avatar>
                           ))}
                           {model.images.length > 3 && (
-                            <Avatar className="w-6 h-6 border border-zinc-800 -ml-2 bg-zinc-800 ">
-                              <AvatarFallback className="text-xs text-white">
+                            <Avatar className="w-6 h-6 -ml-2 ">
+                              <AvatarFallback className="text-xs">
                                 +{model.images.length - 3}
                               </AvatarFallback>
                             </Avatar>

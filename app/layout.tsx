@@ -44,7 +44,7 @@ export default function RootLayout({
               attribute="class"
               defaultTheme="dark"
               enableSystem={false}
-              forcedTheme="dark"
+              // forcedTheme="dark"
             >
               <NextSSRPlugin
                 routerConfig={extractRouterConfig(ourFileRouter)}
