@@ -1,9 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { GalleryVerticalEnd } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
 
 import {
   Sidebar,
@@ -17,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { House, Brain } from "lucide-react";
-import Logo from "./logo";
+import UserDropdown from "./user-dropdown";
 
 const data = {
   navMain: [
@@ -35,7 +34,6 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useUser();
   const pathname = usePathname();
 
   return (
@@ -84,15 +82,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <SidebarMenu></SidebarMenu>
         </SidebarGroup>
-        <div className="mt-auto p-4">
+        <div className="mt-auto p-2">
           <SignedIn>
             <div className="flex items-center gap-3">
-              <UserButton />
-              {user && (
-                <span className="text-sm text-muted-foreground">
-                  {`${user.firstName} ${user.lastName}`}
-                </span>
-              )}
+              <UserDropdown />
             </div>
           </SignedIn>
         </div>
