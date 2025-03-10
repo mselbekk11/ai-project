@@ -12,7 +12,7 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Monitor, Sun, Moon, MoreHorizontal } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
+import { useUser, SignOutButton } from "@clerk/nextjs";
 
 export default function UserDropdown() {
   const { theme, setTheme } = useTheme();
@@ -162,14 +162,14 @@ export default function UserDropdown() {
           </DropdownMenuItem>
 
           <DropdownMenuSeparator className="" />
-
-          <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
-            <div className="flex items-center">
-              {/* <LogOut className="mr-2 h-4 w-4" /> */}
-              <span>Sign out</span>
-            </div>
-            <span className="text-xs text-gray-400">⌘ ⇧ S</span>
-          </DropdownMenuItem>
+          <SignOutButton>
+            <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
+              <div className="flex items-center">
+                <span>Sign out</span>
+              </div>
+              <span className="text-xs text-gray-400">⌘ ⇧ S</span>
+            </DropdownMenuItem>
+          </SignOutButton>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
