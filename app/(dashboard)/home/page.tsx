@@ -34,16 +34,16 @@ export default function Home() {
               <Table>
                 <TableHeader>
                   <TableRow className="border-b border-zinc-800 hover:bg-transparent">
-                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
                       Name
                     </TableHead>
-                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
                       Status
                     </TableHead>
-                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
                       Type
                     </TableHead>
-                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                    <TableHead className="h-12 px-4 text-sm text-zinc-400 font-normal">
                       Images
                     </TableHead>
                   </TableRow>
@@ -54,23 +54,23 @@ export default function Home() {
                       key={model._id}
                       className="border-b border-zinc-800 hover:bg-zinc-900/50"
                     >
-                      <TableCell className="h-12 px-4 text-sm text-white">
+                      <TableCell className="py-0 h-12 px-4 text-sm text-white">
                         {model.name}
                       </TableCell>
-                      <TableCell className="h-12 px-4">
+                      <TableCell className="py-0 h-12 px-4">
                         <Badge className="bg-zinc-800 text-white hover:bg-zinc-800">
                           {model.status ?? "processing"}
                         </Badge>
                       </TableCell>
-                      <TableCell className="h-12 px-4 text-sm text-zinc-400">
+                      <TableCell className="py-0 h-12 px-4 text-sm text-zinc-400">
                         {model.gender ?? "unknown"}
                       </TableCell>
-                      <TableCell className="h-12 px-4">
+                      <TableCell className="py-0 h-12 px-4">
                         <div className="flex items-center">
                           {model.images.slice(0, 3).map((image, index) => (
                             <Avatar
                               key={index}
-                              className={index > 0 ? "-ml-2" : ""}
+                              className={`w-8 h-8 ${index > 0 ? "-ml-2" : ""}`}
                             >
                               <AvatarImage src={image} alt="Sample image" />
                               <AvatarFallback>S</AvatarFallback>
