@@ -118,16 +118,16 @@ export default function UserDropdown() {
             <span className="text-xs text-gray-400">⌘ K</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="py-2 cursor-default">
+          <DropdownMenuItem className="py-2 cursor-default focus:bg-transparent">
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center">
                 <span className="mr-2">Theme</span>
               </div>
-              <div className="flex space-x-1">
+              <div className="flex space-x-1 border rounded-2xl p-1">
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`h-8 w-8 rounded-full ${theme === "system" ? "bg-gray-700" : ""}`}
+                  className={`h-6 w-6 rounded-full ${theme === "system" ? "bg-gray-700" : ""}`}
                   onClick={() => setTheme("system")}
                 >
                   <Monitor className="h-4 w-4" />
@@ -136,7 +136,7 @@ export default function UserDropdown() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`h-8 w-8 rounded-full ${theme === "light" ? "bg-gray-700" : ""}`}
+                  className={`h-6 w-6 rounded-full ${theme === "light" ? "bg-gray-700" : ""}`}
                   onClick={() => setTheme("light")}
                 >
                   <Sun className="h-4 w-4" />
@@ -145,7 +145,7 @@ export default function UserDropdown() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`h-8 w-8 rounded-full ${theme === "dark" ? "bg-gray-700" : ""}`}
+                  className={`h-6 w-6 rounded-full ${theme === "dark" ? "bg-gray-700" : ""}`}
                   onClick={() => setTheme("dark")}
                 >
                   <Moon className="h-4 w-4" />
