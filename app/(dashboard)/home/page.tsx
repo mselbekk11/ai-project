@@ -77,9 +77,11 @@ export default function Home() {
                             </Avatar>
                           ))}
                           {model.images.length > 3 && (
-                            <span className="ml-2 text-sm text-muted-foreground">
-                              +{model.images.length - 3}
-                            </span>
+                            <Avatar className="w-6 h-6 border border-zinc-800 -ml-2 bg-zinc-800 ">
+                              <AvatarFallback className="text-xs text-white">
+                                +{model.images.length - 3}
+                              </AvatarFallback>
+                            </Avatar>
                           )}
                         </div>
                       </TableCell>
