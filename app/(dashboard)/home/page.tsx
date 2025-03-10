@@ -2,8 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -15,7 +14,6 @@ import {
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
-import Link from "next/link";
 
 export default function Home() {
   const { user } = useUser();
@@ -30,37 +28,44 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <main className="flex-1">
-        <div className="container px-4 py-6">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Your models</CardTitle>
-              <Link href="/train-model">
-                <Button>Train model</Button>
-              </Link>
-            </CardHeader>
-            <CardContent>
+        <div className="container">
+          <Card className="border-none rounded-none">
+            <CardContent className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[200px]">Name</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Images</TableHead>
+                  <TableRow className="border-b border-zinc-800 hover:bg-transparent">
+                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                      Name
+                    </TableHead>
+                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                      Status
+                    </TableHead>
+                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                      Type
+                    </TableHead>
+                    <TableHead className="h-10 px-4 text-sm text-zinc-400 font-normal">
+                      Images
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody className="border-b border-zinc-800">
                   {models.map((model) => (
-                    <TableRow key={model._id}>
-                      <TableCell className="font-medium">
+                    <TableRow
+                      key={model._id}
+                      className="border-b border-zinc-800 hover:bg-zinc-900/50"
+                    >
+                      <TableCell className="h-12 px-4 text-sm text-white">
                         {model.name}
                       </TableCell>
-                      <TableCell>
-                        <Badge className="bg-blue-600 hover:bg-blue-600">
+                      <TableCell className="h-12 px-4">
+                        <Badge className="bg-zinc-800 text-white hover:bg-zinc-800">
                           {model.status ?? "processing"}
                         </Badge>
                       </TableCell>
-                      <TableCell>{model.gender ?? "unknown"}</TableCell>
-                      <TableCell>
+                      <TableCell className="h-12 px-4 text-sm text-zinc-400">
+                        {model.gender ?? "unknown"}
+                      </TableCell>
+                      <TableCell className="h-12 px-4">
                         <div className="flex items-center">
                           {model.images.slice(0, 3).map((image, index) => (
                             <Avatar
