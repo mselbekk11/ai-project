@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import NavTitle from "@/components/NavTitle";
+import NavButton from "@/components/NavButton";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -23,18 +24,21 @@ export default function Page({ children }: Props) {
       <AppSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-          <div className="flex items-center gap-2 px-3">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbPage>
-                    <NavTitle />
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+          <div className="flex items-center justify-between w-full px-3">
+            <div className="flex items-center gap-2">
+              <SidebarTrigger />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>
+                      <NavTitle />
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+            <NavButton />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4">{children}</div>
