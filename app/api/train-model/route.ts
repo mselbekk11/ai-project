@@ -67,7 +67,10 @@ export async function POST(req: Request) {
       gender,
     });
 
-    return NextResponse.json(astriaData);
+    return NextResponse.json({ 
+      ...astriaData,
+      message: "Model training started successfully" 
+    });
   } catch (error) {
     console.error('Error in API route:', error);
     return NextResponse.json(

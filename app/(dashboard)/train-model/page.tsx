@@ -11,6 +11,7 @@ import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Home() {
   const router = useRouter();
@@ -50,8 +51,10 @@ export default function Home() {
       }
 
       const data = await response.json();
-      console.log("Success:", data); // Debug log
-      // alert("Model training started successfully!");
+      console.log("Success:", data);
+
+      // Add toast notification
+      toast.success("Model training started successfully");
 
       // Clear the form
       setModelName("");
@@ -62,7 +65,9 @@ export default function Home() {
       router.push("/home");
     } catch (error) {
       console.error("Error:", error);
-      alert(error instanceof Error ? error.message : "Failed to train model"); // Temporary error message
+      toast.error(
+        error instanceof Error ? error.message : "Failed to train model",
+      );
     } finally {
       setLoading(false);
     }
