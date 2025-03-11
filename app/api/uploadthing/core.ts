@@ -9,7 +9,7 @@ export const ourFileRouter = {
       maxFileCount: 20
     }
   })
-    .middleware(async ({ req }) => {
+    .middleware(async () => {
       // This code runs on your server before upload
       return {}; // Whatever is returned here is accessible in onUploadComplete as `metadata`
     })

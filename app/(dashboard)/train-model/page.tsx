@@ -5,13 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { ImageUpload } from "@/components/image-upload"; // We'll create this component next
+// import { ImageUpload } from "@/components/image-upload";
 import { useUser } from "@clerk/nextjs";
+import { UploadDropzone } from "@/utils/uploadthing";
+import Image from "next/image";
 
 export default function Home() {
   const { user } = useUser();
   const [modelName, setModelName] = useState("");
-  const [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [gender, setGender] = useState("Male");
 
@@ -21,18 +23,20 @@ export default function Home() {
     console.log("Form submission started"); // Debug log
 
     try {
-      const formData = new FormData();
-      formData.append("modelName", modelName);
-      formData.append("gender", gender);
-      formData.append("user_id", user?.id || "");
-      images.forEach((image) => {
-        formData.append("images", image);
-      });
+      const formData = {
+        modelName,
+        gender,
+        user_id: user?.id || "",
+        imageUrls: images,
+      };
 
       console.log("Sending request to API..."); // Debug log
       const response = await fetch("/api/train-model", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
 
       console.log("Response received:", response.status); // Debug log
@@ -85,8 +89,60 @@ export default function Home() {
 
           <div className="space-y-2">
             <Label>Training Images</Label>
-            <ImageUpload images={images} onChange={setImages} maxImages={20} />
+            <UploadDropzone
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                const newUrls = res.map((file) => file.url);
+                setImages((prev) => [...prev, ...newUrls]);
+                console.log("Files: ", res);
+                alert("Upload Completed");
+              }}
+              onUploadError={(error: Error) => {
+                alert(`ERROR! ${error.message}`);
+              }}
+              className="ut-label:text-lg ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg"
+              appearance={{
+                container: {
+                  padding: "1rem",
+                },
+                label: {
+                  color: "inherit",
+                },
+              }}
+              content={{
+                label: "Drop your training images here or click to browse",
+                allowedContent: "Supported formats: JPG, PNG, WEBP",
+              }}
+            />
           </div>
+
+          {images.length > 0 && (
+            <div className="space-y-2">
+              <Label>Uploaded Images</Label>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {images.map((url, index) => (
+                  <div key={index} className="relative group">
+                    <Image
+                      src={url}
+                      alt={`Upload ${index + 1}`}
+                      width={400}
+                      height={300}
+                      className="w-full h-40 object-cover rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setImages(images.filter((_, i) => i !== index))
+                      }
+                      className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <Button
             type="submit"

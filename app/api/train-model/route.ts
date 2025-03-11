@@ -9,33 +9,33 @@ export async function POST(req: Request) {
   console.log('API route handler started');
 
   try {
-    const formData = await req.formData();
-    const imageUrls = formData.getAll('images') as string[];
+    const body = await req.json();
+    const { modelName, gender, user_id, imageUrls } = body;
     
-    console.log('FormData received:', {
-      modelName: formData.get('modelName'),
-      gender: formData.get('gender'),
+    console.log('Request body received:', {
+      modelName,
+      gender,
       imageCount: imageUrls.length,
     });
     
     // Create the Astria-specific FormData
     const astriaFormData = new FormData();
-    astriaFormData.append('tune[title]', formData.get('modelName') as string);
+    astriaFormData.append('tune[title]', modelName);
     astriaFormData.append('tune[base_tune_id]', '1504944');
     astriaFormData.append('tune[model_type]', 'lora');
     astriaFormData.append('tune[name]', 'flux');
     astriaFormData.append('tune[token]', 'model');
-    astriaFormData.append('tune[gender]', formData.get('gender') as string);
+    astriaFormData.append('tune[gender]', gender);
 
     // Add image URLs to the request
-    imageUrls.forEach((imageUrl) => {
+    imageUrls.forEach((imageUrl: string) => {
       astriaFormData.append('tune[image_urls][]', imageUrl);
     });
 
     console.log('Sending request to Astria...', {
       imageUrls,
-      modelName: formData.get('modelName'),
-      gender: formData.get('gender'),
+      modelName,
+      gender,
     });
     
     const astriaResponse = await fetch(`${ASTRIA_BASEURL}/tunes`, {
@@ -60,11 +60,11 @@ export async function POST(req: Request) {
 
     // Store in Convex with the actual image URLs
     await convex.mutation(api.headshot_models.createHeadshotModel, {
-      name: formData.get('modelName') as string,
+      name: modelName,
       model_id: String(astriaData.id),
-      images: imageUrls, // Use the actual URLs
-      user_id: formData.get('user_id') as string,
-      gender: formData.get('gender') as string,
+      images: imageUrls,
+      user_id,
+      gender,
     });
 
     return NextResponse.json(astriaData);
