@@ -10,8 +10,10 @@ import { useUser } from "@clerk/nextjs";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import { Upload } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const { user } = useUser();
   const [modelName, setModelName] = useState("");
   const [images, setImages] = useState<string[]>([]);
@@ -49,7 +51,15 @@ export default function Home() {
 
       const data = await response.json();
       console.log("Success:", data); // Debug log
-      alert("Model training started successfully!"); // Temporary success message
+      // alert("Model training started successfully!");
+
+      // Clear the form
+      setModelName("");
+      setGender("Male");
+      setImages([]);
+
+      // Redirect to home
+      router.push("/home");
     } catch (error) {
       console.error("Error:", error);
       alert(error instanceof Error ? error.message : "Failed to train model"); // Temporary error message
@@ -96,7 +106,7 @@ export default function Home() {
                 const newUrls = res.map((file) => file.url);
                 setImages((prev) => [...prev, ...newUrls]);
                 console.log("Files: ", res);
-                alert("Upload Completed");
+                // alert("Upload Completed");
               }}
               onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
