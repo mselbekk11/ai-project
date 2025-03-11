@@ -116,7 +116,7 @@ export default function Home() {
               onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
               }}
-              className="ut-label:text-lg ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
+              className="ut-label:text-md ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
               appearance={{
                 container: {
                   padding: "1rem",
