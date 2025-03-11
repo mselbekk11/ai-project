@@ -14,6 +14,7 @@ import {
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
+import { Loader2 } from "lucide-react";
 
 export default function Home() {
   const { user } = useUser();
@@ -56,7 +57,14 @@ export default function Home() {
                       </TableCell>
                       <TableCell className="py-0 h-12 px-4">
                         <Badge className="">
-                          {model.status ?? "processing"}
+                          {model.status === "processing" ? (
+                            <>
+                              <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                              processing
+                            </>
+                          ) : (
+                            (model.status ?? "processing")
+                          )}
                         </Badge>
                       </TableCell>
                       <TableCell className="py-0 h-12 px-4 text-sm">

@@ -132,7 +132,7 @@ export default function Home() {
               }}
               content={{
                 uploadIcon: () => <Upload />,
-                label: "Drop your training images or click to browse",
+                label: "Drop your training images",
                 allowedContent:
                   "Supported formats: JPG, PNG, WEBP | Max 20 images | 4MB",
               }}
