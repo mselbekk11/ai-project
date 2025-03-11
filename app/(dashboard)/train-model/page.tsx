@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { useUser } from "@clerk/nextjs";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
+import { Upload } from "lucide-react";
 
 export default function Home() {
   const { user } = useUser();
@@ -100,17 +101,23 @@ export default function Home() {
               onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
               }}
-              className="ut-label:text-lg ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg"
+              className="ut-label:text-lg ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
               appearance={{
                 container: {
                   padding: "1rem",
+                },
+                button: {
+                  backgroundColor: "hsl(var(--primary))", // Uses your app's primary color
+                  color: "hsl(var(--primary-foreground))", // Uses your app's primary foreground color
+                  fontSize: "0.875rem", // This is equivalent to text-sm in Tailwind
                 },
                 label: {
                   color: "inherit",
                 },
               }}
               content={{
-                label: "Drop your training images here or click to browse",
+                uploadIcon: () => <Upload />,
+                label: "Drop your training images or click to browse",
                 allowedContent: "Supported formats: JPG, PNG, WEBP",
               }}
             />
