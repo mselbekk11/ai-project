@@ -118,7 +118,8 @@ export default function Home() {
               content={{
                 uploadIcon: () => <Upload />,
                 label: "Drop your training images or click to browse",
-                allowedContent: "Supported formats: JPG, PNG, WEBP",
+                allowedContent:
+                  "Supported formats: JPG, PNG, WEBP | Max 20 images | 4MB",
               }}
             />
           </div>
@@ -126,14 +127,14 @@ export default function Home() {
           {images.length > 0 && (
             <div className="space-y-2">
               <Label>Uploaded Images</Label>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
                 {images.map((url, index) => (
                   <div key={index} className="relative group">
                     <Image
                       src={url}
                       alt={`Upload ${index + 1}`}
-                      width={400}
-                      height={300}
+                      width={200}
+                      height={200}
                       className="w-full h-40 object-cover rounded-lg"
                     />
                     <button
@@ -141,7 +142,7 @@ export default function Home() {
                       onClick={() =>
                         setImages(images.filter((_, i) => i !== index))
                       }
-                      className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute top-2 right-2 bg-black text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-xs"
                     >
                       ✕
                     </button>
