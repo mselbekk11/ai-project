@@ -1,90 +1,105 @@
 import { NextResponse } from 'next/server';
 
 const ASTRIA_BASEURL = 'https://api.astria.ai';
+const FLUX_BASE_MODEL = '1504944'; // Using the flux base model ID from your train-model route
+
+async function pollForCompletion(id: string, maxAttempts = 60) {
+  for (let i = 0; i < maxAttempts; i++) {
+    console.log(`Polling attempt ${i + 1}/${maxAttempts} for ID: ${id}`);
+    
+    const response = await fetch(`${ASTRIA_BASEURL}/tunes/${FLUX_BASE_MODEL}/prompts/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.ASTRIA_API_KEY}`,
+        'Accept': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      console.log(`Polling attempt ${i + 1} failed with status: ${response.status}`);
+      continue;
+    }
+
+    const data = await response.json();
+    console.log(`Polling attempt ${i + 1} response:`, data);
+
+    if (data.images && data.images.length > 0) {
+      console.log('Generation completed successfully');
+      return { image_url: data.images[0] };
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
+  }
+  throw new Error(`Timeout waiting for generation after ${maxAttempts} attempts`);
+}
 
 export async function POST(req: Request) {
   try {
-    const { model_id, clothing_url } = await req.json();
-    console.log('Received request:', { model_id, clothing_url });
+    const body = await req.json();
+    console.log('API route received request:', body);
 
-    // Step 1: Create a faceid fine-tune of the garment
-    const garmentFormData = new FormData();
-    garmentFormData.append('tune[name]', `garment${Date.now()}`);
-    garmentFormData.append('tune[title]', 'Garment Fine tune');
-    garmentFormData.append('tune[type]', 'faceid');
-    garmentFormData.append('tune[image_urls][]', clothing_url);
-    garmentFormData.append('tune[base_model_id]', '1');
+    const formData = new FormData();
+    formData.append('prompt[text]', body.prompt);
+    formData.append('prompt[super_resolution]', String(body.super_resolution));
+    formData.append('prompt[face_correct]', 'true');
+    formData.append('prompt[face_swap]', 'true');
+    formData.append('prompt[cfg_scale]', '3');
+    formData.append('prompt[class]', 'man');
+    formData.append('prompt[scheduler]', 'dpm++2m_karras');
+    formData.append('prompt[num_inference_steps]', '30');
+    formData.append('prompt[backend_version]', '0'); // Adding Backend V0 for FLUX
 
-    const garmentResponse = await fetch(`${ASTRIA_BASEURL}/tunes`, {
+    console.log('FormData contents:');
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
+    console.log('Sending request to Astria...');
+    
+    const response = await fetch(`${ASTRIA_BASEURL}/tunes/${FLUX_BASE_MODEL}/prompts`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.ASTRIA_API_KEY}`,
         'Accept': 'application/json',
       },
-      body: garmentFormData
+      body: formData
     });
 
-    const garmentResponseText = await garmentResponse.text();
-    console.log('Garment response:', garmentResponseText);
+    // Log the raw response
+    const responseText = await response.text();
+    console.log('Raw Astria response:', responseText);
 
-    if (!garmentResponse.ok) {
-      throw new Error(`Garment fine-tune failed: ${garmentResponseText}`);
+    if (!response.ok) {
+      throw new Error(`Generation failed: ${responseText}`);
     }
 
-    const garmentData = JSON.parse(garmentResponseText);
-    console.log('Garment fine-tune created:', garmentData);
-
-    // Check if the garment model is still training
-    if (!garmentData.trained_at) {
-      return NextResponse.json({
-        status: 'training',
-        message: 'Garment model is still training',
-        eta: garmentData.eta,
-        garment_id: garmentData.id
-      });
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (e) {
+      throw new Error(`Failed to parse Astria response: ${responseText}`);
     }
 
-    // Step 2: Generate the try-on image using both models
-    const tryOnFormData = new FormData();
-    tryOnFormData.append('tune_id', model_id);
-    tryOnFormData.append('prompt', `<lora:${garmentData.id}:1> person wearing the clothing, full body photo`);
-    tryOnFormData.append('negative_prompt', 'bad quality, blurry, distorted');
-    tryOnFormData.append('num_inference_steps', '30');
+    console.log('Parsed Astria response:', data);
 
-    console.log('Generating try-on image with prompt:', `<lora:${garmentData.id}:1> person wearing the clothing`);
-
-    const tryOnResponse = await fetch(`${ASTRIA_BASEURL}/inference`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.ASTRIA_API_KEY}`,
-        'Accept': 'application/json',
-      },
-      body: tryOnFormData
-    });
-
-    const tryOnResponseText = await tryOnResponse.text();
-    console.log('Try-on response:', tryOnResponseText);
-
-    if (!tryOnResponse.ok) {
-      throw new Error(`Try-on generation failed: ${tryOnResponseText}`);
+    if (!data.id) {
+      throw new Error(`No prompt ID received from Astria. Full response: ${JSON.stringify(data)}`);
     }
 
-    const tryOnData = JSON.parse(tryOnResponseText);
-    console.log('Try-on image generated:', tryOnData);
+    console.log('Starting to poll for completion...');
+    const result = await pollForCompletion(data.id);
+    console.log('Polling completed with result:', result);
 
     return NextResponse.json({
       status: 'success',
-      inference_id: tryOnData.id,
-      image_url: tryOnData.image_url
+      image_url: result.image_url
     });
   } catch (error) {
     console.error('Error in try-on API route:', error);
-    console.error('Full error details:', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined,
-    });
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to generate try-on' },
+      { 
+        error: error instanceof Error ? error.message : 'Failed to generate try-on',
+        details: error instanceof Error ? error.stack : undefined
+      },
       { status: 500 }
     );
   }

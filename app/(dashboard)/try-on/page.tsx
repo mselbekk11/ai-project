@@ -22,8 +22,9 @@ interface Model {
 
 export default function TryOn() {
   const { user } = useUser();
-  const [selectedModel, setSelectedModel] = useState<string>("");
-  const [clothingImage, setClothingImage] = useState<string>("");
+  const [loraId, setLoraId] = useState<string>("");
+  const [faceId, setFaceId] = useState<string>("");
+  const [prompt, setPrompt] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string>("");
   const [inferenceId, setInferenceId] = useState<string>("");
@@ -36,28 +37,33 @@ export default function TryOn() {
 
   const checkInferenceStatus = async (id: string) => {
     try {
-      const response = await fetch(`${ASTRIA_BASEURL}/inference/${id}`, {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_ASTRIA_API_KEY}`,
-        },
-      });
+      const response = await fetch(`/api/try-on/status/${id}`);
 
-      if (!response.ok) throw new Error("Failed to check status");
+      if (!response.ok) {
+        throw new Error("Failed to check inference status");
+      }
 
       const data = await response.json();
-
-      if (data.status === "completed") {
+      if (data.status === "completed" && data.image_url) {
         setResult(data.image_url);
-        if (pollInterval) clearInterval(pollInterval);
-        setLoading(false);
-        toast.success("Try-on image generated successfully!");
+        if (pollInterval) {
+          clearInterval(pollInterval);
+          setPollInterval(null);
+        }
       } else if (data.status === "failed") {
-        if (pollInterval) clearInterval(pollInterval);
-        setLoading(false);
         toast.error("Generation failed");
+        if (pollInterval) {
+          clearInterval(pollInterval);
+          setPollInterval(null);
+        }
       }
     } catch (error) {
-      console.error("Status check error:", error);
+      console.error("Error checking inference status:", error);
+      if (pollInterval) {
+        clearInterval(pollInterval);
+        setPollInterval(null);
+      }
+      toast.error("Failed to check generation status");
     }
   };
 
@@ -66,6 +72,9 @@ export default function TryOn() {
     setLoading(true);
     setResult("");
 
+    const fullPrompt = `${loraId} ${faceId} model flux shirt ${prompt}`;
+    console.log("Sending request with prompt:", fullPrompt);
+
     try {
       const response = await fetch("/api/try-on", {
         method: "POST",
@@ -73,29 +82,28 @@ export default function TryOn() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model_id: selectedModel,
-          clothing_url: clothingImage,
+          prompt: fullPrompt,
+          negative_prompt: "bad quality, blurry, distorted",
+          super_resolution: true,
+          inpaint_faces: true,
+          hires_fix: true,
+          ar: "1:1",
+          w: 768,
+          h: 1280,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to generate try-on image");
-      }
-
       const data = await response.json();
 
-      if (data.inference_id) {
-        setInferenceId(data.inference_id);
-        // Start polling for results
-        const interval = setInterval(
-          () => checkInferenceStatus(data.inference_id),
-          5000,
-        );
-        setPollInterval(interval);
+      if (data.status === "success" && data.image_url) {
+        setResult(data.image_url);
+      } else {
+        toast.error(data.error || "Failed to generate try-on image");
       }
     } catch (error) {
       console.error("Error:", error);
       toast.error("Failed to generate try-on image");
+    } finally {
       setLoading(false);
     }
   };
@@ -111,66 +119,40 @@ export default function TryOn() {
       <Card className="p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="model">Select Model</Label>
-            <select
-              id="model"
-              value={selectedModel}
-              onChange={(e) => setSelectedModel(e.target.value)}
+            <Label htmlFor="loraId">Lora ID</Label>
+            <input
+              id="loraId"
+              value={loraId}
+              onChange={(e) => setLoraId(e.target.value)}
+              placeholder="<lora:2228921:1.0>"
               className="w-full rounded-md border border-input bg-background px-3 py-2"
               required
-            >
-              <option value="">Select a model</option>
-              {models?.map((model) => (
-                <option key={model._id} value={model.model_id}>
-                  {model.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <Label>Upload Clothing Image</Label>
-            <UploadDropzone
-              endpoint="imageUploader"
-              onClientUploadComplete={(res) => {
-                if (res && res[0]) {
-                  setClothingImage(res[0].url);
-                  toast.success("Clothing image uploaded!");
-                }
-              }}
-              onUploadError={(error: Error) => {
-                toast.error(`Upload error: ${error.message}`);
-              }}
-              className="ut-label:text-md ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
-              appearance={{
-                container: { padding: "1rem" },
-                button: {
-                  backgroundColor: "hsl(var(--primary))",
-                  color: "hsl(var(--primary-foreground))",
-                  fontSize: "0.875rem",
-                },
-              }}
-              content={{
-                uploadIcon: () => <Upload />,
-                label: "Drop clothing image",
-                allowedContent: "Supported formats: JPG, PNG, WEBP",
-              }}
             />
           </div>
 
-          {clothingImage && (
-            <div className="space-y-2">
-              <Label>Selected Clothing</Label>
-              <div className="relative w-40 h-40">
-                <Image
-                  src={clothingImage}
-                  alt="Clothing"
-                  fill
-                  className="object-cover rounded-lg"
-                />
-              </div>
-            </div>
-          )}
+          <div className="space-y-2">
+            <Label htmlFor="faceId">Face ID</Label>
+            <input
+              id="faceId"
+              value={faceId}
+              onChange={(e) => setFaceId(e.target.value)}
+              placeholder="<faceid:2228794:1.0>"
+              className="w-full rounded-md border border-input bg-background px-3 py-2"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="prompt">Prompt</Label>
+            <textarea
+              id="prompt"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="man wearing this shirt with jeans, fashion editorial plain pink background"
+              className="w-full rounded-md border border-input bg-background px-3 py-2 min-h-[100px]"
+              required
+            />
+          </div>
 
           {result && (
             <div className="space-y-2">
@@ -188,7 +170,7 @@ export default function TryOn() {
 
           <Button
             type="submit"
-            disabled={loading || !selectedModel || !clothingImage}
+            disabled={loading || !loraId || !faceId || !prompt}
           >
             {loading ? "Generating..." : "Generate Try-on"}
           </Button>
