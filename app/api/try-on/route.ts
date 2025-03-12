@@ -24,7 +24,7 @@ async function pollForCompletion(id: string, maxAttempts = 60) {
 
     if (data.images && data.images.length > 0) {
       console.log('Generation completed successfully');
-      return { image_url: data.images[0] };
+      return { image_urls: data.images }; // Return all images
     }
 
     await new Promise(resolve => setTimeout(resolve, 3000));
@@ -47,6 +47,7 @@ export async function POST(req: Request) {
     formData.append('prompt[scheduler]', 'dpm++2m_karras');
     formData.append('prompt[num_inference_steps]', '30');
     formData.append('prompt[backend_version]', '0'); // Adding Backend V0 for FLUX
+    formData.append('prompt[num_images]', '4'); // Request 4 images
 
     console.log('FormData contents:');
     for (let [key, value] of formData.entries()) {
@@ -91,7 +92,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       status: 'success',
-      image_url: result.image_url
+      image_urls: result.image_urls // Return array of image URLs
     });
   } catch (error) {
     console.error('Error in try-on API route:', error);

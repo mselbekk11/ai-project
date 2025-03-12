@@ -26,7 +26,7 @@ export default function TryOn() {
   const [faceId, setFaceId] = useState<string>("");
   const [prompt, setPrompt] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string>("");
+  const [results, setResults] = useState<string[]>([]);
   const [inferenceId, setInferenceId] = useState<string>("");
   const [pollInterval, setPollInterval] = useState<NodeJS.Timeout | null>(null);
 
@@ -45,7 +45,7 @@ export default function TryOn() {
 
       const data = await response.json();
       if (data.status === "completed" && data.image_url) {
-        setResult(data.image_url);
+        setResults([data.image_url]);
         if (pollInterval) {
           clearInterval(pollInterval);
           setPollInterval(null);
@@ -70,7 +70,7 @@ export default function TryOn() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setResult("");
+    setResults([]);
 
     const fullPrompt = `${loraId} ${faceId} model flux shirt ${prompt}`;
     console.log("Sending request with prompt:", fullPrompt);
@@ -83,7 +83,6 @@ export default function TryOn() {
         },
         body: JSON.stringify({
           prompt: fullPrompt,
-          negative_prompt: "bad quality, blurry, distorted",
           super_resolution: true,
           inpaint_faces: true,
           hires_fix: true,
@@ -95,8 +94,8 @@ export default function TryOn() {
 
       const data = await response.json();
 
-      if (data.status === "success" && data.image_url) {
-        setResult(data.image_url);
+      if (data.status === "success") {
+        setResults(data.image_urls);
       } else {
         toast.error(data.error || "Failed to generate try-on image");
       }
@@ -154,17 +153,18 @@ export default function TryOn() {
             />
           </div>
 
-          {result && (
-            <div className="space-y-2">
-              <Label>Result</Label>
-              <div className="relative w-full h-96">
-                <Image
-                  src={result}
-                  alt="Try-on Result"
-                  fill
-                  className="object-contain rounded-lg"
-                />
-              </div>
+          {results.length > 0 && (
+            <div className="grid grid-cols-4 gap-4">
+              {results.map((url, index) => (
+                <div key={index} className="relative aspect-[3/4]">
+                  <Image
+                    src={url}
+                    alt={`Try-on Result ${index + 1}`}
+                    fill
+                    className="object-cover rounded-lg"
+                  />
+                </div>
+              ))}
             </div>
           )}
 
