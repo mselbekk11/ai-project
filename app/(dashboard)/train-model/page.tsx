@@ -4,22 +4,44 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 // import { ImageUpload } from "@/components/image-upload";
 import { useUser } from "@clerk/nextjs";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import { Upload } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Loader2 } from "lucide-react";
+
 export default function Home() {
-  const router = useRouter();
+  // const router = useRouter();
   const { user } = useUser();
   const [modelName, setModelName] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [gender, setGender] = useState("Male");
+
+  const models = useQuery(api.headshot_models.listUserModels, {
+    user_id: user?.id ?? "",
+  });
+
+  if (!models) {
+    return <div>Loading...</div>;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +84,7 @@ export default function Home() {
       setImages([]);
 
       // Redirect to home
-      router.push("/home");
+      // router.push("/home");
     } catch (error) {
       console.error("Error:", error);
       toast.error(
@@ -174,6 +196,73 @@ export default function Home() {
             {loading ? "Training..." : "Train Model"}
           </Button>
         </form>
+      </Card>
+      <Card className="">
+        <CardHeader>Models</CardHeader>
+        <CardContent className="">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-b hover:bg-transparent">
+                <TableHead className="h-12 px-4 text-sm  font-semibold">
+                  Name
+                </TableHead>
+                <TableHead className="h-12 px-4 text-sm font-semibold">
+                  Status
+                </TableHead>
+                <TableHead className="h-12 px-4 text-sm font-semibold">
+                  Type
+                </TableHead>
+                <TableHead className="h-12 px-4 text-sm font-semibold">
+                  Images
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="border-b ">
+              {models.map((model) => (
+                <TableRow key={model._id} className="border-b  hover">
+                  <TableCell className="py-0 h-12 px-4 text-sm">
+                    {model.name}
+                  </TableCell>
+                  <TableCell className="py-0 h-12 px-4">
+                    <Badge className="">
+                      {model.status === "processing" ? (
+                        <>
+                          <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                          processing
+                        </>
+                      ) : (
+                        (model.status ?? "processing")
+                      )}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="py-0 h-12 px-4 text-sm">
+                    {model.gender ?? "unknown"}
+                  </TableCell>
+                  <TableCell className="py-0 h-12 px-4">
+                    <div className="flex items-center">
+                      {model.images.slice(0, 3).map((image, index) => (
+                        <Avatar
+                          key={index}
+                          className={`w-6 h-6 border  ${index > 0 ? "-ml-2" : ""}`}
+                        >
+                          <AvatarImage src={image} alt="Sample image" />
+                          <AvatarFallback>S</AvatarFallback>
+                        </Avatar>
+                      ))}
+                      {model.images.length > 3 && (
+                        <Avatar className="w-6 h-6 -ml-2 ">
+                          <AvatarFallback className="text-xs">
+                            +{model.images.length - 3}
+                          </AvatarFallback>
+                        </Avatar>
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
       </Card>
     </div>
   );

@@ -32,13 +32,13 @@ const data = {
       icon: <Brain className="size-4" />,
     },
     {
-      title: "Clothing",
-      url: "/clothing",
+      title: "Train clothing",
+      url: "/train-clothing",
       icon: <Shirt className="size-4" />,
     },
     {
-      title: "Try on",
-      url: "/try-on",
+      title: "Gallery",
+      url: "/gallery",
       icon: <Zap className="size-4" />,
     },
   ],
