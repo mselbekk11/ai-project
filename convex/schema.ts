@@ -32,4 +32,16 @@ export default defineSchema({
     eta: v.optional(v.number()),
     status: v.optional(v.union(v.literal("finished"), v.literal("processing"))),
   }),
+  generations: defineTable({
+    created_at: v.float64(),
+    face_id: v.float64(),
+    lora_id: v.float64(),
+    user_id: v.string(),
+    image_url_generation: v.string(),
+    image_url: v.string(),
+    gender: v.string(),
+    prompt: v.string(),
+    clothing_item: v.optional(v.string()),
+  }).index("by_user", ["user_id"])
+    .index("by_created", ["created_at"]),
 });

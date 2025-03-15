@@ -23,6 +23,7 @@ interface Model {
   _id: string;
   name: string;
   model_id: string;
+  gender?: string;
 }
 
 export default function Home() {
@@ -127,6 +128,11 @@ export default function Home() {
           ar: "1:1",
           w: 768,
           h: 1280,
+          face_id: selectedClothing.face_id,
+          lora_id: selectedModel.lora_id,
+          user_id: user?.id,
+          image_url: selectedClothing.image_url,
+          gender: selectedModel.gender || "unknown",
         }),
       });
 

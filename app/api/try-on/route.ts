@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
+import { ConvexHttpClient } from "convex/browser";
+import { api } from "@/convex/_generated/api";
 
 const ASTRIA_BASEURL = 'https://api.astria.ai';
 const FLUX_BASE_MODEL = '1504944'; // Using the flux base model ID from your train-model route
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 async function pollForCompletion(id: string, maxAttempts = 60) {
   for (let i = 0; i < maxAttempts; i++) {
@@ -50,7 +53,7 @@ export async function POST(req: Request) {
     formData.append('prompt[num_images]', '4'); // Request 4 images
 
     console.log('FormData contents:');
-    for (let [key, value] of formData.entries()) {
+    for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
 
@@ -76,7 +79,7 @@ export async function POST(req: Request) {
     let data;
     try {
       data = JSON.parse(responseText);
-    } catch (e) {
+    } catch (error) {
       throw new Error(`Failed to parse Astria response: ${responseText}`);
     }
 
@@ -90,9 +93,40 @@ export async function POST(req: Request) {
     const result = await pollForCompletion(data.id);
     console.log('Polling completed with result:', result);
 
+    // Save each generated image to the database
+    const { image_urls } = result;
+    
+    console.log('Body contents for debugging:', body);
+    
+    // Assuming you have access to the Convex client
+    const promises = image_urls.map((imageUrl: string) => {
+      if (!body.face_id || !body.lora_id || !body.user_id || !body.image_url) {
+        console.error('Missing required fields:', { 
+          face_id: body.face_id, 
+          lora_id: body.lora_id, 
+          user_id: body.user_id, 
+          image_url: body.image_url 
+        });
+        throw new Error('Missing required fields for database insertion');
+      }
+
+      return convex.mutation(api.generations.create, {
+        created_at: Date.now(),
+        face_id: body.face_id,
+        lora_id: body.lora_id,
+        user_id: body.user_id,
+        image_url_generation: imageUrl,
+        image_url: body.image_url,
+        gender: body.gender || 'unknown',
+        prompt: body.prompt,
+      });
+    });
+
+    await Promise.all(promises);
+
     return NextResponse.json({
       status: 'success',
-      image_urls: result.image_urls // Return array of image URLs
+      image_urls: result.image_urls
     });
   } catch (error) {
     console.error('Error in try-on API route:', error);
