@@ -54,6 +54,7 @@ export default function Home() {
         gender,
         user_id: user?.id || "",
         imageUrls: images,
+        webhookUrl: process.env.NEXT_PUBLIC_WEBHOOK_URL,
       };
 
       console.log("Sending request to API..."); // Debug log
@@ -130,13 +131,45 @@ export default function Home() {
             <UploadDropzone
               endpoint="imageUploader"
               onClientUploadComplete={(res) => {
+                if (!res) {
+                  console.error("No response from upload");
+                  toast.dismiss(); // Dismiss any loading toasts
+                  toast.error("Upload failed - no response");
+                  return;
+                }
+                console.log("🎯 Upload complete!", res);
                 const newUrls = res.map((file) => file.url);
-                setImages((prev) => [...prev, ...newUrls]);
-                console.log("Files: ", res);
-                // alert("Upload Completed");
+                console.log("📦 Received URLs:", newUrls);
+                setImages((prev) => {
+                  const updated = [...prev, ...newUrls];
+                  console.log("✅ Updated images:", updated);
+                  return updated;
+                });
+                toast.dismiss(); // Dismiss any loading toasts
+                toast.success(`Successfully uploaded ${res.length} images`);
               }}
               onUploadError={(error: Error) => {
-                alert(`ERROR! ${error.message}`);
+                console.error("❌ Upload error:", error);
+                toast.dismiss(); // Dismiss any loading toasts
+                if (error.message.includes("Headers Timeout")) {
+                  toast.error(
+                    "Upload timed out. Please try again with a smaller file or better connection.",
+                  );
+                } else {
+                  toast.error(`Upload failed: ${error.message}`);
+                }
+              }}
+              onUploadBegin={(fileName) => {
+                console.log("🚀 Upload beginning for:", fileName);
+                const toastId = `upload-${fileName}-${Date.now()}`;
+                toast.loading(`Uploading ${fileName}...`, {
+                  id: toastId,
+                  duration: 0, // Toast will stay until dismissed
+                });
+              }}
+              config={{
+                mode: "auto",
+                appendOnPaste: true,
               }}
               className="ut-label:text-md ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
               appearance={{
@@ -224,7 +257,9 @@ export default function Home() {
                     {model.name}
                   </TableCell>
                   <TableCell className="py-0 h-12 px-4">
-                    <Badge className="">
+                    <Badge
+                      className={`${model.status !== "processing" ? "bg-green-500 hover:bg-green-600" : ""}`}
+                    >
                       {model.status === "processing" ? (
                         <>
                           <Loader2 className="w-3 h-3 mr-1 animate-spin" />

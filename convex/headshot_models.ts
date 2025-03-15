@@ -1,6 +1,8 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
+type ModelStatus = "processing" | "finished";
+
 export const createHeadshotModel = mutation({
   args: {
     name: v.string(),
@@ -17,7 +19,7 @@ export const createHeadshotModel = mutation({
       name: args.name,
       images: args.images,
       gender: args.gender,
-      status: "processing",
+      status: "processing" satisfies ModelStatus,
     });
     
     return model;
@@ -33,4 +35,37 @@ export const listUserModels = query({
       .collect();
     return models;
   },
+});
+
+export const updateModelStatus = mutation({
+  args: {
+    modelId: v.string(),
+    status: v.union(v.literal("processing"), v.literal("finished")),
+    trainedAt: v.optional(v.number()),
+    expiresAt: v.optional(v.number())
+  },
+  handler: async (ctx, args) => {
+    console.log("🔄 Updating model status:", args);
+    
+    // Find and update the model
+    const models = await ctx.db
+      .query("headshot_models")
+      .filter((q) => q.eq(q.field("model_id"), args.modelId))
+      .collect();
+
+    console.log("📚 Found models:", models.length);
+
+    if (models.length === 0) {
+      console.error("❌ Model not found for ID:", args.modelId);
+      throw new Error("Model not found");
+    }
+
+    await ctx.db.patch(models[0]._id, {
+      status: args.status,
+      trained_at: args.trainedAt,
+      expires_at: args.expiresAt
+    });
+    
+    console.log("✅ Successfully updated model:", models[0]._id);
+  }
 });

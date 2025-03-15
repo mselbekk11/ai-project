@@ -27,6 +27,13 @@ export async function POST(req: Request) {
     astriaFormData.append('tune[token]', 'model');
     astriaFormData.append('tune[gender]', gender);
 
+    // Add webhook URL for Astria callbacks
+    if (process.env.NEXT_PUBLIC_WEBHOOK_URL) {
+      const webhookUrl = `${process.env.NEXT_PUBLIC_WEBHOOK_URL}/api/webhook/astria`;
+      console.log('Setting webhook URL:', webhookUrl);
+      astriaFormData.append('tune[callback]', webhookUrl);
+    }
+
     // Add image URLs to the request
     imageUrls.forEach((imageUrl: string) => {
       astriaFormData.append('tune[image_urls][]', imageUrl);

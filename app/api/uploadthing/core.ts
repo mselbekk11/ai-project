@@ -11,14 +11,11 @@ export const ourFileRouter = {
   })
     .middleware(async () => {
       // This code runs on your server before upload
-      return {}; // Whatever is returned here is accessible in onUploadComplete as `metadata`
+      return {}; 
     })
-    .onUploadComplete(async ({ metadata, file }) => {
+    .onUploadComplete(async ({ file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete for userId:", metadata);
-      console.log("file url", file.ufsUrl);
-      
-      return { url: file.ufsUrl };
+      return { url: file.url };
     }),
 } satisfies FileRouter;
 
