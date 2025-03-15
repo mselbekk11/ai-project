@@ -15,6 +15,7 @@ export default defineSchema({
     created_at: v.number(), // Convex uses unix timestamps
     user_id: v.string(),
     model_id: v.string(),
+    lora_id: v.optional(v.number()),
     name: v.string(),
     images: v.array(v.string()),
     gender: v.optional(v.string()),

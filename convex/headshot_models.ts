@@ -42,7 +42,8 @@ export const updateModelStatus = mutation({
     modelId: v.string(),
     status: v.union(v.literal("processing"), v.literal("finished")),
     trainedAt: v.optional(v.number()),
-    expiresAt: v.optional(v.number())
+    expiresAt: v.optional(v.number()),
+    loraId: v.optional(v.number())
   },
   handler: async (ctx, args) => {
     console.log("🔄 Updating model status:", args);
@@ -63,7 +64,8 @@ export const updateModelStatus = mutation({
     await ctx.db.patch(models[0]._id, {
       status: args.status,
       trained_at: args.trainedAt,
-      expires_at: args.expiresAt
+      expires_at: args.expiresAt,
+      lora_id: args.loraId
     });
     
     console.log("✅ Successfully updated model:", models[0]._id);

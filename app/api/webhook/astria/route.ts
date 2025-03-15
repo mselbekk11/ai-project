@@ -14,12 +14,17 @@ export async function POST(req: Request) {
     const { tune } = payload;
     console.log("🎨 Model ID:", tune.id);
 
-    // Update model status in Convex
+    // Use the tune.id as the Lora ID
+    const loraId = tune.id;
+    console.log("📝 Using tune ID as Lora ID:", loraId);
+
+    // Update model status in Convex with Lora ID
     await convex.mutation(api.headshot_models.updateModelStatus, {
       modelId: tune.id.toString(),
       status: "finished",
       trainedAt: new Date(tune.trained_at).getTime(),
-      expiresAt: tune.expires_at ? new Date(tune.expires_at).getTime() : undefined
+      expiresAt: tune.expires_at ? new Date(tune.expires_at).getTime() : undefined,
+      loraId: loraId
     });
 
     console.log("✅ Successfully updated model status in Convex");

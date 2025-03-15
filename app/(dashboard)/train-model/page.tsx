@@ -246,6 +246,9 @@ export default function Home() {
                   Type
                 </TableHead>
                 <TableHead className="h-12 px-4 text-sm font-semibold">
+                  Lora ID
+                </TableHead>
+                <TableHead className="h-12 px-4 text-sm font-semibold">
                   Images
                 </TableHead>
               </TableRow>
@@ -272,6 +275,9 @@ export default function Home() {
                   </TableCell>
                   <TableCell className="py-0 h-12 px-4 text-sm">
                     {model.gender ?? "unknown"}
+                  </TableCell>
+                  <TableCell className="py-0 h-12 px-4 text-sm">
+                    {model.lora_id ? `${model.lora_id}` : "N/A"}
                   </TableCell>
                   <TableCell className="py-0 h-12 px-4">
                     <div className="flex items-center">
