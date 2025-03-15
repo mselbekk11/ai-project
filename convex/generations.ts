@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { Doc } from "./_generated/dataModel";
 
 export const create = mutation({
   args: {
@@ -20,8 +21,8 @@ export const create = mutation({
 
 // Make this query accessible from the client
 export const list = query({
-  args: {},  // Empty args makes this query public
-  handler: async (ctx) => {
+  args: {},
+  handler: async (ctx): Promise<Doc<"generations">[]> => {
     const generations = await ctx.db
       .query("generations")
       .order("desc")

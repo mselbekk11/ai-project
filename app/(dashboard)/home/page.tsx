@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -16,15 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const ASTRIA_BASEURL = "https://api.astria.ai";
-
-interface Model {
-  _id: string;
-  name: string;
-  model_id: string;
-  gender?: string;
-}
+import ClothingSelector from "@/components/ClothingSelector";
 
 export default function Home() {
   const { user } = useUser();
@@ -33,60 +25,16 @@ export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<string[]>([]);
-  const [inferenceId, setInferenceId] = useState<string>("");
-  const [pollInterval, setPollInterval] = useState<NodeJS.Timeout | null>(null);
 
-  // Fetch user's models and clothing items from Convex
+  // Fetch user's models from Convex
   const models = useQuery(api.headshot_models.listUserModels, {
     user_id: user?.id || "",
   });
 
+  // Fetch clothing items to get the face_id
   const clothingItems = useQuery(api.clothing_items.listUserClothingItems, {
     user_id: user?.id || "",
   });
-
-  // Debug logging
-  useEffect(() => {
-    if (clothingItems) {
-      console.log("Clothing items:", clothingItems);
-      console.log(
-        "Filtered items:",
-        clothingItems.filter((item) => item.status === "finished"),
-      );
-    }
-  }, [clothingItems]);
-
-  const checkInferenceStatus = async (id: string) => {
-    try {
-      const response = await fetch(`/api/try-on/status/${id}`);
-
-      if (!response.ok) {
-        throw new Error("Failed to check inference status");
-      }
-
-      const data = await response.json();
-      if (data.status === "completed" && data.image_url) {
-        setResults([data.image_url]);
-        if (pollInterval) {
-          clearInterval(pollInterval);
-          setPollInterval(null);
-        }
-      } else if (data.status === "failed") {
-        toast.error("Generation failed");
-        if (pollInterval) {
-          clearInterval(pollInterval);
-          setPollInterval(null);
-        }
-      }
-    } catch (error) {
-      console.error("Error checking inference status:", error);
-      if (pollInterval) {
-        clearInterval(pollInterval);
-        setPollInterval(null);
-      }
-      toast.error("Failed to check generation status");
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -151,12 +99,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      if (pollInterval) clearInterval(pollInterval);
-    };
-  }, [pollInterval]);
-
   return (
     <div className="flex flex-1 h-full">
       {/* Left column - Form section (30% width) */}
@@ -187,22 +129,10 @@ export default function Home() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="clothingSelect">Select Clothing</Label>
-              <Select
-                value={selectedClothingId}
-                onValueChange={setSelectedClothingId}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a clothing item" />
-                </SelectTrigger>
-                <SelectContent>
-                  {clothingItems?.map((item) => (
-                    <SelectItem key={item._id} value={item._id}>
-                      Face ID: {item.face_id}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <ClothingSelector
+                selectedClothingId={selectedClothingId}
+                onClothingSelect={setSelectedClothingId}
+              />
             </div>
 
             <div className="space-y-2">
@@ -229,7 +159,7 @@ export default function Home() {
         </Card>
       </div>
 
-      {/* Right column - Empty space (70% width) */}
+      {/* Right column - Results (70% width) */}
       <div className="w-[70%]">
         {results.length > 0 && (
           <div className="p-4 grid grid-cols-2 gap-4">
