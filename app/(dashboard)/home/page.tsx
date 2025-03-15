@@ -102,7 +102,7 @@ export default function Home() {
   return (
     <div className="flex flex-1 h-full">
       {/* Left column - Form section (30% width) */}
-      <div className="w-[30%] border-r border-gray-200 p-4">
+      <div className="w-[30%] border-r p-4">
         <Card className="p-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
@@ -162,7 +162,7 @@ export default function Home() {
       {/* Right column - Results (70% width) */}
       <div className="w-[70%]">
         {results.length > 0 && (
-          <div className="p-4 grid grid-cols-2 gap-4">
+          <div className="p-4 grid grid-cols-4 gap-4">
             {results.map((url, index) => (
               <div key={index} className="relative aspect-[3/4]">
                 <Image

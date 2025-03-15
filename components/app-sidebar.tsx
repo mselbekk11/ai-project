@@ -15,7 +15,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { House, Brain, Shirt, Zap } from "lucide-react";
+import { House, Brain, Zap } from "lucide-react";
 import UserDropdown from "./user-dropdown";
 import Logo from "./logo";
 
@@ -30,11 +30,6 @@ const data = {
       title: "Train model",
       url: "/train-model",
       icon: <Brain className="size-4" />,
-    },
-    {
-      title: "Train clothing",
-      url: "/train-clothing",
-      icon: <Shirt className="size-4" />,
     },
     {
       title: "Gallery",
