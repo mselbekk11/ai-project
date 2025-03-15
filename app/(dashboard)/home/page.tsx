@@ -9,6 +9,13 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const ASTRIA_BASEURL = "https://api.astria.ai";
 
@@ -20,18 +27,33 @@ interface Model {
 
 export default function Home() {
   const { user } = useUser();
-  const [loraId, setLoraId] = useState<string>("");
-  const [faceId, setFaceId] = useState<string>("");
+  const [selectedModelId, setSelectedModelId] = useState<string>("");
+  const [selectedClothingId, setSelectedClothingId] = useState<string>("");
   const [prompt, setPrompt] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<string[]>([]);
   const [inferenceId, setInferenceId] = useState<string>("");
   const [pollInterval, setPollInterval] = useState<NodeJS.Timeout | null>(null);
 
-  // Fetch user's models from Convex
+  // Fetch user's models and clothing items from Convex
   const models = useQuery(api.headshot_models.listUserModels, {
     user_id: user?.id || "",
   });
+
+  const clothingItems = useQuery(api.clothing_items.listUserClothingItems, {
+    user_id: user?.id || "",
+  });
+
+  // Debug logging
+  useEffect(() => {
+    if (clothingItems) {
+      console.log("Clothing items:", clothingItems);
+      console.log(
+        "Filtered items:",
+        clothingItems.filter((item) => item.status === "finished"),
+      );
+    }
+  }, [clothingItems]);
 
   const checkInferenceStatus = async (id: string) => {
     try {
@@ -70,7 +92,25 @@ export default function Home() {
     setLoading(true);
     setResults([]);
 
+    // Find the selected model and clothing item
+    const selectedModel = models?.find(
+      (model) => model._id === selectedModelId,
+    );
+    const selectedClothing = clothingItems?.find(
+      (item) => item._id === selectedClothingId,
+    );
+
+    if (!selectedModel?.lora_id || !selectedClothing?.face_id) {
+      toast.error("Please select both a model and a clothing item");
+      setLoading(false);
+      return;
+    }
+
+    // Format the IDs correctly
+    const loraId = `<lora:${selectedModel.lora_id}:1.0>`;
+    const faceId = `<faceid:${selectedClothing.face_id}:1.0>`;
     const fullPrompt = `${loraId} ${faceId} model flux shirt ${prompt}`;
+
     console.log("Sending request with prompt:", fullPrompt);
 
     try {
@@ -116,27 +156,42 @@ export default function Home() {
       <Card className="p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="loraId">Lora ID</Label>
-            <input
-              id="loraId"
-              value={loraId}
-              onChange={(e) => setLoraId(e.target.value)}
-              placeholder="<lora:2228921:1.0>"
-              className="w-full rounded-md border border-input bg-background px-3 py-2"
-              required
-            />
+            <Label htmlFor="modelSelect">Select Model</Label>
+            <Select value={selectedModelId} onValueChange={setSelectedModelId}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a model" />
+              </SelectTrigger>
+              <SelectContent>
+                {models
+                  ?.filter(
+                    (model) => model.status === "finished" && model.lora_id,
+                  )
+                  .map((model) => (
+                    <SelectItem key={model._id} value={model._id}>
+                      {model.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="faceId">Face ID</Label>
-            <input
-              id="faceId"
-              value={faceId}
-              onChange={(e) => setFaceId(e.target.value)}
-              placeholder="<faceid:2228794:1.0>"
-              className="w-full rounded-md border border-input bg-background px-3 py-2"
-              required
-            />
+            <Label htmlFor="clothingSelect">Select Clothing</Label>
+            <Select
+              value={selectedClothingId}
+              onValueChange={setSelectedClothingId}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a clothing item" />
+              </SelectTrigger>
+              <SelectContent>
+                {clothingItems?.map((item) => (
+                  <SelectItem key={item._id} value={item._id}>
+                    Face ID: {item.face_id}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
@@ -168,7 +223,9 @@ export default function Home() {
 
           <Button
             type="submit"
-            disabled={loading || !loraId || !faceId || !prompt}
+            disabled={
+              loading || !selectedModelId || !selectedClothingId || !prompt
+            }
           >
             {loading ? "Generating..." : "Generate Try-on"}
           </Button>
