@@ -158,85 +158,94 @@ export default function Home() {
   }, [pollInterval]);
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4">
-      <Card className="p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="modelSelect">Select Model</Label>
-            <Select value={selectedModelId} onValueChange={setSelectedModelId}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a model" />
-              </SelectTrigger>
-              <SelectContent>
-                {models
-                  ?.filter(
-                    (model) => model.status === "finished" && model.lora_id,
-                  )
-                  .map((model) => (
-                    <SelectItem key={model._id} value={model._id}>
-                      {model.name}
+    <div className="flex flex-1 h-full">
+      {/* Left column - Form section (30% width) */}
+      <div className="w-[30%] border-r border-gray-200 p-4">
+        <Card className="p-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="modelSelect">Select Model</Label>
+              <Select
+                value={selectedModelId}
+                onValueChange={setSelectedModelId}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a model" />
+                </SelectTrigger>
+                <SelectContent>
+                  {models
+                    ?.filter(
+                      (model) => model.status === "finished" && model.lora_id,
+                    )
+                    .map((model) => (
+                      <SelectItem key={model._id} value={model._id}>
+                        {model.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="clothingSelect">Select Clothing</Label>
+              <Select
+                value={selectedClothingId}
+                onValueChange={setSelectedClothingId}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a clothing item" />
+                </SelectTrigger>
+                <SelectContent>
+                  {clothingItems?.map((item) => (
+                    <SelectItem key={item._id} value={item._id}>
+                      Face ID: {item.face_id}
                     </SelectItem>
                   ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="clothingSelect">Select Clothing</Label>
-            <Select
-              value={selectedClothingId}
-              onValueChange={setSelectedClothingId}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select a clothing item" />
-              </SelectTrigger>
-              <SelectContent>
-                {clothingItems?.map((item) => (
-                  <SelectItem key={item._id} value={item._id}>
-                    Face ID: {item.face_id}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="prompt">Prompt</Label>
-            <textarea
-              id="prompt"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="man wearing this shirt with jeans, fashion editorial plain pink background"
-              className="w-full rounded-md border border-input bg-background px-3 py-2 min-h-[100px]"
-              required
-            />
-          </div>
-
-          {results.length > 0 && (
-            <div className="grid grid-cols-4 gap-4">
-              {results.map((url, index) => (
-                <div key={index} className="relative aspect-[3/4]">
-                  <Image
-                    src={url}
-                    alt={`Try-on Result ${index + 1}`}
-                    fill
-                    className="object-cover rounded-lg"
-                  />
-                </div>
-              ))}
+                </SelectContent>
+              </Select>
             </div>
-          )}
 
-          <Button
-            type="submit"
-            disabled={
-              loading || !selectedModelId || !selectedClothingId || !prompt
-            }
-          >
-            {loading ? "Generating..." : "Generate Try-on"}
-          </Button>
-        </form>
-      </Card>
+            <div className="space-y-2">
+              <Label htmlFor="prompt">Prompt</Label>
+              <textarea
+                id="prompt"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="man wearing this shirt with jeans, fashion editorial plain pink background"
+                className="w-full rounded-md border border-input bg-background px-3 py-2 min-h-[100px]"
+                required
+              />
+            </div>
+
+            <Button
+              type="submit"
+              disabled={
+                loading || !selectedModelId || !selectedClothingId || !prompt
+              }
+            >
+              {loading ? "Generating..." : "Generate Try-on"}
+            </Button>
+          </form>
+        </Card>
+      </div>
+
+      {/* Right column - Empty space (70% width) */}
+      <div className="w-[70%]">
+        {results.length > 0 && (
+          <div className="p-4 grid grid-cols-2 gap-4">
+            {results.map((url, index) => (
+              <div key={index} className="relative aspect-[3/4]">
+                <Image
+                  src={url}
+                  alt={`Try-on Result ${index + 1}`}
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
