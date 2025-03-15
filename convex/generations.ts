@@ -18,8 +18,9 @@ export const create = mutation({
   },
 });
 
+// Make this query accessible from the client
 export const list = query({
-  args: {},
+  args: {},  // Empty args makes this query public
   handler: async (ctx) => {
     const generations = await ctx.db
       .query("generations")
