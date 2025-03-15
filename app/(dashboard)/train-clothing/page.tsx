@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Card, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { UploadDropzone } from "@/utils/uploadthing";
 import { Upload } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
+import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
+import { useQuery, useMutation } from "convex/react";
 
 export default function ClothingUpload() {
+  const { user } = useUser();
+  const createClothingItem = useMutation(api.clothing_items.createClothingItem);
+  const clothingItems = useQuery(api.clothing_items.listUserClothingItems, {
+    user_id: user?.id ?? "",
+  });
+
   const [clothingImage, setClothingImage] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [garmentId, setGarmentId] = useState<string>("");
@@ -38,6 +47,16 @@ export default function ClothingUpload() {
       }
 
       setGarmentId(data.garment_id);
+
+      // Save to database
+      if (user) {
+        await createClothingItem({
+          user_id: user.id,
+          face_id: data.garment_id,
+          image_url: imageUrl,
+        });
+      }
+
       toast.success("Garment uploaded and training started!");
 
       if (!data.is_trained) {
@@ -121,6 +140,28 @@ export default function ClothingUpload() {
           )}
         </div>
       </Card>
+
+      {/* Display clothing items */}
+      {clothingItems && clothingItems.length > 0 && (
+        <Card>
+          <CardHeader>Your Clothing Items</CardHeader>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {clothingItems.map((item) => (
+              <div key={item._id} className="space-y-2">
+                <div className="relative w-40 h-40">
+                  <Image
+                    src={item.image_url}
+                    alt="Clothing"
+                    fill
+                    className="object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-sm">Garment ID: {item.face_id}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
     </div>
   );
 }

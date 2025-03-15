@@ -23,4 +23,12 @@ export default defineSchema({
     expires_at: v.optional(v.number()),
     status: v.optional(v.union(v.literal("finished"), v.literal("processing"))),
   }),
+  clothing_items: defineTable({
+    created_at: v.number(),
+    user_id: v.string(),
+    face_id: v.number(), // Changed to number since Astria sends numeric IDs
+    image_url: v.string(),
+    eta: v.optional(v.number()),
+    status: v.optional(v.union(v.literal("finished"), v.literal("processing"))),
+  }),
 });
