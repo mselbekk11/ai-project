@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { UploadDropzone } from "@/utils/uploadthing";
 import { Upload } from "lucide-react";
@@ -116,7 +116,7 @@ export default function ClothingUpload() {
             </div>
           )}
 
-          {clothingImage && (
+          {/* {clothingImage && (
             <div className="space-y-2">
               <Label>Uploaded Garment</Label>
               <div className="relative w-40 h-40">
@@ -128,24 +128,24 @@ export default function ClothingUpload() {
                 />
               </div>
             </div>
-          )}
+          )} */}
 
-          {garmentId && (
+          {/* {garmentId && (
             <div className="mt-4 p-4 bg-green-100 dark:bg-green-900 rounded-lg">
               <p>Garment ID: {garmentId}</p>
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 Save this ID for use in try-on generation
               </p>
             </div>
-          )}
+          )} */}
         </div>
       </Card>
 
       {/* Display clothing items */}
       {clothingItems && clothingItems.length > 0 && (
         <Card>
-          <CardHeader>Your Clothing Items</CardHeader>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <CardHeader className="font-bold text-md">Your Clothing Items</CardHeader>
+          <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4">
             {clothingItems.map((item) => (
               <div key={item._id} className="space-y-2">
                 <div className="relative w-40 h-40">
@@ -159,7 +159,7 @@ export default function ClothingUpload() {
                 <p className="text-sm">Garment ID: {item.face_id}</p>
               </div>
             ))}
-          </div>
+          </CardContent>
         </Card>
       )}
     </div>
