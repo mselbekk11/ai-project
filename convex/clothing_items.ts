@@ -6,6 +6,7 @@ export const createClothingItem = mutation({
     user_id: v.string(),
     face_id: v.number(),
     image_url: v.string(),
+    class: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const item = await ctx.db.insert("clothing_items", {
@@ -13,6 +14,7 @@ export const createClothingItem = mutation({
       user_id: args.user_id,
       face_id: args.face_id,
       image_url: args.image_url,
+      ...(args.class && { class: args.class }),
       status: "processing",
     });
     

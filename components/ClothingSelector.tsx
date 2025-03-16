@@ -9,11 +9,29 @@ import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ClothingSelectorProps {
   selectedClothingId: string;
   onClothingSelect: (id: string) => void;
 }
+
+const GARMENT_TYPES = [
+  { value: "clothing", label: "Generic Clothing" },
+  { value: "shirt", label: "Shirt" },
+  { value: "pants", label: "Pants" },
+  { value: "coat", label: "Coat" },
+  { value: "swimming_suit", label: "Swimming Suit" },
+] as const;
+
+type GarmentType = (typeof GARMENT_TYPES)[number]["value"];
 
 export default function ClothingSelector({
   selectedClothingId,
@@ -27,13 +45,33 @@ export default function ClothingSelector({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  const [pendingUpload, setPendingUpload] = useState<{
+    url: string;
+    type: GarmentType | null;
+  } | null>(null);
 
   const handleGarmentUpload = async (imageUrl: string) => {
+    // Instead of immediately training, store the URL and show the type selector
+    setPendingUpload({ url: imageUrl, type: null });
+    toast.success(
+      "Image uploaded! Please select the garment type to begin training.",
+    );
+  };
+
+  const handleTrainGarment = async () => {
+    if (!pendingUpload || !pendingUpload.type) {
+      toast.error("Please select a garment type first");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
     try {
-      console.log("Starting garment upload for URL:", imageUrl);
+      console.log("Starting garment training for:", {
+        url: pendingUpload.url,
+        type: pendingUpload.type,
+      });
 
       const response = await fetch("/api/garment-upload", {
         method: "POST",
@@ -41,7 +79,8 @@ export default function ClothingSelector({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          clothing_url: imageUrl,
+          clothing_url: pendingUpload.url,
+          garment_type: pendingUpload.type,
         }),
       });
 
@@ -56,7 +95,8 @@ export default function ClothingSelector({
         const result = await createClothingItem({
           user_id: user.id,
           face_id: data.garment_id,
-          image_url: imageUrl,
+          image_url: pendingUpload.url,
+          class: pendingUpload.type,
         });
 
         // Automatically select the newly created item
@@ -68,6 +108,9 @@ export default function ClothingSelector({
       if (!data.is_trained) {
         toast.info(`Training in progress. Estimated time: ${data.eta} minutes`);
       }
+
+      // Clear the pending upload
+      setPendingUpload(null);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to upload garment";
@@ -81,39 +124,91 @@ export default function ClothingSelector({
 
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <Label>Upload New Clothing or Select Existing</Label>
-        <UploadDropzone
-          endpoint="imageUploader"
-          onClientUploadComplete={(res) => {
-            if (res && res[0]) {
-              handleGarmentUpload(res[0].url);
-              toast.success("Image uploaded successfully!");
-            }
-          }}
-          onUploadError={(error: Error) => {
-            const errorMessage = `Upload error: ${error.message}`;
-            setError(errorMessage);
-            toast.error(errorMessage);
-          }}
-          className="ut-label:text-md ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
-          appearance={{
-            container: { padding: "1rem" },
-            button: {
-              backgroundColor: "hsl(var(--primary))",
-              color: "hsl(var(--primary-foreground))",
-              fontSize: "0.875rem",
-            },
-          }}
-          content={{
-            uploadIcon: () => <Upload />,
-            label: loading
-              ? "Processing..."
-              : "Drop clothing image or click to browse",
-            allowedContent: "Supported formats: JPG, PNG, WEBP",
-          }}
-        />
-      </div>
+      {!pendingUpload ? (
+        <div className="space-y-2">
+          <Label>Upload New Clothing or Select Existing</Label>
+          <UploadDropzone
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              if (res && res[0]) {
+                handleGarmentUpload(res[0].url);
+              }
+            }}
+            onUploadError={(error: Error) => {
+              const errorMessage = `Upload error: ${error.message}`;
+              setError(errorMessage);
+              toast.error(errorMessage);
+            }}
+            className="ut-label:text-md ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
+            appearance={{
+              container: { padding: "1rem" },
+              button: {
+                backgroundColor: "hsl(var(--primary))",
+                color: "hsl(var(--primary-foreground))",
+                fontSize: "0.875rem",
+              },
+            }}
+            content={{
+              uploadIcon: () => <Upload />,
+              label: loading
+                ? "Processing..."
+                : "Drop clothing image or click to browse",
+              allowedContent: "Supported formats: JPG, PNG, WEBP",
+            }}
+          />
+        </div>
+      ) : (
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <div className="aspect-square relative w-full max-w-[300px] mx-auto rounded-lg overflow-hidden">
+              <Image
+                src={pendingUpload.url}
+                alt="Uploaded garment"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Select Garment Type</Label>
+                <Select
+                  value={pendingUpload.type ?? undefined}
+                  onValueChange={(value: GarmentType) =>
+                    setPendingUpload({ ...pendingUpload, type: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select the type of garment" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {GARMENT_TYPES.map((type) => (
+                      <SelectItem key={type.value} value={type.value}>
+                        {type.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex gap-4">
+                <Button
+                  onClick={handleTrainGarment}
+                  disabled={!pendingUpload.type || loading}
+                  className="flex-1"
+                >
+                  {loading ? "Training..." : "Start Training"}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setPendingUpload(null)}
+                  disabled={loading}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {error && (
         <div className="mt-4 p-4 bg-red-100 dark:bg-red-900 rounded-lg">

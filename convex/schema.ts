@@ -29,6 +29,7 @@ export default defineSchema({
     user_id: v.string(),
     face_id: v.number(), // Changed to number since Astria sends numeric IDs
     image_url: v.string(),
+    class: v.optional(v.string()),
     eta: v.optional(v.number()),
     status: v.optional(v.union(v.literal("finished"), v.literal("processing"))),
   }),

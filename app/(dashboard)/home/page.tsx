@@ -58,7 +58,9 @@ export default function Home() {
     // Format the IDs correctly
     const loraId = `<lora:${selectedModel.lora_id}:1.0>`;
     const faceId = `<faceid:${selectedClothing.face_id}:1.0>`;
-    const fullPrompt = `${loraId} ${faceId} model flux shirt ${prompt}`;
+    const garmentType = selectedClothing.class || "clothing"; // Get the garment type from the database
+    const formattedGarmentType = garmentType.replace(/_/g, " "); // Format it for the prompt (e.g., "swimming suit")
+    const fullPrompt = `${loraId} ${faceId} model flux ${formattedGarmentType} ${prompt}`;
 
     console.log("Sending request with prompt:", fullPrompt);
 
