@@ -5,7 +5,6 @@ const REALISTIC_VISION_ID = '690204'; // Realistic Vision v5.1
 
 export async function POST(req: Request) {
   try {
-    // Add request logging
     console.log('Starting garment upload process');
     
     const body = await req.json();
@@ -21,24 +20,15 @@ export async function POST(req: Request) {
 
     console.log('Processing garment upload for URL:', clothing_url);
 
-    // Updated FormData structure for garment/shirt specific training
     const garmentFormData = new FormData();
     garmentFormData.append('tune[title]', `Shirt-${Date.now()}`);
-    garmentFormData.append('tune[name]', 'shirt'); // Specifically marking as shirt
+    garmentFormData.append('tune[name]', 'shirt');
     garmentFormData.append('tune[model_type]', 'faceid');
     garmentFormData.append('tune[base_tune_id]', REALISTIC_VISION_ID);
     garmentFormData.append('tune[image_urls][]', clothing_url);
-    garmentFormData.append('tune[class]', 'shirt'); // Adding class specification
+    garmentFormData.append('tune[class]', 'shirt');
     
-    // Log the FormData contents
-    console.log('Sending garment data to Astria:', {
-      title: `Shirt-${Date.now()}`,
-      name: 'shirt',
-      model_type: 'faceid',
-      base_tune_id: REALISTIC_VISION_ID,
-      image_url: clothing_url,
-      class: 'shirt'
-    });
+    console.log('Sending garment data to Astria');
 
     const garmentResponse = await fetch(`${ASTRIA_BASEURL}/tunes`, {
       method: 'POST',
@@ -84,7 +74,7 @@ export async function POST(req: Request) {
       garment_id: garmentData.id,
       is_trained: !!garmentData.trained_at,
       eta: garmentData.eta,
-      class: 'shirt' // Return the class for confirmation
+      class: 'shirt'
     });
 
   } catch (error) {
