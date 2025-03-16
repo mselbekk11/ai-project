@@ -60,7 +60,8 @@ export default function Home() {
     const faceId = `<faceid:${selectedClothing.face_id}:1.0>`;
     const garmentType = selectedClothing.class || "clothing"; // Get the garment type from the database
     const formattedGarmentType = garmentType.replace(/_/g, " "); // Format it for the prompt (e.g., "swimming suit")
-    const fullPrompt = `${loraId} ${faceId} model flux ${formattedGarmentType} ${prompt}`;
+    const modelGender = selectedModel.gender || "person"; // Use "person" as fallback if gender is not specified
+    const fullPrompt = `${loraId} ${faceId} ${modelGender} model flux ${formattedGarmentType} ${prompt}`;
 
     console.log("Sending request with prompt:", fullPrompt);
 
