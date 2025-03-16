@@ -144,7 +144,7 @@ export default function Home() {
                 id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="man wearing this shirt with jeans, fashion editorial plain pink background"
+                placeholder="fashion editorial, posing like a model, grey background"
                 className="w-full rounded-md border border-input bg-background px-3 py-2 min-h-[100px]"
                 required
               />
