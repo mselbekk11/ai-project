@@ -17,9 +17,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ClothingSelector from "@/components/ClothingSelector";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { user } = useUser();
+  const router = useRouter();
   const [selectedModelId, setSelectedModelId] = useState<string>("");
   const [selectedClothingId, setSelectedClothingId] = useState<string>("");
   const [prompt, setPrompt] = useState<string>("");
@@ -106,13 +108,19 @@ export default function Home() {
     <div className="flex flex-1 h-full">
       {/* Left column - Form section (30% width) */}
       <div className="w-[30%] border-r p-4">
-        <Card className="p-6">
+        <Card className="p-6 rounded-md">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="modelSelect">Select Model</Label>
               <Select
                 value={selectedModelId}
-                onValueChange={setSelectedModelId}
+                onValueChange={(value) => {
+                  if (value === "create-new") {
+                    router.push("/train-model");
+                    return;
+                  }
+                  setSelectedModelId(value);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select a model" />
@@ -127,6 +135,12 @@ export default function Home() {
                         {model.name}
                       </SelectItem>
                     ))}
+                  <SelectItem
+                    value="create-new"
+                    className="border-t mt-2 pt-2 text-blue-600"
+                  >
+                    + Create new model
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
