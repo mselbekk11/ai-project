@@ -19,6 +19,7 @@ import {
 import ClothingSelector from "@/components/ClothingSelector";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import Gallery from "@/components/Gallery";
 
 export default function Home() {
   const { user } = useUser();
@@ -191,7 +192,8 @@ export default function Home() {
 
       {/* Right column - Results (70% width) */}
       <div className="w-[70%]">
-        {results.length > 0 && (
+        <Gallery />
+        {/* {results.length > 0 && (
           <div className="p-4 grid grid-cols-4 gap-4">
             {results.map((url, index) => (
               <div key={index} className="relative aspect-[3/4]">
@@ -204,7 +206,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
