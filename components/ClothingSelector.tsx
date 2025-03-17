@@ -139,20 +139,22 @@ export default function ClothingSelector({
               setError(errorMessage);
               toast.error(errorMessage);
             }}
-            className="ut-label:text-md ut-allowed-content:text-sm border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-lg"
+            className="ut-label:text-md border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-md ut-label:text-xs ut-allowed-content:text-xs"
             appearance={{
               container: { padding: "1rem" },
               button: {
                 backgroundColor: "hsl(var(--primary))",
                 color: "hsl(var(--primary-foreground))",
-                fontSize: "0.875rem",
+                fontSize: "0.775rem",
+                fontWeight: "600",
               },
             }}
             content={{
+              // button: "Choose File",
               uploadIcon: () => <Upload />,
               label: loading
                 ? "Processing..."
-                : "Drop clothing image or click to browse",
+                : "Drop image or click to browse",
               allowedContent: "Supported formats: JPG, PNG, WEBP",
             }}
           />
