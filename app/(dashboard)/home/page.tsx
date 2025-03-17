@@ -18,13 +18,16 @@ import {
 } from "@/components/ui/select";
 import ClothingSelector from "@/components/ClothingSelector";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 export default function Home() {
   const { user } = useUser();
   const router = useRouter();
   const [selectedModelId, setSelectedModelId] = useState<string>("");
   const [selectedClothingId, setSelectedClothingId] = useState<string>("");
-  const [prompt, setPrompt] = useState<string>("");
+  const [prompt, setPrompt] = useState<string>(
+    "fashion editorial, posing like a model, grey background",
+  );
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<string[]>([]);
 
@@ -154,14 +157,17 @@ export default function Home() {
 
             <div className="space-y-2">
               <Label htmlFor="prompt">Prompt</Label>
+
               <textarea
                 id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="fashion editorial, posing like a model, grey background"
                 className="w-full rounded-md border border-input bg-background px-3 py-2 min-h-[100px]"
                 required
               />
+              <p className="text-xs text-muted-foreground">
+                Please update the prompt above to your choosing
+              </p>
             </div>
 
             <Button
@@ -170,7 +176,14 @@ export default function Home() {
                 loading || !selectedModelId || !selectedClothingId || !prompt
               }
             >
-              {loading ? "Generating..." : "Generate Try-on"}
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Getting Changed
+                </>
+              ) : (
+                "Try it on"
+              )}
             </Button>
           </form>
         </Card>
@@ -186,7 +199,7 @@ export default function Home() {
                   src={url}
                   alt={`Try-on Result ${index + 1}`}
                   fill
-                  className="object-cover rounded-lg"
+                  className="object-cover rounded-md"
                 />
               </div>
             ))}

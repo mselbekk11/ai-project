@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { UploadDropzone } from "@/utils/uploadthing";
-import { Upload } from "lucide-react";
+import { Upload, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ClothingSelectorProps {
   selectedClothingId: string;
@@ -211,7 +210,14 @@ export default function ClothingSelector({
                   disabled={!pendingUpload.type || loading}
                   className="flex-1"
                 >
-                  {loading ? "Training..." : "Start Training"}
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Training
+                    </div>
+                  ) : (
+                    "Start Training"
+                  )}
                 </Button>
                 <Button
                   variant="outline"
