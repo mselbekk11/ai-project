@@ -8,10 +8,12 @@ const NavTitle: FC = () => {
 
   const title =
     pathname === "/home"
-      ? "Models"
+      ? "Try on Clothes"
       : pathname === "/train-model"
         ? "Train Model"
-        : "";
+        : pathname === "/gallery"
+          ? "Gallery"
+          : "";
 
   return <div className="text-md text-default font-semibold">{title}</div>;
 };
