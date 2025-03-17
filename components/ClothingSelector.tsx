@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ClothingSelectorProps {
   selectedClothingId: string;
@@ -49,6 +50,10 @@ export default function ClothingSelector({
     url: string;
     type: GarmentType | null;
   } | null>(null);
+
+  // Add pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const imagesPerPage = 8;
 
   const handleGarmentUpload = async (imageUrl: string) => {
     // Instead of immediately training, store the URL and show the type selector
@@ -121,6 +126,15 @@ export default function ClothingSelector({
       setLoading(false);
     }
   };
+
+  // Calculate pagination values
+  const totalPages = clothingItems
+    ? Math.ceil(clothingItems.length / imagesPerPage)
+    : 0;
+  const paginatedItems = clothingItems?.slice(
+    (currentPage - 1) * imagesPerPage,
+    currentPage * imagesPerPage,
+  );
 
   return (
     <div className="space-y-6">
@@ -218,15 +232,15 @@ export default function ClothingSelector({
         </div>
       )}
 
-      {/* Display clothing items in a grid */}
+      {/* Replace the existing clothing items display with paginated version */}
       {clothingItems && clothingItems.length > 0 && (
-        <Card>
-          <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-            {clothingItems.map((item) => (
+        <Card className="rounded-md">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 ">
+            {paginatedItems?.map((item) => (
               <div
                 key={item._id}
                 className={cn(
-                  "relative w-full aspect-square cursor-pointer rounded-lg overflow-hidden border-2",
+                  "relative w-full aspect-square cursor-pointer rounded-md overflow-hidden border-2",
                   selectedClothingId === item._id
                     ? "border-primary"
                     : "border-transparent hover:border-primary/50",
@@ -244,7 +258,36 @@ export default function ClothingSelector({
                 )}
               </div>
             ))}
-          </CardContent>
+          </div>
+
+          {/* Add pagination controls */}
+          <div className="flex items-center justify-between px-4 pb-4">
+            <div>
+              <span className="text-sm">
+                Page {currentPage} of {totalPages}
+              </span>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                <ChevronLeft className="h-4 w-4 mr-1" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+              >
+                <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
+          </div>
         </Card>
       )}
     </div>
