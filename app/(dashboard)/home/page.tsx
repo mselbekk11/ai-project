@@ -20,6 +20,7 @@ import ClothingSelector from "@/components/ClothingSelector";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Gallery from "@/components/Gallery";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Home() {
   const { user } = useUser();
@@ -147,10 +148,7 @@ export default function Home() {
                         {model.name}
                       </SelectItem>
                     ))}
-                  <SelectItem
-                    value="create-new"
-                    className="border-t mt-2 pt-2 text-blue-600"
-                  >
+                  <SelectItem value="create-new" className="border-t mt-2 pt-2">
                     + Create new model
                   </SelectItem>
                 </SelectContent>
@@ -167,7 +165,7 @@ export default function Home() {
             <div className="space-y-2">
               <Label htmlFor="prompt">Prompt</Label>
 
-              <textarea
+              <Textarea
                 id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
