@@ -112,7 +112,7 @@ export default function Home() {
     <div className="flex flex-1 h-full">
       {/* Left column - Form section (30% width) */}
       <div className="w-[30%] border-r p-4">
-        <Card className="p-6 rounded-md">
+        <Card className="p-6 rounded-md sticky top-20">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="modelSelect">Select Model</Label>
