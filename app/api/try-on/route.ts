@@ -55,9 +55,12 @@ export async function POST(req: Request) {
 
     const formData = new FormData();
     formData.append('prompt[text]', body.prompt);
-    formData.append('prompt[super_resolution]', String(body.super_resolution));
-    formData.append('prompt[face_correct]', 'true');
-    formData.append('prompt[face_swap]', 'true');
+    formData.append('prompt[super_resolution]', 'true');
+    formData.append('prompt[inpaint_faces]', 'true');
+    formData.append('prompt[face_correct]', 'false');
+    formData.append('prompt[face_swap]', 'false');
+    formData.append('prompt[film_grain]', 'false');
+    formData.append('prompt[hires_fix]', 'true');
     formData.append('prompt[cfg_scale]', '3');
     formData.append('prompt[class]', 'man');
     formData.append('prompt[scheduler]', 'dpm++2m_karras');
