@@ -44,6 +44,7 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form submission started");
     setLoading(true);
     setResults([]);
 
@@ -55,7 +56,14 @@ export default function Home() {
       (item) => item._id === selectedClothingId,
     );
 
+    console.log("Selected model:", selectedModel);
+    console.log("Selected clothing:", selectedClothing);
+
     if (!selectedModel?.lora_id || !selectedClothing?.face_id) {
+      console.log("Validation failed - missing model or clothing", {
+        hasModelLoraId: !!selectedModel?.lora_id,
+        hasClothingFaceId: !!selectedClothing?.face_id,
+      });
       toast.error("Please select both a model and a clothing item");
       setLoading(false);
       return;

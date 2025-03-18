@@ -251,7 +251,10 @@ export default function ClothingSelector({
                     ? "border-primary"
                     : "border-transparent hover:border-primary/50",
                 )}
-                onClick={() => onClothingSelect(item._id)}
+                onClick={() => {
+                  console.log("Selecting clothing item:", item._id);
+                  onClothingSelect(item._id);
+                }}
               >
                 <Image
                   src={item.image_url}
@@ -275,19 +278,28 @@ export default function ClothingSelector({
             </div>
             <div className="flex gap-2">
               <Button
+                type="button"
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => {
+                  console.log("Clicking previous page button", { currentPage });
+                  setCurrentPage((prev) => Math.max(prev - 1, 1));
+                }}
                 disabled={currentPage === 1}
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
               </Button>
               <Button
+                type="button"
                 variant="outline"
                 size="sm"
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
+                onClick={() => {
+                  console.log("Clicking next page button", {
+                    currentPage,
+                    totalPages,
+                  });
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+                }}
                 disabled={currentPage === totalPages}
               >
                 <ChevronRight className="h-4 w-4 ml-1" />
