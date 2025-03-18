@@ -30,14 +30,14 @@ export default function Gallery() {
               className="object-cover"
             />
             {/* Original clothing image thumbnail */}
-            <div className="absolute bottom-3 left-3 w-8 h-8 rounded-full overflow-hidden">
+            {/* <div className="absolute bottom-3 left-3 w-8 h-8 rounded-full overflow-hidden">
               <Image
                 src={generation.image_url}
                 alt="Original item"
                 fill
                 className="object-cover"
               />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
