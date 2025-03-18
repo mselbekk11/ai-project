@@ -95,7 +95,7 @@ export async function POST(req: Request) {
     try {
       data = JSON.parse(responseText);
     } catch (error) {
-      throw new Error(`Failed to parse Astria response: ${responseText}`);
+      throw new Error(`Failed to parse Astria response: ${responseText}. Error: ${error instanceof Error ? error.message : String(error)}`);
     }
 
     console.log('Parsed Astria response:', data);

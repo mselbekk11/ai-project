@@ -5,7 +5,6 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
-import Image from "next/image";
 import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
@@ -31,7 +30,6 @@ export default function Home() {
     "fashion editorial, posing like a model, grey background",
   );
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<string[]>([]);
 
   // Fetch user's models from Convex
   const models = useQuery(api.headshot_models.listUserModels, {
@@ -47,7 +45,6 @@ export default function Home() {
     e.preventDefault();
     console.log("Form submission started");
     setLoading(true);
-    setResults([]);
 
     // Find the selected model and clothing item
     const selectedModel = models?.find(
@@ -105,7 +102,7 @@ export default function Home() {
       const data = await response.json();
 
       if (data.status === "success") {
-        setResults(data.image_urls);
+        // Handle successful response
       } else {
         toast.error(data.error || "Failed to generate try-on image");
       }
@@ -199,20 +196,6 @@ export default function Home() {
       {/* Right column - Results (70% width) */}
       <div className="w-[70%]">
         <Gallery />
-        {/* {results.length > 0 && (
-          <div className="p-4 grid grid-cols-4 gap-4">
-            {results.map((url, index) => (
-              <div key={index} className="relative aspect-[3/4]">
-                <Image
-                  src={url}
-                  alt={`Try-on Result ${index + 1}`}
-                  fill
-                  className="object-cover rounded-md"
-                />
-              </div>
-            ))}
-          </div>
-        )} */}
       </div>
     </div>
   );

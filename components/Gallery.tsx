@@ -13,7 +13,7 @@ export default function Gallery() {
   return (
     <div className="px-4 py-4">
       <div
-        className="grid grid-cols-1 gap-4 auto-rows-fr"
+        className="grid grid-cols-1 gap-4"
         style={{
           gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
         }}
@@ -21,7 +21,8 @@ export default function Gallery() {
         {generations.map((generation) => (
           <div
             key={generation._id}
-            className="relative aspect-square bg-gray-100 rounded-md overflow-hidden"
+            className="relative bg-gray-100 rounded-md overflow-hidden"
+            style={{ aspectRatio: "768/1280" }}
           >
             <Image
               src={generation.image_url_generation}
