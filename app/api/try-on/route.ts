@@ -10,24 +10,37 @@ async function pollForCompletion(id: string, maxAttempts = 60) {
   for (let i = 0; i < maxAttempts; i++) {
     console.log(`Polling attempt ${i + 1}/${maxAttempts} for ID: ${id}`);
     
-    const response = await fetch(`${ASTRIA_BASEURL}/tunes/${FLUX_BASE_MODEL}/prompts/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${process.env.ASTRIA_API_KEY}`,
-        'Accept': 'application/json',
-      },
-    });
+    try {
+      const response = await fetch(`${ASTRIA_BASEURL}/tunes/${FLUX_BASE_MODEL}/prompts/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${process.env.ASTRIA_API_KEY}`,
+          'Accept': 'application/json',
+        },
+        // Add timeout to prevent hanging requests
+        signal: AbortSignal.timeout(10000), // 10 second timeout
+      });
 
-    if (!response.ok) {
-      console.log(`Polling attempt ${i + 1} failed with status: ${response.status}`);
+      if (!response.ok) {
+        console.log(`Polling attempt ${i + 1} failed with status: ${response.status}`);
+        // Wait a bit longer if we get an error response
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        continue;
+      }
+
+      const data = await response.json();
+      console.log(`Polling attempt ${i + 1} response:`, data);
+
+      if (data.images && data.images.length > 0) {
+        console.log('Generation completed successfully');
+        return { image_urls: data.images }; // Return all images
+      }
+    } catch (error) {
+      console.error(`Polling attempt ${i + 1} failed with error:`, error);
+      // Exponential backoff - wait longer after each failed attempt
+      const backoffTime = Math.min(5000 * Math.pow(1.5, i), 30000);
+      console.log(`Waiting ${backoffTime}ms before next attempt...`);
+      await new Promise(resolve => setTimeout(resolve, backoffTime));
       continue;
-    }
-
-    const data = await response.json();
-    console.log(`Polling attempt ${i + 1} response:`, data);
-
-    if (data.images && data.images.length > 0) {
-      console.log('Generation completed successfully');
-      return { image_urls: data.images }; // Return all images
     }
 
     await new Promise(resolve => setTimeout(resolve, 3000));
@@ -51,6 +64,8 @@ export async function POST(req: Request) {
     formData.append('prompt[num_inference_steps]', '30');
     formData.append('prompt[backend_version]', '0'); // Adding Backend V0 for FLUX
     formData.append('prompt[num_images]', '4'); // Request 4 images
+    formData.append('prompt[w]', '768'); 
+    formData.append('prompt[h]', '1280'); 
 
     console.log('FormData contents:');
     for (const [key, value] of formData.entries()) {
