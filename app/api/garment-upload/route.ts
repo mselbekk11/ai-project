@@ -4,7 +4,7 @@ const ASTRIA_BASEURL = 'https://api.astria.ai';
 const REALISTIC_VISION_ID = '690204'; // Realistic Vision v5.1
 
 const VALID_GARMENT_TYPES = ['clothing', 'shirt', 'pants', 'coat', 'swimming_suit'] as const;
-type GarmentType = typeof VALID_GARMENT_TYPES[number];
+export type GarmentType = typeof VALID_GARMENT_TYPES[number];
 
 // Format garment type for Astria API (replace underscores with spaces, etc.)
 function formatGarmentType(type: string): string {
