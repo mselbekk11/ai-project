@@ -11,7 +11,11 @@ const nextConfig = {
         pathname: "/f/**",
       },
     ],
-    domains: ["your-uploadthing-domain.com", "api.astria.ai"],
+    domains: [
+      "your-uploadthing-domain.com",
+      "api.astria.ai",
+      "7gjsu8414g.ufs.sh",
+    ],
   },
   // Add memory allocation for Node.js
   webpack: (config, { isServer }) => {

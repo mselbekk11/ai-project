@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -107,6 +108,36 @@ export default function Home() {
       setLoading(false);
     }
   };
+
+  const imageUrls = [
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIAzDKIkphjb6xpPYIw2ZvA4Ry7ndSkB5eg9KGm",
+    },
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIApoBJ8IAD2Z7AjUfI91Pk4O0MiaCzJxNlbtLm",
+    },
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIAH2STNt6VQk7cayU4jBhJTP6Rvs2mXG0q95nd",
+    },
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIAZsceIgR4ucyrXYGtDN9MT4Fj0nIeHif218aw",
+    },
+  ];
+
+  const badImageUrls = [
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIApHSci9vAD2Z7AjUfI91Pk4O0MiaCzJxNlbtL",
+    },
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIA1aDa67UBSu0Ulsp478qzCKALVMacHmG3yJFb",
+    },
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIAV1AUqkWwA4x2fJcqlWTnUK5d8Brbt3ODMZip",
+    },
+    {
+      url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIA5125fhog5Y7Vf4SZFxrpIRKDjTBU3XoatczO",
+    },
+  ];
 
   return (
     <div className="flex flex-1 h-full">
@@ -246,11 +277,52 @@ export default function Home() {
             </Button>
           </form>
         </Card>
+        <Card className="rounded-md mb-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Choose good pictures</CardTitle>
+            <CardDescription className="text-xs">
+              5-10 high quality images, front-facing, 1 person in the frame,
+              variety
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+              {imageUrls.map((item, idx) => (
+                <div key={idx}>
+                  <Image
+                    src={item.url}
+                    alt={`Image ${idx + 1}`}
+                    width={100}
+                    height={100}
+                    className="rounded-md"
+                  />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
         <Card className="rounded-md">
           <CardHeader>
-            <CardTitle>Choose good pictures</CardTitle>
-            <CardDescription>Card Description</CardDescription>
+            <CardTitle className="text-sm">Examples of bad pictures</CardTitle>
+            <CardDescription className="text-xs">
+              Multiple people, blurry, uncropped, low quality
+            </CardDescription>
           </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+              {badImageUrls.map((item, idx) => (
+                <div key={idx}>
+                  <Image
+                    src={item.url}
+                    alt={`Image ${idx + 1}`}
+                    width={100}
+                    height={100}
+                    className="rounded-md"
+                  />
+                </div>
+              ))}
+            </div>
+          </CardContent>
         </Card>
       </div>
       <div className="w-[70%]">
