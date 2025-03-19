@@ -60,6 +60,7 @@ export async function POST(req: Request) {
     formData.append('prompt[face_correct]', 'false');
     formData.append('prompt[face_swap]', 'false');
     formData.append('prompt[film_grain]', 'false');
+    formData.append('prompt[style]', 'Enhance');
     formData.append('prompt[hires_fix]', 'true');
     formData.append('prompt[cfg_scale]', '3');
     formData.append('prompt[class]', 'man');
