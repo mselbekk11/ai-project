@@ -33,3 +33,13 @@ export const listUserClothingItems = query({
     return items;
   },
 });
+
+// Get a clothing item by its ID
+export const getById = query({
+  args: { 
+    id: v.id("clothing_items") 
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
+  },
+});

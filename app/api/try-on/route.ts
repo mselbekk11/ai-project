@@ -118,7 +118,7 @@ export async function POST(req: Request) {
     console.log('Body contents for debugging:', body);
     
     // Assuming you have access to the Convex client
-    const promises = image_urls.map((imageUrl: string) => {
+    const promises = image_urls.map(async (imageUrl: string) => {
       if (!body.face_id || !body.lora_id || !body.user_id || !body.image_url) {
         console.error('Missing required fields:', { 
           face_id: body.face_id, 
@@ -127,6 +127,25 @@ export async function POST(req: Request) {
           image_url: body.image_url 
         });
         throw new Error('Missing required fields for database insertion');
+      }
+      
+      // If we have a clothing_item_id, fetch its class
+      let clothingClass = undefined;
+      if (body.clothing_item_id) {
+        try {
+          // Query the clothing item directly from Convex using the getById function
+          const clothingItem = await convex.query(api.clothing_items.getById, {
+            id: body.clothing_item_id
+          });
+          
+          if (clothingItem && clothingItem.class) {
+            clothingClass = clothingItem.class;
+            console.log(`Found clothing class: ${clothingClass} for item ID: ${body.clothing_item_id}`);
+          }
+        } catch (error) {
+          console.error('Error fetching clothing item class:', error);
+          // Continue without the class rather than failing the entire generation
+        }
       }
 
       return convex.mutation(api.generations.create, {
@@ -138,6 +157,7 @@ export async function POST(req: Request) {
         image_url: body.image_url,
         gender: body.gender || 'unknown',
         prompt: body.prompt,
+        clothing_item: clothingClass, // Store the clothing class instead of ID
       });
     });
 

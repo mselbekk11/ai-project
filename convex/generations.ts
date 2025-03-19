@@ -30,3 +30,18 @@ export const list = query({
     return generations;
   },
 });
+
+// Get generations by clothing item class
+export const listByClothingClass = query({
+  args: {
+    clothingClass: v.string(),
+  },
+  handler: async (ctx, args): Promise<Doc<"generations">[]> => {
+    const generations = await ctx.db
+      .query("generations")
+      .filter((q) => q.eq(q.field("clothing_item"), args.clothingClass))
+      .order("desc")
+      .take(100);
+    return generations;
+  },
+});

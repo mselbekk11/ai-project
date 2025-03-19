@@ -96,6 +96,7 @@ export default function Home() {
           user_id: user?.id,
           image_url: selectedClothing.image_url,
           gender: selectedModel.gender || "unknown",
+          clothing_item_id: selectedClothing._id,
         }),
       });
 
