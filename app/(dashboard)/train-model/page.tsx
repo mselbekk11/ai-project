@@ -4,7 +4,12 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 // import { ImageUpload } from "@/components/image-upload";
 import { useUser } from "@clerk/nextjs";
 import { UploadDropzone } from "@/utils/uploadthing";
@@ -106,7 +111,7 @@ export default function Home() {
   return (
     <div className="flex flex-1 h-full">
       <div className="w-[30%] border-r p-4">
-        <Card className="p-6">
+        <Card className="p-6 rounded-md mb-4">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="modelName">Model Name</Label>
@@ -240,6 +245,12 @@ export default function Home() {
               {loading ? "Training..." : "Train Model"}
             </Button>
           </form>
+        </Card>
+        <Card className="rounded-md">
+          <CardHeader>
+            <CardTitle>Choose good pictures</CardTitle>
+            <CardDescription>Card Description</CardDescription>
+          </CardHeader>
         </Card>
       </div>
       <div className="w-[70%]">
