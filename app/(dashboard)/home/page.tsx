@@ -122,7 +122,7 @@ export default function Home() {
         <Card className="p-6 rounded-md sticky top-20">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="modelSelect">Select Model</Label>
+              <Label htmlFor="modelSelect">Select a Model</Label>
               <Select
                 value={selectedModelId}
                 onValueChange={(value) => {
