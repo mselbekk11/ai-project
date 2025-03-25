@@ -63,7 +63,7 @@ export default function HeroSection() {
                 >
                   Tailwindcss highly customizable components for building modern
                   websites and applications that look and feel the way you mean
-                  it.
+                  it. Boom
                 </TextEffect>
 
                 <AnimatedGroup
