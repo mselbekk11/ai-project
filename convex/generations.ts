@@ -1,6 +1,5 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-import { Doc } from "./_generated/dataModel";
 
 export const create = mutation({
   args: {
@@ -19,15 +18,26 @@ export const create = mutation({
   },
 });
 
-// Make this query accessible from the client
+// Query to list generations (preserves any existing query)
 export const list = query({
   args: {},
-  handler: async (ctx): Promise<Doc<"generations">[]> => {
-    const generations = await ctx.db
-      .query("generations")
+  returns: v.array(v.object({
+    _id: v.id("generations"),
+    _creationTime: v.number(),
+    created_at: v.float64(),
+    face_id: v.float64(),
+    lora_id: v.float64(),
+    user_id: v.string(),
+    image_url_generation: v.string(),
+    image_url: v.string(),
+    gender: v.string(),
+    prompt: v.string(),
+    clothing_item: v.optional(v.string()),
+  })),
+  handler: async (ctx) => {
+    return await ctx.db.query("generations")
       .order("desc")
-      .take(100);
-    return generations;
+      .collect();
   },
 });
 
@@ -36,12 +46,46 @@ export const listByClothingClass = query({
   args: {
     clothingClass: v.string(),
   },
-  handler: async (ctx, args): Promise<Doc<"generations">[]> => {
-    const generations = await ctx.db
+  returns: v.array(v.object({
+    _id: v.id("generations"),
+    _creationTime: v.number(),
+    created_at: v.float64(),
+    face_id: v.float64(),
+    lora_id: v.float64(),
+    user_id: v.string(),
+    image_url_generation: v.string(),
+    image_url: v.string(),
+    gender: v.string(),
+    prompt: v.string(),
+    clothing_item: v.optional(v.string()),
+  })),
+  handler: async (ctx, args) => {
+    return await ctx.db
       .query("generations")
       .filter((q) => q.eq(q.field("clothing_item"), args.clothingClass))
       .order("desc")
-      .take(100);
-    return generations;
+      .collect();
+  },
+});
+
+// Mutation to delete a generation
+export const deleteGeneration = mutation({
+  args: {
+    generationId: v.id("generations"),
+  },
+  returns: v.boolean(),
+  handler: async (ctx, args) => {
+    const { generationId } = args;
+    
+    // Check if the generation exists
+    const generation = await ctx.db.get(generationId);
+    if (!generation) {
+      return false;
+    }
+    
+    // Delete the generation
+    await ctx.db.delete(generationId);
+    
+    return true;
   },
 });

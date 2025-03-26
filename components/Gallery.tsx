@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Image from "next/image";
 import ImageSheet from "./image-sheet";
@@ -22,6 +22,7 @@ export default function Gallery() {
   const [selectedGeneration, setSelectedGeneration] =
     useState<Doc<"generations"> | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const deleteGeneration = useMutation(api.generations.deleteGeneration);
 
   // Log for debugging
   console.log("Headshot models:", headshotModels);
@@ -52,9 +53,26 @@ export default function Gallery() {
     setIsSheetOpen(false);
   };
 
-  const handleDelete = () => {
-    console.log("Delete image: ", selectedGeneration?._id);
-    setIsSheetOpen(false);
+  const handleDelete = async () => {
+    if (!selectedGeneration) return;
+
+    console.log("Deleting image: ", selectedGeneration._id);
+
+    try {
+      const success = await deleteGeneration({
+        generationId: selectedGeneration._id,
+      });
+
+      if (success) {
+        console.log("Successfully deleted image");
+      } else {
+        console.error("Failed to delete image");
+      }
+
+      setIsSheetOpen(false);
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
   };
 
   const handleDownload = () => {
