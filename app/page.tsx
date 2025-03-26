@@ -7,7 +7,7 @@ import HeroSection from "@/components/hero-section";
 export default function Home() {
   return (
     <main className="flex flex-col h-100vh">
-      {/* <Homepage /> */}x
+      {/* <Homepage /> */}
       <HeroSection />
       <Features />
     </main>

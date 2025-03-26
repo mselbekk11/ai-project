@@ -116,7 +116,15 @@ export const HeroHeader = () => {
                   </SignUpButton>
                 </SignedOut>
                 <SignedIn>
-                  <UserButton />
+                  {/* <UserButton />
+                   */}
+                  <SignInButton>
+                    <Button>Sign in</Button>
+                  </SignInButton>
+
+                  <SignUpButton>
+                    <Button variant="outline">Sign Up</Button>
+                  </SignUpButton>
                 </SignedIn>
               </div>
             </div>
