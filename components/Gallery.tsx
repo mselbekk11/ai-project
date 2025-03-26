@@ -107,6 +107,7 @@ export default function Gallery() {
           isOpen={isSheetOpen}
           onClose={handleCloseSheet}
           imageUrl={selectedGeneration.image_url_generation}
+          imageUrl2={selectedGeneration.image_url}
           prompt={cleanPrompt(selectedGeneration.prompt)}
           modelName={getModelName(selectedGeneration.lora_id)}
           itemOfClothing={selectedGeneration.clothing_item || "Unknown"}
