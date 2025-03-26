@@ -6,15 +6,42 @@ import { api } from "@/convex/_generated/api";
 import Image from "next/image";
 import ImageSheet from "./image-sheet";
 import { Doc } from "@/convex/_generated/dataModel";
+import { useUser } from "@clerk/nextjs";
 
 // import { Card } from "@/components/ui/card";
 
 export default function Gallery() {
+  const { user } = useUser();
   // Fetch generations from the database
   const generations = useQuery(api.generations.list) || [];
+  // Fetch headshot models to get the model names
+  const headshotModels =
+    useQuery(api.headshot_models.listUserModels, {
+      user_id: user?.id || "", // Use the current user's ID
+    }) || [];
   const [selectedGeneration, setSelectedGeneration] =
     useState<Doc<"generations"> | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  // Log for debugging
+  console.log("Headshot models:", headshotModels);
+  console.log("Generations:", generations);
+
+  // Create a mapping of lora_id to model name
+  const modelNameMap = new Map();
+  headshotModels.forEach((model) => {
+    if (model.lora_id !== undefined) {
+      modelNameMap.set(model.lora_id, model.name);
+    }
+  });
+
+  // Function to get model name from lora_id
+  const getModelName = (loraId: number) => {
+    console.log("Looking up model name for lora_id:", loraId);
+    const modelName = modelNameMap.get(loraId);
+    console.log("Found model name:", modelName);
+    return modelName || String(loraId);
+  };
 
   const handleImageClick = (generation: Doc<"generations">) => {
     setSelectedGeneration(generation);
@@ -81,7 +108,7 @@ export default function Gallery() {
           onClose={handleCloseSheet}
           imageUrl={selectedGeneration.image_url_generation}
           prompt={cleanPrompt(selectedGeneration.prompt)}
-          modelName={`Model-${selectedGeneration.lora_id}`}
+          modelName={getModelName(selectedGeneration.lora_id)}
           itemOfClothing={selectedGeneration.clothing_item || "Unknown"}
           createdAt={new Date(selectedGeneration.created_at)}
           onDelete={handleDelete}
