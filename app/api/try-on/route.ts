@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     formData.append('prompt[scheduler]', 'dpm++2m_karras');
     formData.append('prompt[num_inference_steps]', '30');
     formData.append('prompt[backend_version]', '0'); // Adding Backend V0 for FLUX
-    formData.append('prompt[num_images]', '4'); // Request 4 images
+    formData.append('prompt[num_images]', body.num_images ? body.num_images.toString() : '2'); // Use the number from the request or default to 2
     formData.append('prompt[w]', '768'); 
     formData.append('prompt[h]', '1280'); 
 

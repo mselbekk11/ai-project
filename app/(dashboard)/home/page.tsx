@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Gallery from "@/components/Gallery";
 import { Textarea } from "@/components/ui/textarea";
+import { Slider } from "@/components/ui/slider";
 
 export default function Home() {
   const { user } = useUser();
@@ -30,6 +31,7 @@ export default function Home() {
     "fashion editorial, posing like a model, grey background",
   );
   const [loading, setLoading] = useState(false);
+  const [numImages, setNumImages] = useState<number>(2);
 
   // Fetch user's models from Convex
   const models = useQuery(api.headshot_models.listUserModels, {
@@ -97,6 +99,7 @@ export default function Home() {
           image_url: selectedClothing.image_url,
           gender: selectedModel.gender || "unknown",
           clothing_item_id: selectedClothing._id,
+          num_images: numImages,
         }),
       });
 
@@ -161,6 +164,19 @@ export default function Home() {
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="prompt">
+                Give me {numImages} {numImages === 1 ? "image" : "images"}
+              </Label>
+              <Slider
+                value={[numImages]}
+                onValueChange={(value) => setNumImages(value[0])}
+                min={1}
+                max={4}
+                step={1}
+              />
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="prompt">Prompt</Label>
 
               <Textarea
@@ -178,7 +194,11 @@ export default function Home() {
             <Button
               type="submit"
               disabled={
-                loading || !selectedModelId || !selectedClothingId || !prompt
+                loading ||
+                !selectedModelId ||
+                !selectedClothingId ||
+                !prompt ||
+                numImages < 1
               }
             >
               {loading ? (
