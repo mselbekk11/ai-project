@@ -7,6 +7,9 @@ import Image from "next/image";
 import ImageSheet from "./image-sheet";
 import { Doc } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
+import Info from "./info";
+import InfoTwo from "./info-two";
+import InfoThree from "./info-three";
 
 // import { Card } from "@/components/ui/card";
 
@@ -216,6 +219,43 @@ export default function Gallery() {
     return prompt.replace(/<lora:[^>]+>\s*<faceid:[^>]+>\s*/g, "").trim();
   };
 
+  // Check if the user has any models
+  const hasModels = headshotModels.length > 0;
+
+  // Check if the user has exactly one model that's in "processing" status
+  const hasProcessingModel =
+    headshotModels.length === 1 && headshotModels[0].status === "processing";
+
+  // Check if the user has at least one finished model but no generations
+  const hasFinishedModelButNoGenerations =
+    headshotModels.some((model) => model.status === "finished") &&
+    generations.length === 0;
+
+  // Conditional rendering based on user's model status
+  if (!hasModels) {
+    // Case 1: User has no models at all
+    return (
+      <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
+        <Info />
+      </div>
+    );
+  } else if (hasProcessingModel) {
+    // Case 2: User has exactly one model and it's processing
+    return (
+      <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
+        <InfoTwo />
+      </div>
+    );
+  } else if (hasFinishedModelButNoGenerations) {
+    // Case 3: User has at least one finished model but no generations
+    return (
+      <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
+        <InfoThree />
+      </div>
+    );
+  }
+
+  // Case 4: User has models and has generated images
   return (
     <div className="px-4 py-4">
       <div
@@ -237,15 +277,6 @@ export default function Gallery() {
               fill
               className="object-cover"
             />
-            {/* Original clothing image thumbnail */}
-            {/* <div className="absolute bottom-3 left-3 w-8 h-8 rounded-full overflow-hidden">
-              <Image
-                src={generation.image_url}
-                alt="Original item"
-                fill
-                className="object-cover"
-              />
-            </div> */}
           </div>
         ))}
       </div>
