@@ -71,3 +71,15 @@ export const updateModelStatus = mutation({
     console.log("✅ Successfully updated model:", models[0]._id);
   }
 });
+
+export const deleteHeadshotModel = mutation({
+  args: {
+    modelId: v.id("headshot_models"),
+  },
+  handler: async (ctx, args) => {
+    // Delete the model from the database
+    await ctx.db.delete(args.modelId);
+    
+    return { success: true };
+  },
+});

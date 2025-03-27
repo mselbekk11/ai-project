@@ -15,7 +15,7 @@ import {
 import { useUser } from "@clerk/nextjs";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
-import { Upload } from "lucide-react";
+import { Upload, Trash2, Loader2 } from "lucide-react";
 // import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -36,9 +36,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useQuery } from "convex/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Loader2 } from "lucide-react";
+import { Id } from "@/convex/_generated/dataModel";
 
 export default function Home() {
   // const router = useRouter();
@@ -47,10 +55,35 @@ export default function Home() {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [gender, setGender] = useState("Male");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [modelToDelete, setModelToDelete] =
+    useState<Id<"headshot_models"> | null>(null);
 
   const models = useQuery(api.headshot_models.listUserModels, {
     user_id: user?.id ?? "",
   });
+
+  const deleteModel = useMutation(api.headshot_models.deleteHeadshotModel);
+
+  const handleDeleteClick = (modelId: Id<"headshot_models">) => {
+    setModelToDelete(modelId);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!modelToDelete) return;
+
+    try {
+      await deleteModel({ modelId: modelToDelete });
+      toast.success("Model deleted successfully");
+    } catch (error) {
+      console.error("Error deleting model:", error);
+      toast.error("Failed to delete model");
+    } finally {
+      setDeleteDialogOpen(false);
+      setModelToDelete(null);
+    }
+  };
 
   if (!models) {
     return <div>Loading...</div>;
@@ -344,11 +377,14 @@ export default function Home() {
               <TableHead className="h-12 px-4 text-sm font-semibold">
                 Images
               </TableHead>
+              <TableHead className="h-12 px-4 text-sm font-semibold">
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="border-b ">
             {models.map((model) => (
-              <TableRow key={model._id} className="border-b  hover">
+              <TableRow key={model._id} className="border-b hover">
                 <TableCell className="py-0 h-12 px-4 text-sm">
                   {model.name}
                 </TableCell>
@@ -392,11 +428,44 @@ export default function Home() {
                     )}
                   </div>
                 </TableCell>
+                <TableCell className="py-0 h-12 px-4">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleDeleteClick(model._id)}
+                    className="h-8 w-8 text-destructive hover:text-destructive/90"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
+
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this model? This action cannot be
+              undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex space-x-2 justify-end">
+            <Button
+              variant="outline"
+              onClick={() => setDeleteDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={confirmDelete}>
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
