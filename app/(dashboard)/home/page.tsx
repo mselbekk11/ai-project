@@ -215,7 +215,7 @@ export default function Home() {
       </div>
 
       {/* Right column - Results (70% width) */}
-      <div className="w-[70%] background-test">
+      <div className="w-[70%]">
         <Gallery />
       </div>
     </div>
