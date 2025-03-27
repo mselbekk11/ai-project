@@ -13,7 +13,10 @@ import { useUser } from "@clerk/nextjs";
 export default function Gallery() {
   const { user } = useUser();
   // Fetch generations from the database
-  const generations = useQuery(api.generations.list) || [];
+  const generations =
+    useQuery(api.generations.list, {
+      user_id: user?.id || "", // Use the current user's ID
+    }) || [];
   // Fetch headshot models to get the model names
   const headshotModels =
     useQuery(api.headshot_models.listUserModels, {

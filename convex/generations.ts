@@ -20,7 +20,9 @@ export const create = mutation({
 
 // Query to list generations (preserves any existing query)
 export const list = query({
-  args: {},
+  args: {
+    user_id: v.string(),
+  },
   returns: v.array(v.object({
     _id: v.id("generations"),
     _creationTime: v.number(),
@@ -34,8 +36,9 @@ export const list = query({
     prompt: v.string(),
     clothing_item: v.optional(v.string()),
   })),
-  handler: async (ctx) => {
+  handler: async (ctx, args) => {
     return await ctx.db.query("generations")
+      .filter((q) => q.eq(q.field("user_id"), args.user_id))
       .order("desc")
       .collect();
   },
@@ -45,6 +48,7 @@ export const list = query({
 export const listByClothingClass = query({
   args: {
     clothingClass: v.string(),
+    user_id: v.string(),
   },
   returns: v.array(v.object({
     _id: v.id("generations"),
@@ -62,7 +66,12 @@ export const listByClothingClass = query({
   handler: async (ctx, args) => {
     return await ctx.db
       .query("generations")
-      .filter((q) => q.eq(q.field("clothing_item"), args.clothingClass))
+      .filter((q) => 
+        q.and(
+          q.eq(q.field("clothing_item"), args.clothingClass),
+          q.eq(q.field("user_id"), args.user_id)
+        )
+      )
       .order("desc")
       .collect();
   },
