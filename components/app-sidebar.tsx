@@ -31,11 +31,11 @@ const data = {
       url: "/train-model",
       icon: <Brain className="size-4" />,
     },
-    {
-      title: "Gallery",
-      url: "/gallery",
-      icon: <Zap className="size-4" />,
-    },
+    // {
+    //   title: "Gallery",
+    //   url: "/gallery",
+    //   icon: <Zap className="size-4" />,
+    // },
   ],
 };
 
