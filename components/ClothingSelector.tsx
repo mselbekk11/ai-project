@@ -139,7 +139,7 @@ export default function ClothingSelector({
     <div className="space-y-6">
       {!pendingUpload ? (
         <div className="space-y-2">
-          <Label>Upload New Clothing or Select Existing</Label>
+          <Label className="">Upload New Clothing or Select Existing</Label>
           <UploadDropzone
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {

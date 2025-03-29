@@ -18,7 +18,8 @@ import Link from "next/link";
 import { House, Brain } from "lucide-react";
 import UserDropdown from "./user-dropdown";
 // import Logo from "./logo";
-import LogoTwo from "./logoTwo";
+// import LogoTwo from "./logoTwo";
+import LogoThree from "./logoThree";
 
 const data = {
   navMain: [
@@ -52,10 +53,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Link href="/home" className="hover:bg-transparent">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
                   {/* <img src="/logo2.png" alt="Trizzy Logo" className="size-4" /> */}
-                  <LogoTwo />
+                  {/* <LogoTwo /> */}
+                  <LogoThree />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Trizzy</span>
+                  <span className="font-semibold text-1xl font-heading">
+                    Trizzy
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>

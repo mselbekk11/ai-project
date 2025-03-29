@@ -15,7 +15,11 @@ const NavTitle: FC = () => {
           ? "Gallery"
           : "";
 
-  return <div className="text-md text-default font-semibold">{title}</div>;
+  return (
+    <div className="text-md text-default font-semibold font-heading text-indigo-700 ">
+      {title}
+    </div>
+  );
 };
 
 export default NavTitle;

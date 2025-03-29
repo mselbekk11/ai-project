@@ -178,6 +178,9 @@ export default function Home() {
         <Card className="p-6 rounded-md mb-4">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
+              {/* <h2 className="text-1xl font-bold text-purple-700 mb-4">
+                Train Model
+              </h2> */}
               <Label htmlFor="modelName">Model Name</Label>
               <Input
                 id="modelName"
@@ -308,10 +311,12 @@ export default function Home() {
             </Button>
           </form>
         </Card>
-        <Card className="rounded-md mb-4">
+        <Card className="rounded-md mb-4  border-2 bg-sidebar">
           <CardHeader>
-            <CardTitle className="text-sm">Choose good pictures</CardTitle>
-            <CardDescription className="text-xs">
+            <CardTitle className="text-md  font-semibold font-heading text-indigo-700">
+              Choose good pictures
+            </CardTitle>
+            <CardDescription className="text-sm">
               5-10 high quality images, front-facing, 1 person in the frame,
               variety
             </CardDescription>
@@ -332,10 +337,12 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
-        <Card className="rounded-md">
+        <Card className="rounded-md mb-4  border-2 bg-sidebar">
           <CardHeader>
-            <CardTitle className="text-sm">Examples of bad pictures</CardTitle>
-            <CardDescription className="text-xs">
+            <CardTitle className="text-md  font-semibold font-heading text-indigo-700">
+              Examples of bad pictures
+            </CardTitle>
+            <CardDescription className="text-sm">
               Multiple people, blurry, uncropped, low quality
             </CardDescription>
           </CardHeader>

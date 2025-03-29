@@ -10,6 +10,10 @@ export default withUt( {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ["var(--font-dm-sans)"],
+  			heading: ["var(--font-bricolage)"],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
