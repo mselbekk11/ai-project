@@ -212,7 +212,6 @@ export default function Home() {
                 onClientUploadComplete={(res) => {
                   if (!res) {
                     console.error("No response from upload");
-                    toast.dismiss(); // Dismiss any loading toasts
                     toast.error("Upload failed - no response");
                     return;
                   }
@@ -224,12 +223,15 @@ export default function Home() {
                     console.log("✅ Updated images:", updated);
                     return updated;
                   });
-                  toast.dismiss(); // Dismiss any loading toasts
-                  toast.success(`Successfully uploaded ${res.length} images`);
+
+                  // Only show success notification
+                  if (res.length > 0) {
+                    toast.success(`Successfully uploaded ${res.length} images`);
+                  }
                 }}
                 onUploadError={(error: Error) => {
                   console.error("❌ Upload error:", error);
-                  toast.dismiss(); // Dismiss any loading toasts
+
                   if (error.message.includes("Headers Timeout")) {
                     toast.error(
                       "Upload timed out. Please try again with a smaller file or better connection.",
@@ -240,11 +242,7 @@ export default function Home() {
                 }}
                 onUploadBegin={(fileName) => {
                   console.log("🚀 Upload beginning for:", fileName);
-                  const toastId = `upload-${fileName}-${Date.now()}`;
-                  toast.loading(`Uploading ${fileName}...`, {
-                    id: toastId,
-                    duration: 0, // Toast will stay until dismissed
-                  });
+                  // Don't show any toast for upload start
                 }}
                 config={{
                   mode: "auto",
@@ -359,95 +357,93 @@ export default function Home() {
         </Card>
       </div>
       <div className="w-[70%] pr-4 py-4">
-      <Card className="rounded-md ">
-        <div
-          className="bg-sidebar rounded-md"
-        >
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b hover:bg-transparent">
-              <TableHead className="h-12 px-4 text-sm  font-semibold">
-                Name
-              </TableHead>
-              <TableHead className="h-12 px-4 text-sm font-semibold">
-                Status
-              </TableHead>
-              <TableHead className="h-12 px-4 text-sm font-semibold">
-                Type
-              </TableHead>
-              {/* <TableHead className="h-12 px-4 text-sm font-semibold">
+        <Card className="rounded-md ">
+          <div className="bg-sidebar rounded-md">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-b hover:bg-transparent">
+                  <TableHead className="h-12 px-4 text-sm  font-semibold">
+                    Name
+                  </TableHead>
+                  <TableHead className="h-12 px-4 text-sm font-semibold">
+                    Status
+                  </TableHead>
+                  <TableHead className="h-12 px-4 text-sm font-semibold">
+                    Type
+                  </TableHead>
+                  {/* <TableHead className="h-12 px-4 text-sm font-semibold">
                 Lora ID
               </TableHead> */}
-              <TableHead className="h-12 px-4 text-sm font-semibold">
-                Images
-              </TableHead>
-              <TableHead className="h-12 px-4 text-sm font-semibold">
-                Actions
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="border-b ">
-            {models.map((model) => (
-              <TableRow key={model._id} className="border-b hover">
-                <TableCell className="py-0 h-12 px-4 text-sm">
-                  {model.name}
-                </TableCell>
-                <TableCell className="py-0 h-12 px-4">
-                  <Badge
-                    className={`${model.status !== "processing" ? "bg-green-500 hover:bg-green-600" : ""}`}
-                  >
-                    {model.status === "processing" ? (
-                      <>
-                        <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                        processing
-                      </>
-                    ) : (
-                      (model.status ?? "processing")
-                    )}
-                  </Badge>
-                </TableCell>
-                <TableCell className="py-0 h-12 px-4 text-sm">
-                  {model.gender ?? "unknown"}
-                </TableCell>
-                {/* <TableCell className="py-0 h-12 px-4 text-sm">
+                  <TableHead className="h-12 px-4 text-sm font-semibold">
+                    Images
+                  </TableHead>
+                  <TableHead className="h-12 px-4 text-sm font-semibold">
+                    Actions
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="border-b ">
+                {models.map((model) => (
+                  <TableRow key={model._id} className="border-b hover">
+                    <TableCell className="py-0 h-12 px-4 text-sm">
+                      {model.name}
+                    </TableCell>
+                    <TableCell className="py-0 h-12 px-4">
+                      <Badge
+                        className={`${model.status !== "processing" ? "bg-green-500 hover:bg-green-600" : ""}`}
+                      >
+                        {model.status === "processing" ? (
+                          <>
+                            <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                            processing
+                          </>
+                        ) : (
+                          (model.status ?? "processing")
+                        )}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="py-0 h-12 px-4 text-sm">
+                      {model.gender ?? "unknown"}
+                    </TableCell>
+                    {/* <TableCell className="py-0 h-12 px-4 text-sm">
                   {model.lora_id ? `${model.lora_id}` : "N/A"}
                 </TableCell> */}
-                <TableCell className="py-0 h-12 px-4">
-                  <div className="flex items-center">
-                    {model.images.slice(0, 3).map((image, index) => (
-                      <Avatar
-                        key={index}
-                        className={`w-6 h-6 border  ${index > 0 ? "-ml-2" : ""}`}
+                    <TableCell className="py-0 h-12 px-4">
+                      <div className="flex items-center">
+                        {model.images.slice(0, 3).map((image, index) => (
+                          <Avatar
+                            key={index}
+                            className={`w-6 h-6 border  ${index > 0 ? "-ml-2" : ""}`}
+                          >
+                            <AvatarImage src={image} alt="Sample image" />
+                            <AvatarFallback>S</AvatarFallback>
+                          </Avatar>
+                        ))}
+                        {model.images.length > 3 && (
+                          <Avatar className="w-6 h-6 -ml-2 ">
+                            <AvatarFallback className="text-xs">
+                              +{model.images.length - 3}
+                            </AvatarFallback>
+                          </Avatar>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="py-0 h-12 px-4">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleDeleteClick(model._id)}
+                        className="h-8 w-8 text-destructive hover:text-destructive/90"
                       >
-                        <AvatarImage src={image} alt="Sample image" />
-                        <AvatarFallback>S</AvatarFallback>
-                      </Avatar>
-                    ))}
-                    {model.images.length > 3 && (
-                      <Avatar className="w-6 h-6 -ml-2 ">
-                        <AvatarFallback className="text-xs">
-                          +{model.images.length - 3}
-                        </AvatarFallback>
-                      </Avatar>
-                    )}
-                  </div>
-                </TableCell>
-                <TableCell className="py-0 h-12 px-4">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleDeleteClick(model._id)}
-                    className="h-8 w-8 text-destructive hover:text-destructive/90"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        </div>
-      </Card>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </Card>
       </div>
 
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
