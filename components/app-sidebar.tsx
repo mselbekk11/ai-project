@@ -15,7 +15,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { House, Brain, Zap } from "lucide-react";
+import { House, Brain } from "lucide-react";
 import UserDropdown from "./user-dropdown";
 import Logo from "./logo";
 
