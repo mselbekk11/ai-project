@@ -96,27 +96,24 @@ export default function UserDropdown() {
             <p className="text-xs text-gray-400">{`${user?.emailAddresses[0].emailAddress}`}</p>
           </div>
           <DropdownMenuSeparator className="" />
-          <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
+          {/* <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
             <div className="flex items-center">
-              {/* <User className="mr-2 h-4 w-4" /> */}
               <span>Profile</span>
             </div>
             <span className="text-xs text-gray-400">⌘ ⇧ P</span>
           </DropdownMenuItem>
           <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
             <div className="flex items-center">
-              {/* <CreditCard className="mr-2 h-4 w-4" /> */}
-              <span>Billing</span>
+              <span>Settings</span>
             </div>
             <span className="text-xs text-gray-400">⌘ ⇧ B</span>
           </DropdownMenuItem>
           <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
             <div className="flex items-center">
-              {/* <Command className="mr-2 h-4 w-4" /> */}
-              <span>Command Menu</span>
+              <span>Billing</span>
             </div>
             <span className="text-xs text-gray-400">⌘ K</span>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
 
           <DropdownMenuItem className="py-2 cursor-default focus:bg-transparent">
             <div className="flex items-center justify-between w-full">
