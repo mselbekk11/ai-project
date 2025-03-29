@@ -174,7 +174,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 h-full">
-      <div className="w-[30%] border-r p-4">
+      <div className="w-[30%] p-4">
         <Card className="p-6 rounded-md mb-4">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
@@ -358,7 +358,11 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
-      <div className="w-[70%]">
+      <div className="w-[70%] pr-4 py-4">
+      <Card className="rounded-md ">
+        <div
+          className="bg-sidebar rounded-md"
+        >
         <Table>
           <TableHeader>
             <TableRow className="border-b hover:bg-transparent">
@@ -442,6 +446,8 @@ export default function Home() {
             ))}
           </TableBody>
         </Table>
+        </div>
+      </Card>
       </div>
 
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
