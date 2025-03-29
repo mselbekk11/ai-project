@@ -16,7 +16,7 @@ const NavTitle: FC = () => {
           : "";
 
   return (
-    <div className="text-md text-default font-semibold font-heading text-indigo-700 ">
+    <div className="text-md text-default font-semibold font-heading ">
       {title}
     </div>
   );
