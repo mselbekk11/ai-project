@@ -220,8 +220,10 @@ export default function Home() {
       </div>
 
       {/* Right column - Results (70% width) */}
-      <div className="w-[70%]">
-        <Gallery />
+      <div className="w-[70%] h-full py-4 pr-4">
+        <Card className="w-full h-full rounded-md bg-sidebar">
+          <Gallery />
+        </Card>
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ import { useUser } from "@clerk/nextjs";
 import Info from "./info";
 import InfoTwo from "./info-two";
 import InfoThree from "./info-three";
-import { Card } from "./ui/card";
 
 // import { Card } from "@/components/ui/card";
 
@@ -236,68 +235,68 @@ export default function Gallery() {
   if (!hasModels) {
     // Case 1: User has no models at all
     return (
-      <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
+      <div className="flex justify-center items-center h-full">
         <Info />
       </div>
     );
   } else if (hasProcessingModel) {
     // Case 2: User has exactly one model and it's processing
     return (
-      <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
+      <div className="flex justify-center items-center h-full">
         <InfoTwo />
       </div>
     );
   } else if (hasFinishedModelButNoGenerations) {
     // Case 3: User has at least one finished model but no generations
     return (
-      <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
+      <div className="flex justify-center items-center h-full">
         <InfoThree />
       </div>
+      // <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
+      // </div>
     );
   }
 
   // Case 4: User has models and has generated images
   return (
-    <div className="pr-4 py-4">
-      <Card className="rounded-md">
-        <div
-          className="grid grid-cols-1 gap-4 p-4 bg-sidebar rounded-md"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-          }}
-        >
-          {generations.map((generation) => (
-            <div
-              key={generation._id}
-              className="relative bg-gray-100 rounded-md overflow-hidden cursor-pointer shadow-md"
-              style={{ aspectRatio: "768/1280" }}
-              onClick={() => handleImageClick(generation)}
-            >
-              <Image
-                src={generation.image_url_generation}
-                alt={generation.prompt}
-                fill
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
+    <div className="">
+      <div
+        className="grid grid-cols-1 gap-4 p-4 bg-sidebar rounded-md"
+        style={{
+          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+        }}
+      >
+        {generations.map((generation) => (
+          <div
+            key={generation._id}
+            className="relative bg-gray-100 rounded-md overflow-hidden cursor-pointer shadow-md"
+            style={{ aspectRatio: "768/1280" }}
+            onClick={() => handleImageClick(generation)}
+          >
+            <Image
+              src={generation.image_url_generation}
+              alt={generation.prompt}
+              fill
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
 
-        {selectedGeneration && (
-          <ImageSheet
-            isOpen={isSheetOpen}
-            onClose={handleCloseSheet}
-            imageUrl={selectedGeneration.image_url_generation}
-            imageUrl2={selectedGeneration.image_url}
-            prompt={cleanPrompt(selectedGeneration.prompt)}
-            modelName={getModelName(selectedGeneration.lora_id)}
-            itemOfClothing={selectedGeneration.clothing_item || "Unknown"}
-            createdAt={new Date(selectedGeneration.created_at)}
-            onDelete={handleDelete}
-            onDownload={handleDownload}
-          />
-        )}
-      </Card>
+      {selectedGeneration && (
+        <ImageSheet
+          isOpen={isSheetOpen}
+          onClose={handleCloseSheet}
+          imageUrl={selectedGeneration.image_url_generation}
+          imageUrl2={selectedGeneration.image_url}
+          prompt={cleanPrompt(selectedGeneration.prompt)}
+          modelName={getModelName(selectedGeneration.lora_id)}
+          itemOfClothing={selectedGeneration.clothing_item || "Unknown"}
+          createdAt={new Date(selectedGeneration.created_at)}
+          onDelete={handleDelete}
+          onDownload={handleDownload}
+        />
+      )}
     </div>
   );
 }

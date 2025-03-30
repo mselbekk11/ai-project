@@ -6,8 +6,9 @@ export default function InfoThree() {
       <Card className="min-w-[500px]">
         <CardContent className="pt-6">
           <div className="space-y-4">
-            <CardTitle className="text-lg font-semibold">Congrats!</CardTitle>
-            <p>Your first model is ready</p>
+            <CardTitle className="text-lg font-semibold">
+              Your first model is ready
+            </CardTitle>
             <p>Try on some clothes using the form on the left</p>
           </div>
         </CardContent>
