@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const isProtectedRoute = createRouteMatcher(["/server"]);
 // Define public routes that don't require authentication
-const isPublicRoute = createRouteMatcher(['/sign-in', '/sign-up']); // Added onboarding to public routes
+const isPublicRoute = createRouteMatcher(['/sign-in', '/sign-up', '/']); // Added onboarding to public routes
 // Define onboarding route if you have one
 const isOnboardingRoute = createRouteMatcher(['/onboarding']);
 
