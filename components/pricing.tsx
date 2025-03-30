@@ -1,10 +1,4 @@
-"use client";
-
-import * as React from "react";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { completeOnboarding } from "./_actions";
-
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,31 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Check } from "lucide-react";
 
-export default function OnboardingComponent() {
-  const [error, setError] = React.useState("");
-  const { user } = useUser();
-  const router = useRouter();
-
-  const handleSubmit = async (formData: FormData) => {
-    const res = await completeOnboarding(formData);
-    if (res?.message) {
-      // Reloads the user's data from the Clerk API
-      await user?.reload();
-      router.push("/home");
-    }
-    if (res?.error) {
-      setError(res?.error);
-    }
-  };
-
-  const handleButtonClick = () => {
-    // Create an empty FormData object
-    const formData = new FormData();
-    // You can add any default values if needed
-    // formData.append("key", "value");
-    handleSubmit(formData);
-  };
-
+export default function Pricing() {
   return (
     <section className="py-16 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
@@ -53,7 +23,6 @@ export default function OnboardingComponent() {
             entire to the APIs and platforms helping developers and businesses
             innovate.
           </p>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
 
         <div className="mt-8 grid gap-6 md:mt-20 md:grid-cols-3">
@@ -82,12 +51,8 @@ export default function OnboardingComponent() {
             </CardContent>
 
             <CardFooter className="mt-auto">
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={handleButtonClick}
-              >
-                Get Started
+              <Button asChild variant="outline" className="w-full">
+                <Link href="">Get Started</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -132,8 +97,8 @@ export default function OnboardingComponent() {
               </CardContent>
 
               <CardFooter>
-                <Button className="w-full" onClick={handleButtonClick}>
-                  Get Started
+                <Button asChild className="w-full">
+                  <Link href="">Get Started</Link>
                 </Button>
               </CardFooter>
             </div>
@@ -166,12 +131,8 @@ export default function OnboardingComponent() {
             </CardContent>
 
             <CardFooter className="mt-auto">
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={handleButtonClick}
-              >
-                Get Started
+              <Button asChild variant="outline" className="w-full">
+                <Link href="">Get Started</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -179,25 +140,4 @@ export default function OnboardingComponent() {
       </div>
     </section>
   );
-}
-
-{
-  /* <div>
-      <h1>Welcome</h1>
-      <form action={handleSubmit}>
-        <div>
-          <label>Application Name</label>
-          <p>Enter the name of your application.</p>
-          <input type="text" name="applicationName" required />
-        </div>
-
-        <div>
-          <label>Application Type</label>
-          <p>Describe the type of your application.</p>
-          <input type="text" name="applicationType" required />
-        </div>
-        {error && <p className="text-red-600">Error: {error}</p>}
-        <button type="submit">Submit</button>
-      </form>
-    </div> */
 }
