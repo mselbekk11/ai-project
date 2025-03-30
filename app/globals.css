@@ -205,31 +205,9 @@
 } */
 .bg-shapes-pattern {
   background-color: #ffffff;
-  background:
-    radial-gradient(
-      circle,
-      transparent 20%,
-      #ffffff 20%,
-      #ffffff 80%,
-      transparent 80%,
-      transparent
-    ),
-    radial-gradient(
-        circle,
-        transparent 20%,
-        #ffffff 20%,
-        #ffffff 80%,
-        transparent 80%,
-        transparent
-      )
-      25px 25px,
-    linear-gradient(#f4f4f4 2px, transparent 2px) 0 -1px,
-    linear-gradient(90deg, #f4f4f4 2px, #ffffff 2px) -1px 0;
-  background-size:
-    50px 50px,
-    50px 50px,
-    25px 25px,
-    25px 25px;
+  opacity: 1;
+  background: radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 80%, transparent 80%, transparent) 12.5px 12.5px, linear-gradient(#e6e6e6 1px, transparent 1px) 0 -0.5px, linear-gradient(90deg, #e6e6e6 1px, #ffffff 1px) -0.5px 0;
+  background-size: 25px 25px, 25px 25px, 12.5px 12.5px, 12.5px 12.5px;
 }
 
 /* .containertest {
