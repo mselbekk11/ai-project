@@ -197,6 +197,7 @@ export default function Home() {
             </div>
 
             <Button
+              className="w-full"
               type="submit"
               disabled={
                 loading ||

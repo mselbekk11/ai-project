@@ -328,6 +328,7 @@ export default function Home() {
             )}
 
             <Button
+              className="w-full"
               type="submit"
               disabled={loading || !modelName || images.length === 0}
             >
