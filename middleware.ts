@@ -11,6 +11,9 @@ const isPublicRoute = createRouteMatcher([
   '/',
   // Crucially, we need to make the uploadthing API endpoint public
   '/api/uploadthing',
+  // Add webhook routes for Astria callbacks
+  '/api/webhook/astria',
+  '/api/webhooks/astria',
 ]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
