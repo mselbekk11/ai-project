@@ -47,7 +47,8 @@ import {
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import Info from "@/components/info";
+// import Info from "@/components/info";
+import InfoFour from "@/components/info-four";
 
 export default function Home() {
   // const router = useRouter();
@@ -478,7 +479,8 @@ export default function Home() {
         ) : (
           <Card className="rounded-md h-full flex items-center justify-center bg-sidebar">
             <div className="flex items-center justify-center p-10">
-              <Info />
+              {/* <Info /> */}
+              <InfoFour />
             </div>
           </Card>
         )}
