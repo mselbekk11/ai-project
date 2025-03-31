@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 // import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
+import { Open_Sans } from "next/font/google"; // Import Open Sans
 import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -25,6 +26,12 @@ import { Toaster } from "@/components/ui/sonner";
 //   subsets: ["latin"],
 // });
 
+const openSans = Open_Sans({
+  // Initialize Open Sans
+  variable: "--font-open-sans",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Trizzy",
   description: "Try clothes before you buy, using AI ",
@@ -40,7 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${GeistSans.variable} antialiased`}>
+      <body
+        className={`${GeistSans.variable} ${openSans.variable} antialiased`}
+      >
         <ClerkProvider dynamic>
           <ConvexClientProvider>
             <ConvexClerkUserSync />

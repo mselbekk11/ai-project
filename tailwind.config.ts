@@ -12,7 +12,7 @@ export default withUt( {
   	extend: {
   		fontFamily: {
   			sans: ["var(--font-geist-sans)"],
-  			heading: ["var(--font-geist-sans)"],
+  			heading: ["var(--font-open-sans)"],
   		},
   		colors: {
   			background: 'hsl(var(--background))',
