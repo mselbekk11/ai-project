@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-// import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { Open_Sans } from "next/font/google"; // Import Open Sans
 import "./globals.css";
@@ -11,20 +10,6 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "@/components/ui/sonner";
-// import { Bricolage_Grotesque } from 'next/font/google';
-// import { cn } from '@/utils/utils';
-
-// const bg = Bricolage_Grotesque({ subsets: ['latin'] });
-
-// const bricolage = Bricolage_Grotesque({
-//   variable: "--font-bricolage",
-//   subsets: ["latin"],
-// });
-
-// const dmSans = DM_Sans({
-//   variable: "--font-dm-sans",
-//   subsets: ["latin"],
-// });
 
 const openSans = Open_Sans({
   // Initialize Open Sans
