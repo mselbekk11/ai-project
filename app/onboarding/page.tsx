@@ -26,7 +26,7 @@ export default function OnboardingComponent() {
     if (res?.message) {
       // Reloads the user's data from the Clerk API
       await user?.reload();
-      router.push("/home");
+      router.push("/train-model");
     }
     if (res?.error) {
       setError(res?.error);

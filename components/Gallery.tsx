@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Image from "next/image";
@@ -10,31 +10,52 @@ import { useUser } from "@clerk/nextjs";
 import Info from "./info";
 import InfoTwo from "./info-two";
 import InfoThree from "./info-three";
+import { Loader2 } from "lucide-react";
 
 // import { Card } from "@/components/ui/card";
 
 export default function Gallery() {
   const { user } = useUser();
+  // Track loading state
+  const [isLoading, setIsLoading] = useState(true);
+
   // Fetch generations from the database
-  const generations =
-    useQuery(api.generations.list, {
-      user_id: user?.id || "", // Use the current user's ID
-    }) || [];
+  const generations = useQuery(api.generations.list, {
+    user_id: user?.id || "",
+  });
+
   // Fetch headshot models to get the model names
-  const headshotModels =
-    useQuery(api.headshot_models.listUserModels, {
-      user_id: user?.id || "", // Use the current user's ID
-    }) || [];
+  const headshotModels = useQuery(api.headshot_models.listUserModels, {
+    user_id: user?.id || "",
+  });
+
   const [selectedGeneration, setSelectedGeneration] =
     useState<Doc<"generations"> | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const deleteGeneration = useMutation(api.generations.deleteGeneration);
 
+  // Update loading state when data is available
+  useEffect(() => {
+    if (generations !== undefined && headshotModels !== undefined) {
+      setIsLoading(false);
+    }
+  }, [generations, headshotModels]);
+
   // Log for debugging
   console.log("Headshot models:", headshotModels);
   console.log("Generations:", generations);
 
-  // Create a mapping of lora_id to model name
+  // Show loading state while data is being fetched
+  if (isLoading || generations === undefined || headshotModels === undefined) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        {/* <span className="ml-2">Loading your models...</span> */}
+      </div>
+    );
+  }
+
+  // Now we can safely work with the data
   const modelNameMap = new Map();
   headshotModels.forEach((model) => {
     if (model.lora_id !== undefined) {
