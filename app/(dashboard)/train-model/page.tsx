@@ -66,6 +66,18 @@ export default function Home() {
 
   const deleteModel = useMutation(api.headshot_models.deleteHeadshotModel);
 
+  // Helper function to convert UploadThing URL to ufsUrl format if needed
+  const convertToUfsUrl = (url: string): string => {
+    if (url.includes("ufs.sh")) return url; // Already in ufsUrl format
+
+    // Extract the file key from the URL (last part after the slash)
+    const fileKey = url.split("/").pop();
+    if (!fileKey) return url; // Return original if we can't parse
+
+    // Convert to the format seen in the logs
+    return `https://7gjsu8414g.ufs.sh/f/${fileKey}`;
+  };
+
   const handleDeleteClick = (modelId: Id<"headshot_models">) => {
     setModelToDelete(modelId);
     setDeleteDialogOpen(true);
@@ -96,15 +108,21 @@ export default function Home() {
     console.log("Form submission started"); // Debug log
 
     try {
+      // We may still need to convert URLs for your API endpoint
+      const formattedImageUrls = images.map((url) => {
+        // Only convert if not already in the correct format
+        return url.includes("ufs.sh") ? url : convertToUfsUrl(url);
+      });
+
       const formData = {
         modelName,
         gender,
         user_id: user?.id || "",
-        imageUrls: images,
+        imageUrls: formattedImageUrls,
         webhookUrl: process.env.NEXT_PUBLIC_WEBHOOK_URL,
       };
 
-      console.log("Sending request to API..."); // Debug log
+      console.log("Sending request to API...");
       const response = await fetch("/api/train-model", {
         method: "POST",
         headers: {
@@ -128,7 +146,7 @@ export default function Home() {
 
       // Clear the form
       setModelName("");
-      setGender("male");
+      setGender("Male");
       setImages([]);
 
       // Redirect to home
@@ -219,9 +237,13 @@ export default function Home() {
                     toast.error("Upload failed - no response");
                     return;
                   }
+
                   console.log("🎯 Upload complete!", res);
+
+                  // Simple URL extraction, matching your working project approach
                   const newUrls = res.map((file) => file.url);
                   console.log("📦 Received URLs:", newUrls);
+
                   setImages((prev) => {
                     const updated = [...prev, ...newUrls];
                     console.log("✅ Updated images:", updated);

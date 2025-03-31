@@ -1,38 +1,32 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from 'next/server';
 
+// Define routes that need protection
 const isProtectedRoute = createRouteMatcher(["/server"]);
+
 // Define public routes that don't require authentication
-const isPublicRoute = createRouteMatcher(['/sign-in', '/sign-up', '/']); // Added onboarding to public routes
-// Define onboarding route if you have one
-const isOnboardingRoute = createRouteMatcher(['/onboarding']);
+const isPublicRoute = createRouteMatcher([
+  '/sign-in',
+  '/sign-up',
+  '/',
+  // Crucially, we need to make the uploadthing API endpoint public
+  '/api/uploadthing',
+]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  const { userId, sessionClaims, redirectToSignIn } = await auth();
+  const { userId, redirectToSignIn } = await auth();
 
-  // For users visiting /onboarding, don't try to redirect
-  if (userId && isOnboardingRoute(req)) {
+  // Allow all public routes without redirection
+  if (isPublicRoute(req)) {
     return NextResponse.next();
   }
 
-  // If the user isn't signed in and the route is private, redirect to sign-in
-  // Temporarily disabled for development
+  // If the user isn't signed in and the route is not public, redirect to sign-in
   if (!userId && !isPublicRoute(req)) {
     return redirectToSignIn({ returnBackUrl: req.url });
   }
 
-  // Optional: Redirect users who haven't completed onboarding
-  // Uncomment if you're using onboarding functionality
-
-  // Temporarily comment out the onboarding redirect logic
-  if (userId && !sessionClaims?.metadata?.onboardingComplete) {
-    const onboardingUrl = new URL('/onboarding', req.url);
-    return NextResponse.redirect(onboardingUrl);
-  }
-  
-
-
-  // Preserve your existing protected route check
+  // Only apply additional protection to specifically protected routes
   if (isProtectedRoute(req)) {
     await auth.protect();
   }

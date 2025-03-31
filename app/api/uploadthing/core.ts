@@ -2,6 +2,7 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 
 const f = createUploadthing();
 
+// Define proper error handling and authentication
 export const ourFileRouter = {
   imageUploader: f({
     image: {
