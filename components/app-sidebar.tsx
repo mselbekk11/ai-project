@@ -46,7 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader className="h-16 border-b">
+      <SidebarHeader className="h-12 border-b p-0">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
@@ -57,9 +57,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <LogoThree />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold text-1xl font-heading">
+                  {/* <span className="font-semibold text-1xl font-heading">
                     Trizzy
-                  </span>
+                  </span> */}
                 </div>
               </Link>
             </SidebarMenuButton>

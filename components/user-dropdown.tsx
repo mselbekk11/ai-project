@@ -67,7 +67,7 @@ export default function UserDropdown() {
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className="w-full focus-visible:ring-0 data-[state=open]:bg-accent"
+            className="w-full focus-visible:ring-0 data-[state=open]:bg-accent px-2"
           >
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center gap-2">
@@ -90,7 +90,7 @@ export default function UserDropdown() {
                 </span>
               )} */}
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="center" className="w-60 border">
+        <DropdownMenuContent align="center" className="w-52 border">
           <div className="px-2 py-2">
             <p className="font-medium text-sm">{`${user?.firstName} ${user?.lastName}`}</p>
             <p className="text-xs text-gray-400">{`${user?.emailAddresses[0].emailAddress}`}</p>
