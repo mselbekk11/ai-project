@@ -11,8 +11,8 @@ export default withUt( {
   theme: {
   	extend: {
   		fontFamily: {
-  			sans: ["var(--font-dm-sans)"],
-  			heading: ["var(--font-bricolage)"],
+  			sans: ["var(--font-geist-sans)"],
+  			heading: ["var(--font-geist-sans)"],
   		},
   		colors: {
   			background: 'hsl(var(--background))',

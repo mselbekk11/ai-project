@@ -123,7 +123,7 @@ export default function HeroSectionTwo() {
                   <ArrowRight className="size-4" />
                 </Link>
 
-                <h1 className="mt-8 text-4xl font-semibold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
+                <h1 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
                   Tame the Wild West <br /> of Frontend Development
                 </h1>
                 <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-lg sm:block">

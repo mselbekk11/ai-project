@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
+// import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -14,15 +15,15 @@ import { Toaster } from "@/components/ui/sonner";
 
 // const bg = Bricolage_Grotesque({ subsets: ['latin'] });
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-});
+// const bricolage = Bricolage_Grotesque({
+//   variable: "--font-bricolage",
+//   subsets: ["latin"],
+// });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-});
+// const dmSans = DM_Sans({
+//   variable: "--font-dm-sans",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Trizzy",
@@ -39,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${bricolage.variable} ${dmSans.variable} antialiased`}>
+      <body className={`${GeistSans.variable} antialiased`}>
         <ClerkProvider dynamic>
           <ConvexClientProvider>
             <ConvexClerkUserSync />
