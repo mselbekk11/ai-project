@@ -14,6 +14,7 @@ const isPublicRoute = createRouteMatcher([
   // Add webhook routes for Astria callbacks
   '/api/webhook/astria',
   '/api/webhooks/astria',
+  '/testing',
 ]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {

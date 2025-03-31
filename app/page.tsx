@@ -1,14 +1,12 @@
 "use client";
 
 import Features from "@/components/features-1";
-import HeroSection from "@/components/hero-section";
-// import Homepage from "@/components/Homepage";
+import HeroSectionTwo from "@/components/hero-section-two";
 
 export default function Home() {
   return (
     <main className="flex flex-col h-100vh">
-      {/* <Homepage /> */}
-      <HeroSection />
+      <HeroSectionTwo />
       <Features />
     </main>
   );
