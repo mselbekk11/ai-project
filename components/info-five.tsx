@@ -4,7 +4,7 @@ import { Card, CardContent, CardTitle, CardDescription } from "./ui/card";
 
 export default function InfoFive() {
   return (
-    <div className="w-full max-w-[550px] mx-auto flex mt-20">
+    <div className="w-full max-w-[550px] mx-auto mt-20">
       <Card className="border-none shadow-none bg-sidebar">
         <CardContent className="pt-8 pb-4 px-6">
           <div className="space-y-5 text-center">
