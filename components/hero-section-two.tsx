@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import Link from "next/link";
-import { ArrowRight, Menu, Rocket, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LogoThree from "./logoThree";
 
@@ -129,7 +129,7 @@ export default function HeroSectionTwo() {
                 <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-lg sm:block">
                   Tailwindcss highly customizable components for building modern
                   websites and applications that look and feel the way you mean
-                  it.
+                  it
                 </p>
                 <p className="mx-auto mt-6 max-w-2xl text-wrap sm:hidden">
                   Highly customizable components for building modern websites
@@ -137,12 +137,14 @@ export default function HeroSectionTwo() {
                 </p>
 
                 <div className="mt-8">
-                  <Button size="lg" asChild>
-                    <Link href="#">
-                      <Rocket className="relative size-4" />
-                      <span className="text-nowrap">Start Building</span>
-                    </Link>
+                  <Button size="lg" variant="default">
+                    <Link href="#">Start Building</Link>
                   </Button>
+                  {/* <div className="group [--color-primary:var(--color-blue-600)] dark:[--color-primary-foreground:var(--color-white)]">
+                    <Button className="from-primary to-primary/85 text-primary-foreground border border-zinc-950/25 bg-gradient-to-t shadow-md shadow-zinc-950/20 ring-1 ring-inset ring-white/20 transition-[filter] duration-200 hover:brightness-110 active:brightness-90 dark:border-white/20 dark:ring-transparent">
+                      <span>Primary</span>
+                    </Button>
+                  </div> */}
                 </div>
               </div>
               {/* <div className="x-auto relative mx-auto mt-8 max-w-lg sm:mt-12">
