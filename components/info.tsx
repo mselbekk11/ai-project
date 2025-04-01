@@ -11,8 +11,8 @@ import { Upload } from "lucide-react";
 
 export default function Info() {
   return (
-    <div className="w-full max-w-md mx-auto">
-      <Card className="border-2 shadow-md">
+    <div className="w-full max-w-md mx-auto flex mt-20">
+      <Card className="border-none shadow-none bg-transparent">
         <CardContent className="pt-8 pb-4 px-6">
           <div className="space-y-5 text-center">
             <div className="flex justify-center mb-4">

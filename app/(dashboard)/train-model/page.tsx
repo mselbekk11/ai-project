@@ -388,7 +388,7 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
-      <div className="w-[70%] pr-4 py-4">
+      <div className="w-[70%] h-full pr-4 py-4">
         {models.length > 0 ? (
           <Card className="rounded-md ">
             <div className="bg-sidebar rounded-md">
@@ -478,11 +478,8 @@ export default function Home() {
             </div>
           </Card>
         ) : (
-          <Card className="rounded-md h-full flex items-center justify-center bg-sidebar">
-            <div className="flex items-center justify-center p-10">
-              {/* <Info /> */}
-              <InfoFour />
-            </div>
+          <Card className="rounded-md h-full bg-sidebar flex items-start justify-center">
+            <InfoFour />
           </Card>
         )}
       </div>

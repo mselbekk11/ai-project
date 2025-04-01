@@ -256,21 +256,23 @@ export default function Gallery() {
   if (!hasModels) {
     // Case 1: User has no models at all
     return (
-      <div className="flex justify-center items-center h-full">
+      <div className="flex h-full flex-col gap-4">
         <Info />
+        <InfoTwo />
+        <InfoThree />
       </div>
     );
   } else if (hasProcessingModel) {
     // Case 2: User has exactly one model and it's processing
     return (
-      <div className="flex justify-center items-center h-full">
+      <div className="flex h-full">
         <InfoTwo />
       </div>
     );
   } else if (hasFinishedModelButNoGenerations) {
     // Case 3: User has at least one finished model but no generations
     return (
-      <div className="flex justify-center items-center h-full">
+      <div className="flex h-full">
         <InfoThree />
       </div>
       // <div className="flex justify-center items-center h-full bg-[#F9F9F9] dark:bg-background p-4">
