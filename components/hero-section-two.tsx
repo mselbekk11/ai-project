@@ -11,7 +11,7 @@ import Link from "next/link";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LogoThree from "./logoThree";
-
+import LogoFour from "./logoFour";
 import {
   SignInButton,
   SignUpButton,
@@ -46,7 +46,7 @@ export default function HeroSectionTwo() {
                   className="flex items-center space-x-2"
                 >
                   <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-                    <LogoThree />
+                    <LogoFour />
                   </div>
                 </Link>
 
@@ -83,7 +83,7 @@ export default function HeroSectionTwo() {
                     </SignInButton>
 
                     <SignUpButton>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" className="">
                         Sign Up
                       </Button>
                     </SignUpButton>
@@ -106,39 +106,45 @@ export default function HeroSectionTwo() {
         </nav>
       </header>
       <main className="overflow-hidden">
-        <section className="relative">
-          <div className="relative py-24 lg:py-28">
+        <section className="relative border-b-2 border-b-gray-300 dark:border-gray-800 bg-white">
+          <div className="relative py-24 lg:py-28 bgpink">
             <div className="mx-auto max-w-7xl px-6 md:px-12">
               <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
-                <Link
+                {/* <Link
                   href="/"
-                  className="rounded-(--radius) mx-auto flex w-fit items-center gap-2 border p-1 pr-3"
+                  className="rounded-(--radius) mx-auto flex w-fit items-center gap-2 border p-1 pr-3 border-black"
                 >
-                  <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs">
+                  <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs bg-purple-700 text-white">
                     New
                   </span>
                   <span className="text-sm">Introduction Tailus UI Html</span>
                   <span className="bg-(--color-border) block h-4 w-px"></span>
 
                   <ArrowRight className="size-4" />
-                </Link>
-
+                </Link> */}
+                {/* 
                 <h1 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
                   Tame the Wild West <br /> of Frontend Development
+                </h1> */}
+                <h1 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
+                  Virtually Try On Any Outfit, <br /> Anytime, Anywhere
                 </h1>
                 <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-lg sm:block">
-                  Tailwindcss highly customizable components for building modern
-                  websites and applications that look and feel the way you mean
-                  it
+                  Explore a world of styles with our AI-driven platform—perfect
+                  your look before you buy! Need one more sentence here, and
+                  here
                 </p>
                 <p className="mx-auto mt-6 max-w-2xl text-wrap sm:hidden">
                   Highly customizable components for building modern websites
                   and applications, with your personal spark.
                 </p>
 
-                <div className="mt-8">
+                <div className="mt-8 flex items-center gap-4 justify-center">
                   <Button size="lg" variant="default">
                     <Link href="#">Start Building</Link>
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    <Link href="#">Watch Demo</Link>
                   </Button>
                   {/* <div className="group [--color-primary:var(--color-blue-600)] dark:[--color-primary-foreground:var(--color-white)]">
                     <Button className="from-primary to-primary/85 text-primary-foreground border border-zinc-950/25 bg-gradient-to-t shadow-md shadow-zinc-950/20 ring-1 ring-inset ring-white/20 transition-[filter] duration-200 hover:brightness-110 active:brightness-90 dark:border-white/20 dark:ring-transparent">

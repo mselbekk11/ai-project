@@ -206,8 +206,31 @@
 .bg-shapes-pattern {
   background-color: #ffffff;
   opacity: 1;
-  background: radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 80%, transparent 80%, transparent) 12.5px 12.5px, linear-gradient(#e6e6e6 1px, transparent 1px) 0 -0.5px, linear-gradient(90deg, #e6e6e6 1px, #ffffff 1px) -0.5px 0;
-  background-size: 25px 25px, 25px 25px, 12.5px 12.5px, 12.5px 12.5px;
+  background:
+    radial-gradient(
+      circle,
+      transparent 20%,
+      #ffffff 20%,
+      #ffffff 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #ffffff 20%,
+        #ffffff 80%,
+        transparent 80%,
+        transparent
+      )
+      12.5px 12.5px,
+    linear-gradient(#e6e6e6 1px, transparent 1px) 0 -0.5px,
+    linear-gradient(90deg, #e6e6e6 1px, #ffffff 1px) -0.5px 0;
+  background-size:
+    25px 25px,
+    25px 25px,
+    12.5px 12.5px,
+    12.5px 12.5px;
 }
 
 /* .containertest {
@@ -266,6 +289,24 @@
     #731fc7
   );
   background-size: 10px 100%;
+}
+
+.bgpink {
+  background-image: linear-gradient(
+    to right top,
+    rgba(248, 231, 241, 0.3),
+    rgba(238, 198, 227, 0.3),
+    rgba(244, 211, 244, 0.3),
+    rgba(224, 187, 236, 0.3),
+    rgba(212, 183, 241, 0.3),
+    rgba(216, 191, 255, 0.3),
+    rgba(194, 173, 247, 0.3),
+    rgba(182, 168, 250, 0.3),
+    rgba(176, 159, 252, 0.3),
+    rgba(191, 182, 233, 0.3),
+    rgba(163, 142, 254, 0.3),
+    rgba(156, 133, 255, 0.3)
+  );
 }
 
 @layer base {
