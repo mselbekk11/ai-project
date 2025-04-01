@@ -99,9 +99,9 @@ export default function Home() {
     }
   };
 
-  if (!models) {
-    return <div>Loading...</div>;
-  }
+  // if (!models) {
+  //   return <div>Loading...</div>;
+  // }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -389,7 +389,7 @@ export default function Home() {
         </Card>
       </div>
       <div className="w-[70%] h-full pr-4 py-4">
-        {models.length > 0 ? (
+        {models && models.length > 0 ? (
           <Card className="rounded-md ">
             <div className="bg-sidebar rounded-md">
               <Table>

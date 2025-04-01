@@ -49,7 +49,7 @@ export default function Gallery() {
   if (isLoading || generations === undefined || headshotModels === undefined) {
     return (
       <div className="flex justify-center items-center h-full">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#7B29FB]" />
         {/* <span className="ml-2">Loading your models...</span> */}
       </div>
     );
