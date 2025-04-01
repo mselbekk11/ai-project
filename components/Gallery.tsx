@@ -258,8 +258,6 @@ export default function Gallery() {
     return (
       <div className="flex h-full flex-col gap-4">
         <Info />
-        <InfoTwo />
-        <InfoThree />
       </div>
     );
   } else if (hasProcessingModel) {

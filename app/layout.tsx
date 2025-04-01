@@ -40,7 +40,7 @@ export default function RootLayout({
             <ConvexClerkUserSync />
             <ThemeProvider
               attribute="class"
-              defaultTheme="dark"
+              // defaultTheme="dark"
               enableSystem={false}
               // forcedTheme="dark"
             >

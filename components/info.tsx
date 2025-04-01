@@ -7,7 +7,8 @@ import {
   CardTitle,
   CardDescription,
 } from "./ui/card";
-import { Upload } from "lucide-react";
+import LogoThree from "./logoThree";
+// import { Upload } from "lucide-react";
 
 export default function Info() {
   return (
@@ -16,8 +17,11 @@ export default function Info() {
         <CardContent className="pt-8 pb-4 px-6">
           <div className="space-y-5 text-center">
             <div className="flex justify-center mb-4">
-              <div className="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900/30">
+              {/* <div className="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900/30">
                 <Upload className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+              </div> */}
+              <div className="w-12 h-12">
+                <LogoThree />
               </div>
             </div>
             <CardTitle className="text-xl font-semibold text-center">

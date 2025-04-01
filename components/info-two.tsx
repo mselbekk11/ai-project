@@ -1,5 +1,5 @@
+import Cog from "./cog";
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
-import { Upload } from "lucide-react";
 
 export default function InfoTwo() {
   return (
@@ -8,9 +8,7 @@ export default function InfoTwo() {
         <CardContent className="pt-8 pb-4 px-6">
           <div className="space-y-5 text-center">
             <div className="flex justify-center mb-4">
-              <div className="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900/30">
-                <Upload className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
-              </div>
+              <Cog mode="loop" size="w-12 h-12" />
             </div>
             <CardTitle className="text-xl font-semibold text-center">
               Training your first Model
