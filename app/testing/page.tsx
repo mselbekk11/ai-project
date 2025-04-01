@@ -5,7 +5,7 @@ import Pricing from "@/components/pricing";
 export default function TestingPage() {
   return (
     <div>
-      <Pricing />
+      <Pricing handleButtonClick={() => {}} />
     </div>
   );
 }

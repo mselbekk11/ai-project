@@ -14,6 +14,7 @@ import LogoThree from "./logoThree";
 // import LogoFour from "./logoFour";
 import {
   SignInButton,
+  SignOutButton,
   SignUpButton,
   SignedIn,
   SignedOut,
@@ -91,13 +92,17 @@ export default function HeroSectionTwo() {
                   <SignedIn>
                     {/* <UserButton />
                      */}
-                    <SignInButton>
-                      <Button>Sign in</Button>
-                    </SignInButton>
+                    <SignOutButton>
+                      <Button variant="outline" size="sm">
+                        Sign out
+                      </Button>
+                    </SignOutButton>
 
-                    <SignUpButton>
-                      <Button variant="outline">Sign Up</Button>
-                    </SignUpButton>
+                    <Link href="/home">
+                      <Button variant="default" size="sm">
+                        Dashboard
+                      </Button>
+                    </Link>
                   </SignedIn>
                 </div>
               </div>
