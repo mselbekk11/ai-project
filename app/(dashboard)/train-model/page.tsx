@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -60,12 +60,21 @@ export default function Home() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [modelToDelete, setModelToDelete] =
     useState<Id<"headshot_models"> | null>(null);
+  // Track data loading state
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   const models = useQuery(api.headshot_models.listUserModels, {
     user_id: user?.id ?? "",
   });
 
   const deleteModel = useMutation(api.headshot_models.deleteHeadshotModel);
+
+  // Update loading state when models data is available
+  useEffect(() => {
+    if (models !== undefined) {
+      setIsDataLoading(false);
+    }
+  }, [models]);
 
   // Helper function to convert UploadThing URL to ufsUrl format if needed
   const convertToUfsUrl = (url: string): string => {
@@ -98,10 +107,6 @@ export default function Home() {
       setModelToDelete(null);
     }
   };
-
-  // if (!models) {
-  //   return <div>Loading...</div>;
-  // }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -389,7 +394,11 @@ export default function Home() {
         </Card>
       </div>
       <div className="w-[70%] h-full pr-4 py-4">
-        {models && models.length > 0 ? (
+        {isDataLoading ? (
+          <div className="flex justify-center items-center h-full">
+            <Loader2 className="h-8 w-8 animate-spin text-[#7B29FB]" />
+          </div>
+        ) : models && models.length > 0 ? (
           <Card className="rounded-md ">
             <div className="bg-sidebar rounded-md">
               <Table>
