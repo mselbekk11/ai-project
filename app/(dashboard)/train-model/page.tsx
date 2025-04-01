@@ -15,7 +15,7 @@ import {
 import { useUser } from "@clerk/nextjs";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
-import { Upload, Trash2, Loader2 } from "lucide-react";
+import { Upload, Trash2, Loader2, CircleCheck, X } from "lucide-react";
 // import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -48,7 +48,8 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 // import Info from "@/components/info";
-import InfoFour from "@/components/info-four";
+// import InfoFour from "@/components/info-four";
+import InfoFive from "@/components/info-five";
 
 export default function Home() {
   // const router = useRouter();
@@ -200,7 +201,7 @@ export default function Home() {
   return (
     <div className="flex flex-1 h-full">
       <div className="w-[30%] p-4">
-        <Card className="p-6 rounded-md mb-4">
+        <Card className="p-4 rounded-sm mb-4">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               {/* <h2 className="text-1xl font-bold text-purple-700 mb-4">
@@ -280,7 +281,7 @@ export default function Home() {
                   mode: "auto",
                   appendOnPaste: true,
                 }}
-                className="ut-label:text-md border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-md ut-label:text-xs ut-allowed-content:text-xs"
+                className="ut-label:text-md border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-sm ut-label:text-xs ut-allowed-content:text-xs"
                 appearance={{
                   container: {
                     padding: "1rem",
@@ -315,7 +316,7 @@ export default function Home() {
                         alt={`Upload ${index + 1}`}
                         width={100}
                         height={100}
-                        className="w-full object-cover rounded-md"
+                        className="w-full object-cover rounded-sm"
                       />
                       <button
                         type="button"
@@ -341,17 +342,18 @@ export default function Home() {
             </Button>
           </form>
         </Card>
-        <Card className="rounded-md mb-4  border-2 bg-sidebar">
-          <CardHeader>
-            <CardTitle className="text-md  font-semibold font-heading text-indigo-700">
+        <Card className="rounded-sm mb-4 bg-sidebar">
+          <CardHeader className="p-4">
+            <CardTitle className="text-sm font-semibold font-heading flex items-center">
+              <CircleCheck className="w-4 h-4 mr-2 text-green-500" />
               Choose good pictures
             </CardTitle>
-            <CardDescription className="text-sm">
+            <CardDescription className="text-sm text-muted-foreground">
               5-10 high quality images, front-facing, 1 person in the frame,
               variety
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 pb-4">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
               {imageUrls.map((item, idx) => (
                 <div key={idx}>
@@ -360,23 +362,24 @@ export default function Home() {
                     alt={`Image ${idx + 1}`}
                     width={100}
                     height={100}
-                    className="rounded-md"
+                    className="rounded-sm"
                   />
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
-        <Card className="rounded-md mb-4  border-2 bg-sidebar">
-          <CardHeader>
-            <CardTitle className="text-md  font-semibold font-heading text-indigo-700">
+        <Card className="rounded-sm mb-4 bg-sidebar">
+          <CardHeader className="p-4">
+            <CardTitle className="text-sm font-semibold font-heading flex items-center">
+              <X className="w-4 h-4 mr-2 text-red-500" />
               Examples of bad pictures
             </CardTitle>
-            <CardDescription className="text-sm">
+            <CardDescription className="text-sm text-muted-foreground">
               Multiple people, blurry, uncropped, low quality
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 pb-4">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
               {badImageUrls.map((item, idx) => (
                 <div key={idx}>
@@ -385,7 +388,7 @@ export default function Home() {
                     alt={`Image ${idx + 1}`}
                     width={100}
                     height={100}
-                    className="rounded-md"
+                    className="rounded-sm"
                   />
                 </div>
               ))}
@@ -399,7 +402,7 @@ export default function Home() {
             <Loader2 className="h-8 w-8 animate-spin text-[#7B29FB]" />
           </div>
         ) : models && models.length > 0 ? (
-          <Card className="rounded-md ">
+          <Card className="rounded-sm ">
             <div className="bg-sidebar rounded-md">
               <Table>
                 <TableHeader>
@@ -487,8 +490,8 @@ export default function Home() {
             </div>
           </Card>
         ) : (
-          <Card className="rounded-md h-full bg-sidebar flex items-start justify-center">
-            <InfoFour />
+          <Card className="rounded-sm h-full bg-sidebar flex items-start justify-center">
+            <InfoFive />
           </Card>
         )}
       </div>

@@ -282,7 +282,7 @@ export default function Gallery() {
   return (
     <div className="">
       <div
-        className="grid grid-cols-1 gap-4 p-4 bg-sidebar rounded-md"
+        className="grid grid-cols-1 gap-4 p-4 bg-sidebar rounded-sm"
         style={{
           gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
         }}
@@ -290,7 +290,7 @@ export default function Gallery() {
         {generations.map((generation) => (
           <div
             key={generation._id}
-            className="relative bg-gray-100 rounded-md overflow-hidden cursor-pointer shadow-md"
+            className="relative bg-gray-100 rounded-sm overflow-hidden cursor-pointer shadow-md"
             style={{ aspectRatio: "768/1280" }}
             onClick={() => handleImageClick(generation)}
           >

@@ -122,7 +122,7 @@ export default function Home() {
     <div className="flex flex-1 h-full">
       {/* Left column - Form section (30% width) */}
       <div className="w-[30%] p-4">
-        <Card className="p-6 rounded-md sticky" style={{ top: "4rem" }}>
+        <Card className="p-4 rounded-sm sticky" style={{ top: "4rem" }}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               {/* <h2 className="text-1xl font-bold text-purple-700 mb-4">
@@ -188,7 +188,7 @@ export default function Home() {
                 id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="w-full rounded-md border border-input bg-background px-3 py-2 min-h-[100px]"
+                className="w-full rounded-sm border border-input bg-background px-3 py-2 min-h-[100px]"
                 required
               />
               <p className="text-xs text-muted-foreground">
@@ -222,7 +222,7 @@ export default function Home() {
 
       {/* Right column - Results (70% width) */}
       <div className="w-[70%] h-full py-4 pr-4">
-        <Card className="w-full h-full rounded-md bg-sidebar">
+        <Card className="w-full h-full rounded-sm bg-sidebar">
           <Gallery />
         </Card>
       </div>
