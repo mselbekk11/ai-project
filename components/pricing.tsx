@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,7 +8,11 @@ import {
 } from "@/components/ui/card";
 import { Check } from "lucide-react";
 
-export default function Pricing() {
+interface PricingProps {
+  handleButtonClick: () => void;
+}
+
+export default function Pricing({ handleButtonClick }: PricingProps) {
   return (
     <section className="py-16 md:py-32 bgpinktwo h-screen flex flex-col items-center justify-start">
       <div className="mx-auto max-w-6xl px-6 w-full">
@@ -49,8 +52,12 @@ export default function Pricing() {
             </CardContent>
 
             <CardFooter className="mt-auto">
-              <Button asChild variant="outline" className="w-full">
-                <Link href="">Get Started</Link>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={handleButtonClick}
+              >
+                Get Started
               </Button>
             </CardFooter>
           </Card>
@@ -90,8 +97,8 @@ export default function Pricing() {
               </CardContent>
 
               <CardFooter>
-                <Button asChild className="w-full">
-                  <Link href="">Get Started</Link>
+                <Button className="w-full" onClick={handleButtonClick}>
+                  Get Started
                 </Button>
               </CardFooter>
             </div>
@@ -121,8 +128,12 @@ export default function Pricing() {
             </CardContent>
 
             <CardFooter className="mt-auto">
-              <Button asChild variant="outline" className="w-full">
-                <Link href="">Get Started</Link>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={handleButtonClick}
+              >
+                Get Started
               </Button>
             </CardFooter>
           </Card>
