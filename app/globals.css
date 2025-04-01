@@ -309,6 +309,24 @@
   );
 }
 
+.bgpinktwo {
+  background-image: linear-gradient(
+    to right top,
+    rgba(248, 231, 241, 0.1),
+    rgba(238, 198, 227, 0.1),
+    rgba(244, 211, 244, 0.1),
+    rgba(224, 187, 236, 0.1),
+    rgba(212, 183, 241, 0.1),
+    rgba(216, 191, 255, 0.1),
+    rgba(194, 173, 247, 0.1),
+    rgba(182, 168, 250, 0.1),
+    rgba(176, 159, 252, 0.1),
+    rgba(191, 182, 233, 0.1),
+    rgba(163, 142, 254, 0.1),
+    rgba(156, 133, 255, 0.1)
+  );
+}
+
 @layer base {
   * {
     @apply border-border;

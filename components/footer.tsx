@@ -1,7 +1,7 @@
 // import { Logo } from '@/components/logo'
 import Link from "next/link";
-// import LogoThree from "./logoThree";
-import LogoFour from "./logoFour";
+import LogoThree from "./logoThree";
+// import LogoFour from "./logoFour";
 const links = [
   {
     title: "Features",
@@ -35,7 +35,7 @@ export default function FooterSection() {
       <div className="mx-auto max-w-5xl px-6">
         <Link href="/" aria-label="go home" className="mx-auto block size-fit">
           <div className="flex ">
-            <LogoFour />
+            <LogoThree />
           </div>
         </Link>
 

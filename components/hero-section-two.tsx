@@ -8,10 +8,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import Link from "next/link";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LogoThree from "./logoThree";
-import LogoFour from "./logoFour";
+// import LogoFour from "./logoFour";
 import {
   SignInButton,
   SignUpButton,
@@ -32,10 +32,10 @@ export default function HeroSectionTwo() {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-40 bg-white">
         <nav
           data-state={menuState && "active"}
-          className="fixed z-20 w-full border-b border-dashed bg-white backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
+          className="z-20 w-full border-b border-dashed backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
         >
           <div className="m-auto max-w-5xl px-6">
             <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
@@ -46,7 +46,7 @@ export default function HeroSectionTwo() {
                   className="flex items-center space-x-2"
                 >
                   <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-                    <LogoFour />
+                    <LogoThree />
                   </div>
                 </Link>
 

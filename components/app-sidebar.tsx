@@ -20,6 +20,7 @@ import UserDropdown from "./user-dropdown";
 // import Logo from "./logo";
 // import LogoTwo from "./logoTwo";
 import LogoThree from "./logoThree";
+// import LogoFour from "./logoFour";
 
 const data = {
   navMain: [
@@ -54,6 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
                   {/* <img src="/logo2.png" alt="Trizzy Logo" className="size-4" /> */}
                   {/* <LogoTwo /> */}
+                  {/* <LogoFour /> */}
                   <LogoThree />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
