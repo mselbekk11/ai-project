@@ -4,21 +4,12 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  // CardContent,
-  // CardDescription,
-  // CardHeader,
-  // CardTitle,
-} from "@/components/ui/card";
-// import { ImageUpload } from "@/components/image-upload";
+import { Card } from "@/components/ui/card";
 import { useUser } from "@clerk/nextjs";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import { Upload, Trash2, Loader2 } from "lucide-react";
-// import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -47,16 +38,11 @@ import {
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-// import Info from "@/components/info";
-// import InfoFour from "@/components/info-four";
 import InfoFive from "@/components/info-five";
 import GoodPictures from "@/components/good-pictures";
 import BadPictures from "@/components/bad-pictures";
-// import GoodPictures from "@/components/good-pictures";
-// import BadPictures from "@/components/bad-pictures";
 
 export default function Home() {
-  // const router = useRouter();
   const { user } = useUser();
   const [modelName, setModelName] = useState("");
   const [images, setImages] = useState<string[]>([]);
@@ -65,6 +51,7 @@ export default function Home() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [modelToDelete, setModelToDelete] =
     useState<Id<"headshot_models"> | null>(null);
+
   // Track data loading state
   const [isDataLoading, setIsDataLoading] = useState(true);
 
@@ -178,9 +165,6 @@ export default function Home() {
         <Card className="p-4 rounded-sm mb-4">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              {/* <h2 className="text-1xl font-bold text-purple-700 mb-4">
-                Train Model
-              </h2> */}
               <Label htmlFor="modelName">Model Name</Label>
               <Input
                 id="modelName"

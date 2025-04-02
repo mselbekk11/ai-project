@@ -125,9 +125,6 @@ export default function Home() {
         <Card className="p-4 rounded-sm sticky" style={{ top: "4rem" }}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              {/* <h2 className="text-1xl font-bold text-purple-700 mb-4">
-                Try something on
-              </h2> */}
               <Label htmlFor="modelSelect" className="">
                 Select Model
               </Label>

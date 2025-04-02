@@ -12,10 +12,9 @@ import InfoTwo from "./info-two";
 import InfoThree from "./info-three";
 import { Loader2 } from "lucide-react";
 
-// import { Card } from "@/components/ui/card";
-
 export default function Gallery() {
   const { user } = useUser();
+
   // Track loading state
   const [isLoading, setIsLoading] = useState(true);
 
@@ -50,7 +49,6 @@ export default function Gallery() {
     return (
       <div className="flex justify-center items-center h-full">
         <Loader2 className="h-8 w-8 animate-spin text-[#7B29FB]" />
-        {/* <span className="ml-2">Loading your models...</span> */}
       </div>
     );
   }
