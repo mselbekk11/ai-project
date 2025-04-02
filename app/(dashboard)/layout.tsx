@@ -1,6 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import Credits from "@/components/credits";
 // import NavTitle from "@/components/NavTitle";
-// import NavButton from "@/components/NavButton";
+import NavButton from "@/components/NavButton";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -37,6 +38,7 @@ export default function Page({ children }: Props) {
               </Breadcrumb>
             </div>
             {/* <NavButton /> */}
+            <Credits />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4">{children}</div>
