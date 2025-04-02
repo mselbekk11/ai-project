@@ -12,13 +12,13 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Monitor, Sun, Moon, MoreHorizontal } from "lucide-react";
-import { useUser, SignOutButton } from "@clerk/nextjs";
+import { useUser, SignOutButton, useClerk } from "@clerk/nextjs";
 
 export default function UserDropdown() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
   const { user } = useUser();
+  const { openUserProfile } = useClerk();
 
   // Ensure component is mounted to avoid hydration mismatch
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function UserDropdown() {
           // Command+Shift+P for Profile
           if (e.key === "p") {
             e.preventDefault();
-            console.log("Navigate to Profile");
+            openUserProfile();
           }
           // Command+Shift+B for Billing
           else if (e.key === "b") {
@@ -57,7 +57,7 @@ export default function UserDropdown() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [openUserProfile]);
 
   if (!mounted) return null;
 
@@ -96,19 +96,22 @@ export default function UserDropdown() {
             <p className="text-xs text-gray-400">{`${user?.emailAddresses[0].emailAddress}`}</p>
           </div>
           <DropdownMenuSeparator className="" />
-          {/* <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
+          <DropdownMenuItem
+            className="py-2 cursor-pointer flex justify-between"
+            onClick={() => openUserProfile()}
+          >
             <div className="flex items-center">
               <span>Profile</span>
             </div>
             <span className="text-xs text-gray-400">⌘ ⇧ P</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
+          {/* <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
             <div className="flex items-center">
               <span>Settings</span>
             </div>
             <span className="text-xs text-gray-400">⌘ ⇧ B</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
+          </DropdownMenuItem> */}
+          {/* <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
             <div className="flex items-center">
               <span>Billing</span>
             </div>
