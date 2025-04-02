@@ -327,7 +327,7 @@ export default function Home() {
       <div className="w-[73%] h-full pr-4 py-4">
         {isDataLoading ? (
           <div className="flex justify-center items-center h-full">
-            <Loader2 className="h-8 w-8 animate-spin text-[#7B29FB]" />
+            <Loader2 className="h-8 w-8 animate-spin text-slate-600" />
           </div>
         ) : models && models.length > 0 ? (
           <Card className="rounded-sm ">
