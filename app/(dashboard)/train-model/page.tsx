@@ -182,7 +182,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 h-full">
-      <div className="w-[30%] p-4">
+      <div className="w-[27%] p-4">
         <Card className="p-4 rounded-sm mb-4">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
@@ -324,7 +324,7 @@ export default function Home() {
         <GoodPictures />
         <BadPictures />
       </div>
-      <div className="w-[70%] h-full pr-4 py-4">
+      <div className="w-[73%] h-full pr-4 py-4">
         {isDataLoading ? (
           <div className="flex justify-center items-center h-full">
             <Loader2 className="h-8 w-8 animate-spin text-[#7B29FB]" />
