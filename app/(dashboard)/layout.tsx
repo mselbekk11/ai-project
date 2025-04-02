@@ -1,7 +1,7 @@
 "use client";
 
 import { AppSidebar } from "@/components/app-sidebar";
-import Credits from "@/components/credits";
+import CreditsBadge from "@/components/credits-badge";
 // import NavTitle from "@/components/NavTitle";
 // import NavButton from "@/components/NavButton";
 import {
@@ -23,7 +23,6 @@ type Props = {
 };
 
 export default function Page({ children }: Props) {
-
   useInitializeUser(); // This will initialize credits for new users
 
   return (
@@ -44,7 +43,8 @@ export default function Page({ children }: Props) {
               </Breadcrumb>
             </div>
             {/* <NavButton /> */}
-            <Credits />
+            {/* <Credits /> */}
+            <CreditsBadge />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4">{children}</div>
