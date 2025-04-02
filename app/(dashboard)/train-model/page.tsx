@@ -61,6 +61,15 @@ export default function Home() {
 
   const deleteModel = useMutation(api.headshot_models.deleteHeadshotModel);
 
+  // Add these mutations for credits
+  const checkCreditSufficiency = useQuery(api.credits.checkCreditSufficiency, {
+    user_id: user?.id || "",
+    modelCreditsNeeded: 1,
+    clothingCreditsNeeded: 0,
+    generationCreditsNeeded: 0,
+  });
+  const deductModelCredit = useMutation(api.credits.deductModelCredit);
+
   // Update loading state when models data is available
   useEffect(() => {
     if (models !== undefined) {
@@ -106,6 +115,18 @@ export default function Home() {
     console.log("Form submission started"); // Debug log
 
     try {
+      // Check if user has enough credits
+      if (!checkCreditSufficiency) {
+        toast.error("You don't have enough model credits");
+        setLoading(false);
+        return;
+      }
+
+      // Deduct a model credit
+      await deductModelCredit({
+        user_id: user?.id || "",
+      });
+
       // We may still need to convert URLs for your API endpoint
       const formattedImageUrls = images.map((url) => {
         // Only convert if not already in the correct format

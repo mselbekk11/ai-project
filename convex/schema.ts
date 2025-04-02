@@ -45,4 +45,12 @@ export default defineSchema({
     clothing_item: v.optional(v.string()),
   }).index("by_user", ["user_id"])
     .index("by_created", ["created_at"]),
+  credits: defineTable({
+    user_id: v.string(),
+    model_credits: v.number(),
+    clothing_credits: v.number(),
+    generation_credits: v.number(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_user_id", ["user_id"]),
 });

@@ -1,3 +1,5 @@
+"use client";
+
 import { AppSidebar } from "@/components/app-sidebar";
 import Credits from "@/components/credits";
 // import NavTitle from "@/components/NavTitle";
@@ -14,12 +16,16 @@ import {
   SidebarProvider,
   // SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useInitializeUser } from "@/hooks/useInitializeUser";
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function Page({ children }: Props) {
+
+  useInitializeUser(); // This will initialize credits for new users
+
   return (
     <SidebarProvider>
       <AppSidebar />

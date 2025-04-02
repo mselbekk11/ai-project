@@ -21,6 +21,7 @@ import {
 interface ClothingSelectorProps {
   selectedClothingId: string;
   onClothingSelect: (id: string) => void;
+  onClothingUpload?: (imageUrl: string) => Promise<boolean>;
 }
 
 const GARMENT_TYPES = [
@@ -36,6 +37,7 @@ type GarmentType = (typeof GARMENT_TYPES)[number]["value"];
 export default function ClothingSelector({
   selectedClothingId,
   onClothingSelect,
+  onClothingUpload,
 }: ClothingSelectorProps) {
   const { user } = useUser();
   const createClothingItem = useMutation(api.clothing_items.createClothingItem);
@@ -55,7 +57,15 @@ export default function ClothingSelector({
   const imagesPerPage = 8;
 
   const handleGarmentUpload = async (imageUrl: string) => {
-    // Instead of immediately training, store the URL and show the type selector
+    // Check if we should use the credit system
+    if (onClothingUpload) {
+      const canProceed = await onClothingUpload(imageUrl);
+      if (!canProceed) {
+        return; // Don't proceed if credit check failed
+      }
+    }
+
+    // Continue with existing logic
     setPendingUpload({ url: imageUrl, type: null });
     toast.success(
       "Image uploaded! Please select the garment type to begin training.",

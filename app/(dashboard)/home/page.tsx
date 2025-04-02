@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import {
   Select,
   SelectContent,
@@ -43,6 +43,26 @@ export default function Home() {
     user_id: user?.id || "",
   });
 
+  // Add mutations for credits
+  const checkClothingCredits = useQuery(api.credits.checkCreditSufficiency, {
+    user_id: user?.id || "",
+    clothingCreditsNeeded: 1,
+    modelCreditsNeeded: 0,
+    generationCreditsNeeded: 0,
+  });
+
+  const checkGenerationCredits = useQuery(api.credits.checkCreditSufficiency, {
+    user_id: user?.id || "",
+    generationCreditsNeeded: numImages,
+    modelCreditsNeeded: 0,
+    clothingCreditsNeeded: 0,
+  });
+
+  const deductClothingCredit = useMutation(api.credits.deductClothingCredit);
+  const deductGenerationCredits = useMutation(
+    api.credits.deductGenerationCredits,
+  );
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submission started");
@@ -69,17 +89,30 @@ export default function Home() {
       return;
     }
 
+    // Check if user has enough generation credits
+    if (!checkGenerationCredits) {
+      toast.error(`You need ${numImages} generation credits`);
+      setLoading(false);
+      return;
+    }
+
     // Format the IDs correctly
     const loraId = `<lora:${selectedModel.lora_id}:1.0>`;
     const faceId = `<faceid:${selectedClothing.face_id}:1.0>`;
-    const garmentType = selectedClothing.class || "clothing"; // Get the garment type from the database
-    const formattedGarmentType = garmentType.replace(/_/g, " "); // Format it for the prompt (e.g., "swimming suit")
-    const modelGender = selectedModel.gender || "person"; // Use "person" as fallback if gender is not specified
+    const garmentType = selectedClothing.class || "clothing";
+    const formattedGarmentType = garmentType.replace(/_/g, " ");
+    const modelGender = selectedModel.gender || "person";
     const fullPrompt = `${loraId} ${faceId} ${modelGender} model flux ${formattedGarmentType} ${prompt}`;
 
     console.log("Sending request with prompt:", fullPrompt);
 
     try {
+      // Deduct generation credits based on number of images requested
+      await deductGenerationCredits({
+        user_id: user?.id || "",
+        count: numImages,
+      });
+
       const response = await fetch("/api/try-on", {
         method: "POST",
         headers: {
@@ -112,9 +145,39 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Failed to generate try-on image");
+      if (error instanceof Error && error.message.includes("Insufficient")) {
+        toast.error(error.message);
+      } else {
+        toast.error("Failed to generate try-on image");
+      }
     } finally {
       setLoading(false);
+    }
+  };
+
+  // For clothing upload - add this to your clothing upload handler
+  const handleClothingUpload = async (clothingImageUrl: string) => {
+    try {
+      console.log("Checking credits for clothing upload:", clothingImageUrl);
+
+      // Check if user has enough clothing credits
+      if (!checkClothingCredits) {
+        toast.error("You don't have enough clothing credits");
+        return false;
+      }
+
+      // Deduct one clothing credit
+      await deductClothingCredit({
+        user_id: user?.id || "",
+      });
+
+      // Continue with clothing upload...
+
+      return true;
+    } catch (error) {
+      console.error("Error during clothing upload:", error);
+      toast.error("Failed to upload clothing item");
+      return false;
     }
   };
 
@@ -162,6 +225,7 @@ export default function Home() {
               <ClothingSelector
                 selectedClothingId={selectedClothingId}
                 onClothingSelect={setSelectedClothingId}
+                onClothingUpload={handleClothingUpload}
               />
             </div>
 
