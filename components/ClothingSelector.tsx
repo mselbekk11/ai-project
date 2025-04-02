@@ -57,15 +57,7 @@ export default function ClothingSelector({
   const imagesPerPage = 8;
 
   const handleGarmentUpload = async (imageUrl: string) => {
-    // Check if we should use the credit system
-    if (onClothingUpload) {
-      const canProceed = await onClothingUpload(imageUrl);
-      if (!canProceed) {
-        return; // Don't proceed if credit check failed
-      }
-    }
-
-    // Continue with existing logic
+    // Don't check credits yet, just start the upload process
     setPendingUpload({ url: imageUrl, type: null });
     toast.success(
       "Image uploaded! Please select the garment type to begin training.",
@@ -76,6 +68,14 @@ export default function ClothingSelector({
     if (!pendingUpload || !pendingUpload.type) {
       toast.error("Please select a garment type first");
       return;
+    }
+
+    // Check credits before starting the actual training
+    if (onClothingUpload) {
+      const canProceed = await onClothingUpload(pendingUpload.url);
+      if (!canProceed) {
+        return; // Don't proceed if credit check failed
+      }
     }
 
     setLoading(true);
