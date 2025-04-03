@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export default function Features() {
   return (
-    <section className="bg-zinc-50 py-16 md:py-32 dark:bg-transparent">
+    <section className="bg-background py-16 md:py-32 dark:bg-transparent">
       <div className="@container mx-auto max-w-5xl px-6">
         <div className="text-center">
           <h2 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-4xl xl:[line-height:1.125]">
