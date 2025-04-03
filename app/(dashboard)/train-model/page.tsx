@@ -325,103 +325,105 @@ export default function Home() {
         <BadPictures />
       </div>
       <div className="w-[73%] h-full pr-4 py-4">
-        {isDataLoading ? (
-          <div className="flex justify-center items-center h-full">
-            <Loader2 className="h-8 w-8 animate-spin text-slate-600" />
-          </div>
-        ) : models && models.length > 0 ? (
-          <Card className="rounded-sm ">
-            <div className="bg-sidebar rounded-md">
-              <Table>
-                <TableHeader>
-                  <TableRow className="border-b hover:bg-transparent">
-                    <TableHead className="h-12 px-4 text-sm  font-semibold">
-                      Name
-                    </TableHead>
-                    <TableHead className="h-12 px-4 text-sm font-semibold">
-                      Status
-                    </TableHead>
-                    <TableHead className="h-12 px-4 text-sm font-semibold">
-                      Type
-                    </TableHead>
-                    {/* <TableHead className="h-12 px-4 text-sm font-semibold">
+        <Card className="rounded-sm h-full p-4 bg-sidebar">
+          {isDataLoading ? (
+            <div className="flex justify-center items-center h-full">
+              <Loader2 className="h-8 w-8 animate-spin text-slate-600" />
+            </div>
+          ) : models && models.length > 0 ? (
+            <Card>
+              <div className="rounded-sm">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-b hover:bg-transparent">
+                      <TableHead className="h-12 px-4 text-sm  font-semibold">
+                        Name
+                      </TableHead>
+                      <TableHead className="h-12 px-4 text-sm font-semibold">
+                        Status
+                      </TableHead>
+                      <TableHead className="h-12 px-4 text-sm font-semibold">
+                        Type
+                      </TableHead>
+                      {/* <TableHead className="h-12 px-4 text-sm font-semibold">
                 Lora ID
               </TableHead> */}
-                    <TableHead className="h-12 px-4 text-sm font-semibold">
-                      Images
-                    </TableHead>
-                    <TableHead className="h-12 px-4 text-sm font-semibold">
-                      Actions
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody className="border-b ">
-                  {models.map((model) => (
-                    <TableRow key={model._id} className="border-b hover">
-                      <TableCell className="py-0 h-12 px-4 text-sm">
-                        {model.name}
-                      </TableCell>
-                      <TableCell className="py-0 h-12 px-4">
-                        <Badge
-                          className={`${model.status !== "processing" ? "bg-green-500 hover:bg-green-600" : ""}`}
-                        >
-                          {model.status === "processing" ? (
-                            <>
-                              <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                              processing
-                            </>
-                          ) : (
-                            (model.status ?? "processing")
-                          )}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="py-0 h-12 px-4 text-sm">
-                        {model.gender ?? "unknown"}
-                      </TableCell>
-                      {/* <TableCell className="py-0 h-12 px-4 text-sm">
+                      <TableHead className="h-12 px-4 text-sm font-semibold">
+                        Images
+                      </TableHead>
+                      <TableHead className="h-12 px-4 text-sm font-semibold">
+                        Actions
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody className="border-b ">
+                    {models.map((model) => (
+                      <TableRow key={model._id} className="border-b hover">
+                        <TableCell className="py-0 h-12 px-4 text-sm">
+                          {model.name}
+                        </TableCell>
+                        <TableCell className="py-0 h-12 px-4">
+                          <Badge
+                            className={`${model.status !== "processing" ? "bg-green-500 hover:bg-green-600" : ""}`}
+                          >
+                            {model.status === "processing" ? (
+                              <>
+                                <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                                processing
+                              </>
+                            ) : (
+                              (model.status ?? "processing")
+                            )}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="py-0 h-12 px-4 text-sm">
+                          {model.gender ?? "unknown"}
+                        </TableCell>
+                        {/* <TableCell className="py-0 h-12 px-4 text-sm">
                   {model.lora_id ? `${model.lora_id}` : "N/A"}
                 </TableCell> */}
-                      <TableCell className="py-0 h-12 px-4">
-                        <div className="flex items-center">
-                          {model.images.slice(0, 3).map((image, index) => (
-                            <Avatar
-                              key={index}
-                              className={`w-6 h-6 border  ${index > 0 ? "-ml-2" : ""}`}
-                            >
-                              <AvatarImage src={image} alt="Sample image" />
-                              <AvatarFallback>S</AvatarFallback>
-                            </Avatar>
-                          ))}
-                          {model.images.length > 3 && (
-                            <Avatar className="w-6 h-6 -ml-2 ">
-                              <AvatarFallback className="text-xs">
-                                +{model.images.length - 3}
-                              </AvatarFallback>
-                            </Avatar>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell className="py-0 h-12 px-4">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleDeleteClick(model._id)}
-                          className="h-8 w-8 text-destructive hover:text-destructive/90"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                        <TableCell className="py-0 h-12 px-4">
+                          <div className="flex items-center">
+                            {model.images.slice(0, 3).map((image, index) => (
+                              <Avatar
+                                key={index}
+                                className={`w-6 h-6 border  ${index > 0 ? "-ml-2" : ""}`}
+                              >
+                                <AvatarImage src={image} alt="Sample image" />
+                                <AvatarFallback>S</AvatarFallback>
+                              </Avatar>
+                            ))}
+                            {model.images.length > 3 && (
+                              <Avatar className="w-6 h-6 -ml-2 ">
+                                <AvatarFallback className="text-xs">
+                                  +{model.images.length - 3}
+                                </AvatarFallback>
+                              </Avatar>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell className="py-0 h-12 px-4">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleDeleteClick(model._id)}
+                            className="h-8 w-8 text-destructive hover:text-destructive/90"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </Card>
+          ) : (
+            <div className=" h-full flex items-start justify-center">
+              <InfoFive />
             </div>
-          </Card>
-        ) : (
-          <Card className="rounded-sm h-full bg-sidebar flex items-start justify-center">
-            <InfoFive />
-          </Card>
-        )}
+          )}
+        </Card>
       </div>
 
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
