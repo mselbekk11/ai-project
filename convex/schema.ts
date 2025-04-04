@@ -55,18 +55,16 @@ export default defineSchema({
     .index("by_user_id", ["user_id"]),
   credit_transactions: defineTable({
     user_id: v.string(),
+    transaction_type: v.string(),
     transaction_date: v.number(),
-    amount_paid: v.number(),
-    // currency: v.string(),
-    model_credits: v.number(),
-    clothing_credits: v.number(),
-    generation_credits: v.number(),
-    // package_name: v.string(),
-    stripe_session_id: v.string(),
+    amount_paid: v.optional(v.number()),
+    model_credits: v.optional(v.number()),
+    clothing_credits: v.optional(v.number()),
+    generation_credits: v.optional(v.number()),
+    source: v.string(),
+    stripe_session_id: v.optional(v.string()),
     stripe_payment_intent_id: v.optional(v.string()),
-    // is_onboarding: v.boolean(),
+    metadata: v.optional(v.any()),
   })
-    .index("by_user_id", ["user_id"])
-    .index("by_date", ["transaction_date"])
-    .index("by_stripe_session", ["stripe_session_id"]),
+    .index("by_user_id", ["user_id"]),
 });

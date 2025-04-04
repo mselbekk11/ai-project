@@ -134,23 +134,35 @@ export const checkCreditSufficiency = query({
 export const deductModelCredit = mutation({
   args: { user_id: v.string() },
   handler: async (ctx, args) => {
-    const { user_id } = args;
-    
-    const credits = await ctx.db
+    const user = await ctx.db
       .query("credits")
-      .withIndex("by_user_id", (q) => q.eq("user_id", user_id))
-      .first();
-    
-    if (!credits || credits.model_credits < 1) {
+      .withIndex("by_user_id", (q) => q.eq("user_id", args.user_id))
+      .unique();
+
+    if (!user) {
+      throw new Error("User credits not found");
+    }
+
+    if (user.model_credits < 1) {
       throw new Error("Insufficient model credits");
     }
-    
-    await ctx.db.patch(credits._id, {
-      model_credits: credits.model_credits - 1,
-      updatedAt: Date.now(),
+
+    const updatedUserCredits = await ctx.db.patch(user._id, {
+      model_credits: user.model_credits - 1,
     });
     
-    return true;
+    // Log the transaction
+    await ctx.db.insert("credit_transactions", {
+      user_id: args.user_id,
+      transaction_type: "usage",
+      transaction_date: Date.now(),
+      model_credits: -1, // Negative to indicate usage
+      source: "app_usage",
+      stripe_session_id: undefined,
+      metadata: { feature: "model_creation" },
+    });
+    
+    return updatedUserCredits;
   },
 });
 
@@ -158,49 +170,157 @@ export const deductModelCredit = mutation({
 export const deductClothingCredit = mutation({
   args: { user_id: v.string() },
   handler: async (ctx, args) => {
-    const { user_id } = args;
-    
-    const credits = await ctx.db
+    const user = await ctx.db
       .query("credits")
-      .withIndex("by_user_id", (q) => q.eq("user_id", user_id))
-      .first();
-    
-    if (!credits || credits.clothing_credits < 1) {
+      .withIndex("by_user_id", (q) => q.eq("user_id", args.user_id))
+      .unique();
+
+    if (!user) {
+      throw new Error("User credits not found");
+    }
+
+    if (user.clothing_credits < 1) {
       throw new Error("Insufficient clothing credits");
     }
-    
-    await ctx.db.patch(credits._id, {
-      clothing_credits: credits.clothing_credits - 1,
-      updatedAt: Date.now(),
+
+    const updatedUserCredits = await ctx.db.patch(user._id, {
+      clothing_credits: user.clothing_credits - 1,
     });
     
-    return true;
+    // Log the transaction
+    await ctx.db.insert("credit_transactions", {
+      user_id: args.user_id,
+      transaction_type: "usage",
+      transaction_date: Date.now(),
+      clothing_credits: -1,
+      source: "app_usage",
+      stripe_session_id: undefined,
+      metadata: { feature: "clothing_upload" },
+    });
+    
+    return updatedUserCredits;
   },
 });
 
 // Specialized function to deduct generation credits
 export const deductGenerationCredits = mutation({
-  args: { 
-    user_id: v.string(),
-    count: v.number(), 
-  },
+  args: { user_id: v.string(), count: v.number() },
   handler: async (ctx, args) => {
-    const { user_id, count } = args;
-    
-    const credits = await ctx.db
+    const user = await ctx.db
       .query("credits")
-      .withIndex("by_user_id", (q) => q.eq("user_id", user_id))
-      .first();
-    
-    if (!credits || credits.generation_credits < count) {
-      throw new Error(`Insufficient generation credits. Need ${count} credits.`);
+      .withIndex("by_user_id", (q) => q.eq("user_id", args.user_id))
+      .unique();
+
+    if (!user) {
+      throw new Error("User credits not found");
     }
-    
-    await ctx.db.patch(credits._id, {
-      generation_credits: credits.generation_credits - count,
-      updatedAt: Date.now(),
+
+    if (user.generation_credits < args.count) {
+      throw new Error("Insufficient generation credits");
+    }
+
+    const updatedUserCredits = await ctx.db.patch(user._id, {
+      generation_credits: user.generation_credits - args.count,
     });
     
-    return true;
+    // Log the transaction
+    await ctx.db.insert("credit_transactions", {
+      user_id: args.user_id,
+      transaction_type: "usage",
+      transaction_date: Date.now(),
+      generation_credits: -args.count,
+      source: "app_usage",
+      stripe_session_id: undefined,
+      metadata: { feature: "image_generation", count: args.count },
+    });
+    
+    return updatedUserCredits;
+  },
+});
+
+// Function to log credit transactions
+export const logCreditTransaction = mutation({
+  args: {
+    user_id: v.string(),
+    transaction_type: v.string(),
+    amount_paid: v.optional(v.number()),
+    model_credits: v.optional(v.number()),
+    clothing_credits: v.optional(v.number()),
+    generation_credits: v.optional(v.number()),
+    source: v.string(),
+    stripe_session_id: v.optional(v.string()),
+    stripe_payment_intent_id: v.optional(v.string()),
+    metadata: v.optional(v.any()),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("credit_transactions", {
+      user_id: args.user_id,
+      transaction_type: args.transaction_type,
+      transaction_date: Date.now(),
+      amount_paid: args.amount_paid,
+      model_credits: args.model_credits,
+      clothing_credits: args.clothing_credits,
+      generation_credits: args.generation_credits,
+      source: args.source,
+      stripe_session_id: args.stripe_session_id,
+      stripe_payment_intent_id: args.stripe_payment_intent_id,
+      metadata: args.metadata,
+    });
+  },
+});
+
+// Add a query to get user transaction history
+export const getUserTransactionHistory = query({
+  args: { user_id: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("credit_transactions")
+      .withIndex("by_user_id", (q) => q.eq("user_id", args.user_id))
+      .order("desc")
+      .collect();
+  },
+});
+
+// Test function to directly insert a transaction
+export const testInsertTransaction = mutation({
+  args: { user_id: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("credit_transactions", {
+      user_id: args.user_id,
+      transaction_type: "test",
+      transaction_date: Date.now(),
+      amount_paid: 0,
+      model_credits: 1,
+      clothing_credits: 1,
+      generation_credits: 1,
+      source: "test",
+      stripe_session_id: "test_session",
+      metadata: { test: true }
+    });
+  },
+});
+
+// Test function to directly add a transaction record
+export const testAddTransaction = mutation({
+  args: {},
+  handler: async (ctx) => {
+    try {
+      const id = await ctx.db.insert("credit_transactions", {
+        user_id: "test_user_id",
+        transaction_type: "test",
+        transaction_date: Date.now(),
+        amount_paid: 19.99,
+        model_credits: 1,
+        clothing_credits: 20,
+        generation_credits: 20,
+        source: "test",
+        stripe_session_id: "test_session",
+        metadata: { test: true }
+      });
+      return { success: true, id };
+    } catch (error) {
+      console.error("Test transaction insert failed:", error);
+      return { success: false, error: String(error) };
+    }
   },
 });
