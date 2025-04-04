@@ -241,9 +241,10 @@ export default function Gallery() {
   // Check if the user has any models
   const hasModels = headshotModels.length > 0;
 
-  // Check if the user has exactly one model that's in "processing" status
-  const hasProcessingModel =
-    headshotModels.length === 1 && headshotModels[0].status === "processing";
+  // Check if the user has any processing models but no finished models
+  const hasProcessingModelsOnly =
+    headshotModels.some((model) => model.status === "processing") &&
+    !headshotModels.some((model) => model.status === "finished");
 
   // Check if the user has at least one finished model but no generations
   const hasFinishedModelButNoGenerations =
@@ -258,8 +259,8 @@ export default function Gallery() {
         <Info />
       </div>
     );
-  } else if (hasProcessingModel) {
-    // Case 2: User has exactly one model and it's processing
+  } else if (hasProcessingModelsOnly) {
+    // Case 2: User has processing models but no finished ones
     return (
       <div className="flex h-full">
         <InfoTwo />
