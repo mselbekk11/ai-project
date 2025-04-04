@@ -15,6 +15,9 @@ const isPublicRoute = createRouteMatcher([
   '/api/webhook/astria',
   '/api/webhooks/astria',
   '/testing',
+  // Add onboarding success page to handle Stripe redirects
+  '/onboarding/success',
+  '/api/webhooks/stripe',
 ]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {

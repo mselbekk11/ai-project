@@ -6,13 +6,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 
 interface PricingProps {
-  handleButtonClick: () => void;
+  handlePurchase: (plan: string) => Promise<void>;
+  isProcessing: boolean;
+  processingPlan: string | null;
 }
 
-export default function Pricing({ handleButtonClick }: PricingProps) {
+export default function Pricing({
+  handlePurchase,
+  isProcessing,
+  processingPlan,
+}: PricingProps) {
   return (
     <section className="py-16 md:py-32 bgpinktwo h-screen flex flex-col items-center justify-start">
       <div className="mx-auto max-w-6xl px-6 w-full">
@@ -22,7 +28,8 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
           </h1>
           <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-md sm:block">
             Pay once, no subscriptions or hidden fees. We offer no trial due to
-            high costs, <br /> but we will refund you if your unsatisfied.
+            high costs, <br /> but we will refund you if you&apos;re
+            unsatisfied.
           </p>
         </div>
 
@@ -31,7 +38,6 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
             <CardHeader>
               <CardTitle className="font-medium">Starter</CardTitle>
               <span className="my-3 block text-2xl font-semibold">$19</span>
-              {/* <CardDescription className="text-sm">Per editor</CardDescription> */}
             </CardHeader>
 
             <CardContent className="space-y-4">
@@ -39,9 +45,9 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
 
               <ul className="list-outside space-y-3 text-sm">
                 {[
-                  "Basic Analytics Dashboard",
-                  "5GB Cloud Storage",
-                  "Email and Chat Support",
+                  "1 Model Credit",
+                  "20 Clothing Credits",
+                  "20 Generation Credits",
                 ].map((item, index) => (
                   <li key={index} className="flex items-center gap-2">
                     <Check className="size-3" />
@@ -55,15 +61,23 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={handleButtonClick}
+                onClick={() => handlePurchase("starter")}
+                disabled={isProcessing}
               >
-                Get Started
+                {isProcessing && processingPlan === "starter" ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Get Started"
+                )}
               </Button>
             </CardFooter>
           </Card>
 
           <Card className="relative">
-            <span className="bg-purple-600 absolute inset-x-0 -top-3 mx-auto flex h-6 w-fit items-center rounded-full  px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/40 ring-offset-1 ring-offset-gray-950/5">
+            <span className="bg-purple-600 absolute inset-x-0 -top-3 mx-auto flex h-6 w-fit items-center rounded-full px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/40 ring-offset-1 ring-offset-gray-950/5">
               Popular
             </span>
 
@@ -77,16 +91,10 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
                 <hr className="border-dashed" />
                 <ul className="list-outside space-y-3 text-sm">
                   {[
-                    "Everything in Free Plan",
-                    "5GB Cloud Storage",
-                    "Email and Chat Support",
-                    "Access to Community Forum",
-                    "Single User Access",
-                    "Access to Basic Templates",
-                    "Mobile App Access",
-                    "1 Custom Report Per Month",
-                    "Monthly Product Updates",
-                    "Standard Security Features",
+                    "2 Model Credits",
+                    "40 Clothing Credits",
+                    "40 Generation Credits",
+                    "Priority Support",
                   ].map((item, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <Check className="size-3" />
@@ -97,8 +105,19 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
               </CardContent>
 
               <CardFooter>
-                <Button className="w-full" onClick={handleButtonClick}>
-                  Get Started
+                <Button
+                  className="w-full"
+                  onClick={() => handlePurchase("pro")}
+                  disabled={isProcessing}
+                >
+                  {isProcessing && processingPlan === "pro" ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    "Get Started"
+                  )}
                 </Button>
               </CardFooter>
             </div>
@@ -115,9 +134,11 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
 
               <ul className="list-outside space-y-3 text-sm">
                 {[
-                  "Everything in Pro Plan",
-                  "5GB Cloud Storage",
-                  "Email and Chat Support",
+                  "3 Model Credits",
+                  "60 Clothing Credits",
+                  "60 Generation Credits",
+                  "Priority Support",
+                  "Early Access to New Features",
                 ].map((item, index) => (
                   <li key={index} className="flex items-center gap-2">
                     <Check className="size-3" />
@@ -131,9 +152,17 @@ export default function Pricing({ handleButtonClick }: PricingProps) {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={handleButtonClick}
+                onClick={() => handlePurchase("premium")}
+                disabled={isProcessing}
               >
-                Get Started
+                {isProcessing && processingPlan === "premium" ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Get Started"
+                )}
               </Button>
             </CardFooter>
           </Card>

@@ -1,60 +1,61 @@
 "use client";
 
-import * as React from "react";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { completeOnboarding } from "./_actions";
-
+import { useState } from "react";
 import Pricing from "@/components/pricing";
+import { useUser } from "@clerk/nextjs";
+import { toast } from "sonner";
 
-export default function OnboardingComponent() {
-  const [error, setError] = React.useState("");
+export default function OnboardingPage() {
   const { user } = useUser();
-  const router = useRouter();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [processingPlan, setProcessingPlan] = useState<string | null>(null);
 
-  const handleSubmit = async (formData: FormData) => {
-    const res = await completeOnboarding(formData);
-    if (res?.message) {
-      // Reloads the user's data from the Clerk API
-      await user?.reload();
-      router.push("/train-model");
+  const handlePurchase = async (plan: string) => {
+    if (!user) {
+      toast.error("Please sign in to continue");
+      return;
     }
-    if (res?.error) {
-      setError(res?.error);
-      console.log(error);
+
+    setIsProcessing(true);
+    setProcessingPlan(plan);
+
+    try {
+      // Call your API to create a checkout session
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          plan,
+          userId: user.id,
+          isOnboarding: true,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong");
+      }
+
+      // Redirect to Stripe Checkout
+      window.location.href = data.url;
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Failed to process payment. Please try again.");
+      setIsProcessing(false);
+      setProcessingPlan(null);
     }
   };
 
-  const handleButtonClick = () => {
-    // Create an empty FormData object
-    const formData = new FormData();
-    // You can add any default values if needed
-    // formData.append("key", "value");
-    handleSubmit(formData);
-  };
-
-  return <Pricing handleButtonClick={handleButtonClick} />;
-}
-
-// onClick={handleButtonClick}
-
-{
-  /* <div>
-      <h1>Welcome</h1>
-      <form action={handleSubmit}>
-        <div>
-          <label>Application Name</label>
-          <p>Enter the name of your application.</p>
-          <input type="text" name="applicationName" required />
-        </div>
-
-        <div>
-          <label>Application Type</label>
-          <p>Describe the type of your application.</p>
-          <input type="text" name="applicationType" required />
-        </div>
-        {error && <p className="text-red-600">Error: {error}</p>}
-        <button type="submit">Submit</button>
-      </form>
-    </div> */
+  return (
+    <div className="min-h-screen">
+      <Pricing
+        handlePurchase={handlePurchase}
+        isProcessing={isProcessing}
+        processingPlan={processingPlan}
+      />
+    </div>
+  );
 }
