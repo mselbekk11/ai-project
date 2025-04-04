@@ -16,12 +16,12 @@ export function useInitializeUser() {
   useEffect(() => {
     // Only run if user is loaded and we have a userId
     if (isLoaded && userId && existingCredits === undefined) {
-      // Initialize with default credits (new user or first login)
+      // Initialize with zero credits - user will get credits after payment
       initializeUserCredits({
         user_id: userId,
-        model_credits: 3,     // Give 3 model credits 
-        clothing_credits: 5,  // Give 5 clothing credits
-        generation_credits: 10 // Give 10 generation credits
+        model_credits: 0,
+        clothing_credits: 0,
+        generation_credits: 0
       });
     }
   }, [isLoaded, userId, existingCredits, initializeUserCredits]);
