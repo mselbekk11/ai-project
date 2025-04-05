@@ -8,33 +8,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-// import LogoThree from "./logoThree";
-// import LogoFour from "./logoFour";
-import {
-  SignInButton,
-  SignOutButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  // UserButton,
-} from "@clerk/nextjs";
-import LogoFive from "./logoFive";
-
-const menuItems = [
-  { name: "Features", href: "#" },
-  { name: "Solution", href: "#" },
-  { name: "Pricing", href: "#" },
-  { name: "About", href: "#" },
-];
+import Navigation from "./navigation";
 
 export default function HeroSectionTwo() {
   const [menuState, setMenuState] = React.useState(false);
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white">
+      {/* <header className="sticky top-0 z-40 bg-white">
         <nav
           data-state={menuState && "active"}
           className="z-20 w-full border-b border-dashed backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
@@ -48,7 +30,6 @@ export default function HeroSectionTwo() {
                   className="flex items-center space-x-2"
                 >
                   <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-                    {/* <LogoThree /> */}
                     <LogoFive />
                   </div>
                   <span className="font-extrabold text-1xl text-slate-800">
@@ -95,8 +76,6 @@ export default function HeroSectionTwo() {
                     </SignUpButton>
                   </SignedOut>
                   <SignedIn>
-                    {/* <UserButton />
-                     */}
                     <SignOutButton>
                       <Button variant="outline" size="sm">
                         Sign out
@@ -114,10 +93,11 @@ export default function HeroSectionTwo() {
             </div>
           </div>
         </nav>
-      </header>
+      </header> */}
+      <Navigation menuState={menuState} setMenuState={setMenuState} />
       <main className="overflow-hidden">
         <section className="relative border-b-2 border-b-gray-300 dark:border-gray-800 bg-white">
-          <div className="relative py-24 lg:py-28 bgpink">
+          <div className="relative py-24 lg:py-48 bgpink">
             <div className="mx-auto max-w-7xl px-6 md:px-12">
               <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
                 {/* <Link
