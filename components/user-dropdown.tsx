@@ -13,6 +13,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Monitor, Sun, Moon, MoreHorizontal } from "lucide-react";
 import { useUser, SignOutButton, useClerk } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function UserDropdown() {
   const { theme, setTheme } = useTheme();
@@ -105,12 +106,14 @@ export default function UserDropdown() {
             </div>
             <span className="text-xs text-gray-400">⌘ ⇧ P</span>
           </DropdownMenuItem>
-          {/* <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
-            <div className="flex items-center">
-              <span>Settings</span>
-            </div>
-            <span className="text-xs text-gray-400">⌘ ⇧ B</span>
-          </DropdownMenuItem> */}
+          <Link href="/credits">
+            <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
+              <div className="flex items-center">
+                <span>Credits</span>
+              </div>
+              <span className="text-xs text-gray-400">⌘ ⇧ B</span>
+            </DropdownMenuItem>
+          </Link>
           {/* <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
             <div className="flex items-center">
               <span>Billing</span>

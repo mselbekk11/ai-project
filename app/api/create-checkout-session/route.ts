@@ -73,8 +73,8 @@ export async function POST(request: Request) {
       ],
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}${
-        isOnboarding ? "/onboarding/success" : "/buy-credits/success"
-      }?session_id={CHECKOUT_SESSION_ID}`,
+        isOnboarding ? "/onboarding/success" : "/home"
+      }${isOnboarding ? "?session_id={CHECKOUT_SESSION_ID}" : ""}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}${
         isOnboarding ? "/onboarding" : "/buy-credits"
       }`,
