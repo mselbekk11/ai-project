@@ -1,6 +1,7 @@
 // import { Logo } from '@/components/logo'
 import Link from "next/link";
-import LogoThree from "./logoThree";
+// import LogoThree from "./logoThree";
+import LogoFive from "./logoFive";
 // import LogoFour from "./logoFour";
 const links = [
   {
@@ -34,8 +35,8 @@ export default function FooterSection() {
     <footer className="py-16 md:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <Link href="/" aria-label="go home" className="mx-auto block size-fit">
-          <div className="flex ">
-            <LogoThree />
+          <div className="flex aspect-square size-14 items-center justify-center">
+            <LogoFive />
           </div>
         </Link>
 

@@ -19,7 +19,8 @@ import { House, Brain } from "lucide-react";
 import UserDropdown from "./user-dropdown";
 // import Logo from "./logo";
 // import LogoTwo from "./logoTwo";
-import LogoThree from "./logoThree";
+// import LogoThree from "./logoThree";
+import LogoFive from "./logoFive";
 // import LogoFour from "./logoFour";
 
 const data = {
@@ -56,7 +57,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   {/* <img src="/logo2.png" alt="Trizzy Logo" className="size-4" /> */}
                   {/* <LogoTwo /> */}
                   {/* <LogoFour /> */}
-                  <LogoThree />
+                  {/* <LogoThree /> */}
+                  <LogoFive />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   {/* <span className="font-semibold text-1xl font-heading">

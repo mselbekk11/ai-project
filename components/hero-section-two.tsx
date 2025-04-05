@@ -10,7 +10,7 @@ import "swiper/css/effect-coverflow";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import LogoThree from "./logoThree";
+// import LogoThree from "./logoThree";
 // import LogoFour from "./logoFour";
 import {
   SignInButton,
@@ -20,6 +20,7 @@ import {
   SignedOut,
   // UserButton,
 } from "@clerk/nextjs";
+import LogoFive from "./logoFive";
 
 const menuItems = [
   { name: "Features", href: "#" },
@@ -47,8 +48,12 @@ export default function HeroSectionTwo() {
                   className="flex items-center space-x-2"
                 >
                   <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-                    <LogoThree />
+                    {/* <LogoThree /> */}
+                    <LogoFive />
                   </div>
+                  <span className="font-extrabold text-1xl text-slate-800">
+                    Trizzy
+                  </span>
                 </Link>
 
                 <button
