@@ -53,141 +53,143 @@ export default function BuyCredits() {
   };
 
   return (
-    <div className="container py-10">
-      <h1 className="text-3xl font-bold mb-6">Buy Credits</h1>
+    <section className="h-full flex flex-col items-center justify-start  p-4">
+      <Card className="w-full h-full bg-sidebar">
+        <div className="mx-auto max-w-6xl px-6 w-full">
+          <div className="mt-8 grid gap-6 md:mt-20 md:grid-cols-3">
+            <Card className="flex flex-col">
+              <CardHeader>
+                <CardTitle className="font-medium">Starter</CardTitle>
+                <span className="my-3 block text-2xl font-semibold">$19</span>
+              </CardHeader>
 
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Your current credits</h2>
-        {/* <Credits /> */}
-      </div>
+              <CardContent className="flex-grow space-y-4">
+                <hr className="border-dashed" />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="flex flex-col">
-          <CardHeader>
-            <CardTitle className="font-medium">Starter Package</CardTitle>
-            <span className="my-3 block text-2xl font-semibold">$19</span>
-          </CardHeader>
+                <ul className="list-outside space-y-3 text-sm">
+                  {[
+                    "1 Model Credit",
+                    "20 Clothing Credits",
+                    "20 Generation Credits",
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-center gap-2">
+                      <Check className="size-3" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
 
-          <CardContent className="space-y-4">
-            <hr className="border-dashed" />
-            <ul className="list-outside space-y-3 text-sm">
-              {[
-                "1 Model Credit",
-                "20 Clothing Credits",
-                "20 Generation Credits",
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <Check className="size-3" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
+              <CardFooter>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => handleBuyCredits("starter")}
+                  disabled={isProcessing}
+                >
+                  {processingPlan === "starter" ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    "Buy Now"
+                  )}
+                </Button>
+              </CardFooter>
+            </Card>
 
-          <CardFooter className="mt-auto">
-            <Button
-              className="w-full"
-              onClick={() => handleBuyCredits("starter")}
-              disabled={isProcessing}
-            >
-              {processingPlan === "starter" ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                "Buy Now"
-              )}
-            </Button>
-          </CardFooter>
-        </Card>
+            <Card className="relative flex flex-col">
+              <span className="bg-purple-600 absolute inset-x-0 -top-3 mx-auto flex h-6 w-fit items-center rounded-full px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/40 ring-offset-1 ring-offset-gray-950/5">
+                Popular
+              </span>
 
-        <Card className="flex flex-col border-purple-500">
-          <div className="absolute -top-3 right-5 bg-purple-500 text-white px-3 py-1 text-xs rounded-full">
-            Best Value
+              <CardHeader>
+                <CardTitle className="font-medium">Pro</CardTitle>
+                <span className="my-3 block text-2xl font-semibold">$29</span>
+              </CardHeader>
+
+              <CardContent className="flex-grow space-y-4">
+                <hr className="border-dashed" />
+                <ul className="list-outside space-y-3 text-sm">
+                  {[
+                    "2 Model Credits",
+                    "40 Clothing Credits",
+                    "40 Generation Credits",
+                    "Priority Support",
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-center gap-2">
+                      <Check className="size-3" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  onClick={() => handleBuyCredits("pro")}
+                  disabled={isProcessing}
+                >
+                  {processingPlan === "pro" ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    "Buy Now"
+                  )}
+                </Button>
+              </CardFooter>
+            </Card>
+
+            <Card className="flex flex-col">
+              <CardHeader>
+                <CardTitle className="font-medium">Premium</CardTitle>
+                <span className="my-3 block text-2xl font-semibold">$49</span>
+              </CardHeader>
+
+              <CardContent className="flex-grow space-y-4">
+                <hr className="border-dashed" />
+
+                <ul className="list-outside space-y-3 text-sm">
+                  {[
+                    "3 Model Credits",
+                    "60 Clothing Credits",
+                    "60 Generation Credits",
+                    "Priority Support",
+                    "Early Access to New Features",
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-center gap-2">
+                      <Check className="size-3" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+
+              <CardFooter>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => handleBuyCredits("premium")}
+                  disabled={isProcessing}
+                >
+                  {processingPlan === "premium" ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    "Buy Now"
+                  )}
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
-          <CardHeader>
-            <CardTitle className="font-medium">Pro Package</CardTitle>
-            <span className="my-3 block text-2xl font-semibold">$29</span>
-          </CardHeader>
-
-          <CardContent className="space-y-4">
-            <hr className="border-dashed" />
-            <ul className="list-outside space-y-3 text-sm">
-              {[
-                "2 Model Credits",
-                "40 Clothing Credits",
-                "40 Generation Credits",
-                "Priority Support",
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <Check className="size-3" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-
-          <CardFooter className="mt-auto">
-            <Button
-              className="w-full"
-              onClick={() => handleBuyCredits("pro")}
-              disabled={isProcessing}
-            >
-              {processingPlan === "pro" ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                "Buy Now"
-              )}
-            </Button>
-          </CardFooter>
-        </Card>
-
-        <Card className="flex flex-col">
-          <CardHeader>
-            <CardTitle className="font-medium">Premium Package</CardTitle>
-            <span className="my-3 block text-2xl font-semibold">$49</span>
-          </CardHeader>
-
-          <CardContent className="space-y-4">
-            <hr className="border-dashed" />
-            <ul className="list-outside space-y-3 text-sm">
-              {[
-                "3 Model Credits",
-                "60 Clothing Credits",
-                "60 Generation Credits",
-                "Priority Support",
-                "Early Access to New Features",
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <Check className="size-3" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-
-          <CardFooter className="mt-auto">
-            <Button
-              className="w-full"
-              onClick={() => handleBuyCredits("premium")}
-              disabled={isProcessing}
-            >
-              {processingPlan === "premium" ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                "Buy Now"
-              )}
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    </div>
+        </div>
+      </Card>
+    </section>
   );
 }

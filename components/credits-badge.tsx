@@ -21,6 +21,7 @@ import { Loader2 } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import Link from "next/link";
 
 export default function CreditsBadge() {
   const [isOpen, setIsOpen] = useState(false);
@@ -104,9 +105,11 @@ export default function CreditsBadge() {
             </div>
           </div>
           <div className="border-t p-3">
-            <Button size="sm" className="w-full">
-              Buy More Credits
-            </Button>
+            <Link href="/credits">
+              <Button size="sm" className="w-full">
+                Buy More Credits
+              </Button>
+            </Link>
           </div>
         </PopoverContent>
       </Popover>
