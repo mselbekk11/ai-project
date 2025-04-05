@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import {
   Tooltip,
-  TooltipContent,
+  // TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
@@ -41,7 +41,7 @@ export default function CreditsBadge() {
     return (
       <div className="flex items-center space-x-2">
         <Loader2 className="h-4 w-4 animate-spin" />
-        <span>Loading credits...</span>
+        {/* <span>Loading credits...</span> */}
       </div>
     );
   }
@@ -62,9 +62,9 @@ export default function CreditsBadge() {
               </Button>
             </PopoverTrigger>
           </TooltipTrigger>
-          <TooltipContent side="bottom" className="text-xs">
+          {/* <TooltipContent side="bottom" className="text-xs">
             Your credits
-          </TooltipContent>
+          </TooltipContent> */}
         </Tooltip>
         <PopoverContent className="w-64 p-0" align="end">
           <div className="flex flex-col space-y-1 p-3">
@@ -105,7 +105,7 @@ export default function CreditsBadge() {
             </div>
           </div>
           <div className="border-t p-3">
-            <Link href="/credits">
+            <Link href="/credits" onClick={() => setIsOpen(false)}>
               <Button size="sm" className="w-full">
                 Buy More Credits
               </Button>
