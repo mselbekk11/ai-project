@@ -4,14 +4,14 @@
 // import ButtonsPage from "@/components/test";
 import Features from "@/components/features-1";
 import FooterSection from "@/components/footer";
-import HeroSectionThree from "@/components/hero-section-three";
+// import HeroSectionThree from "@/components/hero-section-three";
 import HeroSectionTwo from "@/components/hero-section-two";
 
 export default function Home() {
   return (
     <main className="flex flex-col h-100vh">
       <HeroSectionTwo />
-      <HeroSectionThree />
+      {/* <HeroSectionThree /> */}
       <Features />
       <FooterSection />
       {/* <ContentSection /> */}
