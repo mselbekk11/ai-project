@@ -19,26 +19,10 @@ export default function HeroSectionTwo() {
       <Navigation menuState={menuState} setMenuState={setMenuState} />
       <main className="overflow-hidden">
         <section className="relative border-b-2 border-b-gray-300 dark:border-gray-800 bg-white">
-          <div className="relative py-24 lg:py-48 bgpink">
+          <div className="relative py-24 lg:pt-48 lg:pb-48 bgpink">
             <div className="mx-auto max-w-7xl px-6 md:px-12">
               <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
-                {/* <Link
-                  href="/"
-                  className="rounded-(--radius) mx-auto flex w-fit items-center gap-2 border p-1 pr-3 border-black"
-                >
-                  <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs bg-purple-700 text-white">
-                    New
-                  </span>
-                  <span className="text-sm">Introduction Tailus UI Html</span>
-                  <span className="bg-(--color-border) block h-4 w-px"></span>
-
-                  <ArrowRight className="size-4" />
-                </Link> */}
-                {/* 
-                <h1 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
-                  Tame the Wild West <br /> of Frontend Development
-                </h1> */}
-                <h1 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
+                <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
                   Virtually Try On Any Outfit, <br /> Anytime, Anywhere
                 </h1>
                 <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-lg sm:block">
