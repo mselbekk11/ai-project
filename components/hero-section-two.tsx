@@ -18,7 +18,7 @@ export default function HeroSectionTwo() {
     <>
       <Navigation menuState={menuState} setMenuState={setMenuState} />
       <main className="overflow-hidden">
-        <section className="relative border-b-2 border-b-gray-300 dark:border-gray-800 bg-white">
+        <section className="relative bg-white">
           <div className="relative py-24 lg:pt-48 lg:pb-48 bgpink">
             <div className="mx-auto max-w-7xl px-6 md:px-12">
               <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
