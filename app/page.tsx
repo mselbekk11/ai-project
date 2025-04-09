@@ -6,6 +6,7 @@ import Features from "@/components/features-1";
 import FooterSection from "@/components/footer";
 // import HeroSectionThree from "@/components/hero-section-three";
 import HeroSectionTwo from "@/components/hero-section-two";
+import { InfiniteSliderHoverSpeed } from "@/components/infinite-slider";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <HeroSectionTwo />
       {/* <HeroSectionThree /> */}
       <Features />
+      <InfiniteSliderHoverSpeed />
       <FooterSection />
       {/* <ContentSection /> */}
     </main>
