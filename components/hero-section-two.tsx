@@ -18,109 +18,104 @@ export default function HeroSectionTwo() {
   return (
     <>
       <Navigation menuState={menuState} setMenuState={setMenuState} />
-      <main className="overflow-hidden">
-        <section className="relative bg-white">
-          {/* Bottom Left Square */}
-          <div className="absolute bottom-0 left-0 bg-white z-10 pr-2 pt-2 rounded-tr-md shadow-2xl shadow-black/90">
-            <Image
-              src="/h-1.png"
-              width={400}
-              height={550}
-              alt="Hero Section Two"
-              className="rounded-tr-md"
-            />
-          </div>
+      <section className="relative overflow-hidden bgpink">
+        {/* Bottom Left Square */}
+        <div className="absolute bottom-0 left-0 bg-white z-10 pr-2 pt-2 rounded-tr-md shadow-2xl shadow-black/90">
+          <Image
+            src="/h-1.png"
+            width={400}
+            height={550}
+            alt="Hero Section Two"
+            className="rounded-tr-md"
+          />
+        </div>
 
-          {/* Bottom Right Square */}
-          <div className="absolute bottom-0 right-0 bg-white z-10 pl-2 pt-2 rounded-tl-md shadow-2xl shadow-black/90">
-            <Image
-              src="/h-1.png"
-              width={400}
-              height={550}
-              alt="Hero Section Two"
-              className="rounded-tl-md"
-            />
-          </div>
+        {/* Bottom Right Square */}
+        <div className="absolute bottom-0 right-0 bg-white z-10 pl-2 pt-2 rounded-tl-md shadow-2xl shadow-black/90">
+          <Image
+            src="/h-1.png"
+            width={400}
+            height={550}
+            alt="Hero Section Two"
+            className="rounded-tl-md"
+          />
+        </div>
 
-          <div className="relative py-24 lg:pt-48 lg:pb-48 bgpink">
-            <div className="mx-auto max-w-7xl px-6 md:px-12">
-              <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
-                <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
-                  Virtually Try On Any Outfit, <br /> Anytime, Anywhere
-                </h1>
-                <p className="mx-auto mt-8 max-w-2xl text-wrap text-lg">
-                  Explore a world of styles with our AI-driven platform
-                </p>
-                {/* <p className="text-lg">
-                  perfect your look before you buy! perfect your look before you
-                  buy!
-                </p> */}
-                <p className="text-lg">
-                  {" "}
-                  Need one more sentence here, and here
-                </p>
+        <div className="relative py-24 lg:pt-48 lg:pb-48">
+          <div className="mx-auto max-w-7xl px-6 md:px-12">
+            <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
+              <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
+                Virtually Try On Any Outfit, <br /> Anytime, Anywhere
+              </h1>
+              <p className="mx-auto mt-8 max-w-2xl text-wrap text-lg">
+                Explore a world of styles with our AI-driven platform
+              </p>
+              {/* <p className="text-lg">
+                perfect your look before you buy! perfect your look before you
+                buy!
+              </p> */}
+              <p className="text-lg"> Need one more sentence here, and here</p>
 
-                <div className="mt-8 flex items-center gap-4 justify-center">
-                  <Button size="lg" variant="default">
-                    <Link href="#">Try on clothes</Link>
+              <div className="mt-8 flex items-center gap-4 justify-center">
+                <Button size="lg" variant="default">
+                  <Link href="#">Try on clothes</Link>
+                </Button>
+                {/* <Button size="lg" variant="outline">
+                  <Link href="#">Watch Demo</Link>
+                </Button> */}
+                {/* <div className="group [--color-primary:var(--color-blue-600)] dark:[--color-primary-foreground:var(--color-white)]">
+                  <Button className="from-primary to-primary/85 text-primary-foreground border border-zinc-950/25 bg-gradient-to-t shadow-md shadow-zinc-950/20 ring-1 ring-inset ring-white/20 transition-[filter] duration-200 hover:brightness-110 active:brightness-90 dark:border-white/20 dark:ring-transparent">
+                    <span>Primary</span>
                   </Button>
-                  {/* <Button size="lg" variant="outline">
-                    <Link href="#">Watch Demo</Link>
-                  </Button> */}
-                  {/* <div className="group [--color-primary:var(--color-blue-600)] dark:[--color-primary-foreground:var(--color-white)]">
-                    <Button className="from-primary to-primary/85 text-primary-foreground border border-zinc-950/25 bg-gradient-to-t shadow-md shadow-zinc-950/20 ring-1 ring-inset ring-white/20 transition-[filter] duration-200 hover:brightness-110 active:brightness-90 dark:border-white/20 dark:ring-transparent">
-                      <span>Primary</span>
-                    </Button>
-                  </div> */}
-                </div>
+                </div> */}
               </div>
-              {/* <div className="x-auto relative mx-auto mt-8 max-w-lg sm:mt-12">
-                <div className="absolute inset-0 -top-8 left-1/2 -z-20 h-56 w-full -translate-x-1/2 [background-image:linear-gradient(to_bottom,transparent_98%,theme(colors.gray.200/75%)_98%),linear-gradient(to_right,transparent_94%,_theme(colors.gray.200/75%)_94%)] [background-size:16px_35px] [mask:radial-gradient(black,transparent_95%)] dark:opacity-10"></div>
-                <div className="absolute inset-x-0 top-12 -z-[1] mx-auto h-1/3 w-2/3 rounded-full bg-blue-300 blur-3xl dark:bg-white/20"></div>
-
-                <Swiper
-                  slidesPerView={1}
-                  pagination={{ clickable: true }}
-                  loop
-                  autoplay={{ delay: 5000 }}
-                  modules={[Autoplay, EffectCoverflow]}
-                >
-                  <SwiperSlide className="px-2">
-                    <div className="bg-background rounded-(--radius) h-44 max-w-lg border p-9">
-                      <div className="mx-auto h-fit w-full">
-                        <NetlifyLogo />
-                      </div>
-                      <p className="mt-6 text-center text-lg font-medium">
-                        30% Increase in revenue
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="px-2">
-                    <div className="bg-background rounded-(--radius) h-44 max-w-lg border p-9">
-                      <div className="mx-auto h-fit w-full">
-                        <AstroLogo />
-                      </div>
-                      <p className="mt-6 text-center text-lg font-medium">
-                        45% Increase in revenue
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="px-2">
-                    <div className="bg-background rounded-(--radius) h-44 max-w-lg border p-9">
-                      <div className="mx-auto h-fit w-full">
-                        <WorkOsLogo />
-                      </div>
-                      <p className="mt-6 text-center text-lg font-medium">
-                        60% Increase in revenue
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                </Swiper>
-              </div> */}
             </div>
+            {/* <div className="x-auto relative mx-auto mt-8 max-w-lg sm:mt-12">
+              <div className="absolute inset-0 -top-8 left-1/2 -z-20 h-56 w-full -translate-x-1/2 [background-image:linear-gradient(to_bottom,transparent_98%,theme(colors.gray.200/75%)_98%),linear-gradient(to_right,transparent_94%,_theme(colors.gray.200/75%)_94%)] [background-size:16px_35px] [mask:radial-gradient(black,transparent_95%)] dark:opacity-10"></div>
+              <div className="absolute inset-x-0 top-12 -z-[1] mx-auto h-1/3 w-2/3 rounded-full bg-blue-300 blur-3xl dark:bg-white/20"></div>
+
+              <Swiper
+                slidesPerView={1}
+                pagination={{ clickable: true }}
+                loop
+                autoplay={{ delay: 5000 }}
+                modules={[Autoplay, EffectCoverflow]}
+              >
+                <SwiperSlide className="px-2">
+                  <div className="bg-background rounded-(--radius) h-44 max-w-lg border p-9">
+                    <div className="mx-auto h-fit w-full">
+                      <NetlifyLogo />
+                    </div>
+                    <p className="mt-6 text-center text-lg font-medium">
+                      30% Increase in revenue
+                    </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide className="px-2">
+                  <div className="bg-background rounded-(--radius) h-44 max-w-lg border p-9">
+                    <div className="mx-auto h-fit w-full">
+                      <AstroLogo />
+                    </div>
+                    <p className="mt-6 text-center text-lg font-medium">
+                      45% Increase in revenue
+                    </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide className="px-2">
+                  <div className="bg-background rounded-(--radius) h-44 max-w-lg border p-9">
+                    <div className="mx-auto h-fit w-full">
+                      <WorkOsLogo />
+                    </div>
+                    <p className="mt-6 text-center text-lg font-medium">
+                      60% Increase in revenue
+                    </p>
+                  </div>
+                </SwiperSlide>
+              </Swiper>
+            </div> */}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </>
   );
 }

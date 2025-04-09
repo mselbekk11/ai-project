@@ -4,15 +4,14 @@ import { ReactNode } from "react";
 
 export default function Features() {
   return (
-    <section className="bg-background py-16 md:py-32 dark:bg-transparent">
+    <section className="bg-zinc-800 py-16 md:py-24 dark:bg-transparent border-t-8 border-white">
       <div className="@container mx-auto max-w-5xl px-6">
         <div className="text-center">
-          <h2 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-4xl xl:[line-height:1.125]">
-            Built to cover your needs
+          <h2 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-4xl xl:[line-height:1.125] text-white">
+            3 easy Steps
           </h2>
-          <p className="mt-4">
-            Libero sapiente aliquam quibusdam aspernatur, praesentium iusto
-            repellendus.
+          <p className="mt-4 text-white">
+            Libero sapiente aliquam quibusdam aspernatur.
           </p>
         </div>
         <div className="mx-auto mt-8 grid grid-cols-1 md:grid-cols-3 max-w-full gap-6 *:text-center md:mt-16">
