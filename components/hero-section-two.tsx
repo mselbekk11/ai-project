@@ -10,6 +10,7 @@ import "swiper/css/effect-coverflow";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "./navigation";
+import Image from "next/image";
 
 export default function HeroSectionTwo() {
   const [menuState, setMenuState] = React.useState(false);
@@ -19,29 +20,53 @@ export default function HeroSectionTwo() {
       <Navigation menuState={menuState} setMenuState={setMenuState} />
       <main className="overflow-hidden">
         <section className="relative bg-white">
+          {/* Bottom Left Square */}
+          <div className="absolute bottom-0 left-0 bg-white z-10 pr-2 pt-2 rounded-tr-md shadow-2xl shadow-black/90">
+            <Image
+              src="/h-1.png"
+              width={400}
+              height={550}
+              alt="Hero Section Two"
+              className="rounded-tr-md"
+            />
+          </div>
+
+          {/* Bottom Right Square */}
+          <div className="absolute bottom-0 right-0 bg-white z-10 pl-2 pt-2 rounded-tl-md shadow-2xl shadow-black/90">
+            <Image
+              src="/h-1.png"
+              width={400}
+              height={550}
+              alt="Hero Section Two"
+              className="rounded-tl-md"
+            />
+          </div>
+
           <div className="relative py-24 lg:pt-48 lg:pb-48 bgpink">
             <div className="mx-auto max-w-7xl px-6 md:px-12">
               <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
                 <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
                   Virtually Try On Any Outfit, <br /> Anytime, Anywhere
                 </h1>
-                <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-lg sm:block">
-                  Explore a world of styles with our AI-driven platform—perfect
-                  your look before you buy! Need one more sentence here, and
-                  here
+                <p className="mx-auto mt-8 max-w-2xl text-wrap text-lg">
+                  Explore a world of styles with our AI-driven platform
                 </p>
-                <p className="mx-auto mt-6 max-w-2xl text-wrap sm:hidden">
-                  Highly customizable components for building modern websites
-                  and applications, with your personal spark.
+                {/* <p className="text-lg">
+                  perfect your look before you buy! perfect your look before you
+                  buy!
+                </p> */}
+                <p className="text-lg">
+                  {" "}
+                  Need one more sentence here, and here
                 </p>
 
                 <div className="mt-8 flex items-center gap-4 justify-center">
                   <Button size="lg" variant="default">
-                    <Link href="#">Start Building</Link>
+                    <Link href="#">Try on clothes</Link>
                   </Button>
-                  <Button size="lg" variant="outline">
+                  {/* <Button size="lg" variant="outline">
                     <Link href="#">Watch Demo</Link>
-                  </Button>
+                  </Button> */}
                   {/* <div className="group [--color-primary:var(--color-blue-600)] dark:[--color-primary-foreground:var(--color-white)]">
                     <Button className="from-primary to-primary/85 text-primary-foreground border border-zinc-950/25 bg-gradient-to-t shadow-md shadow-zinc-950/20 ring-1 ring-inset ring-white/20 transition-[filter] duration-200 hover:brightness-110 active:brightness-90 dark:border-white/20 dark:ring-transparent">
                       <span>Primary</span>
