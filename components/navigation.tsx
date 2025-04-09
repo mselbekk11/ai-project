@@ -31,7 +31,7 @@ export default function Navigation({
     <header className="sticky top-0 z-40 bg-white">
       <nav
         data-state={menuState && "active"}
-        className="z-20 w-full border-b border-dashed backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
+        className="z-20 w-full backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent shadow-md"
       >
         <div className="m-auto max-w-5xl px-6">
           <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
