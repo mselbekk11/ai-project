@@ -9,15 +9,42 @@ import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Navigation from "./navigation";
+// import Navigation from "./navigation";
 import Image from "next/image";
+import NavigationTwo from "./navigation-two";
 
 export default function HeroSectionTwo() {
-  const [menuState, setMenuState] = React.useState(false);
+  // const [menuState, setMenuState] = React.useState(false);
 
   return (
     <section className="relative overflow-hidden bgpink">
-      <Navigation menuState={menuState} setMenuState={setMenuState} />
+      {/* <Navigation menuState={menuState} setMenuState={setMenuState} /> */}
+      <NavigationTwo
+        companyName="Motion Agent"
+        logo={
+          <svg
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 70 70"
+            aria-label="MP Logo"
+            width={70}
+            height={70}
+            className="h-8 w-auto text-neutral-900"
+            fill="none"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth={3}
+              d="M51.883 26.495c-7.277-4.124-18.08-7.004-26.519-7.425-2.357-.118-4.407-.244-6.364 1.06M59.642 51c-10.47-7.25-26.594-13.426-39.514-15.664-3.61-.625-6.744-1.202-9.991.263"
+            />
+          </svg>
+        }
+        links={[
+          { label: "Login", href: "/login" },
+          { label: "Sign Up", href: "/signup" },
+        ]}
+      />
 
       {/* Bottom Left Square */}
       <div className="absolute bottom-0 left-0 bg-white z-10 pr-2 pt-2 rounded-tr-md shadow-2xl shadow-black/90">
@@ -41,7 +68,7 @@ export default function HeroSectionTwo() {
         />
       </div>
 
-      <div className="relative py-24 lg:pt-48 lg:pb-48">
+      <div className="relative py-24 lg:pt-56 lg:pb-64">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
             <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">

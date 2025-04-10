@@ -36,7 +36,7 @@ export default function Navigation({
       >
         <div className="m-auto max-w-5xl px-6">
           <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
-            <div className="flex justify-start lg:w-[180px]">
+            <div className="flex w-auto justify-between">
               <Link
                 href="/"
                 aria-label="home"
@@ -78,7 +78,7 @@ export default function Navigation({
               </ul>
             </div>
 
-            <div className="hidden lg:flex lg:w-[180px] lg:items-center lg:justify-end lg:gap-3">
+            <div className="hidden lg:flex lg:items-center lg:gap-3">
               <SignedOut>
                 <SignInButton>
                   <Button size="sm">Sign in</Button>
