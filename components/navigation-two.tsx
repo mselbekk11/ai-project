@@ -49,7 +49,7 @@ export default function NavigationTwo({}: {
                   <LogoFive />
                 </div>
                 <span className="font-extrabold text-1xl text-slate-800">
-                  Trizzyyy
+                  Trizzy
                 </span>
               </Link>
             </div>
