@@ -1,22 +1,30 @@
 "use client";
 
-// import ContentSection from "@/components/content-1";
-// import ButtonsPage from "@/components/test";
+import Bento from "@/components/bento";
+import { Cta } from "@/components/cta";
+import { Faq } from "@/components/FAQ";
 import Features from "@/components/features-1";
 import FooterSection from "@/components/footer";
-// import HeroSectionThree from "@/components/hero-section-three";
 import HeroSectionTwo from "@/components/hero-section-two";
 import { InfiniteSliderHoverSpeed } from "@/components/infinite-slider";
+// import Grid from "@/components/grid";
+// import Pricing from "@/components/pricing";
+import PricingHome from "@/components/pricing-home";
+import SplitTwo from "@/components/split-two";
 
 export default function Home() {
   return (
     <main className="flex flex-col h-100vh">
       <HeroSectionTwo />
-      {/* <HeroSectionThree /> */}
       <Features />
       <InfiniteSliderHoverSpeed />
+      <SplitTwo />
+      <Bento />
+      {/* <Grid /> */}
+      <PricingHome />
+      <Faq />
+      <Cta />
       <FooterSection />
-      {/* <ContentSection /> */}
     </main>
   );
 }
