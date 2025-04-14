@@ -1,6 +1,9 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Settings2, Sparkles, Zap } from "lucide-react";
-import { ReactNode } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+
+import imageTwoBg from "@/public/image-two-bg.png";
+import imageThreeBg from "@/public/image-three-bg.png";
+import imageGroup from "@/public/group.png";
+import Image from "next/image";
 
 export default function Features() {
   return (
@@ -15,55 +18,62 @@ export default function Features() {
             Libero sapiente aliquam quibusdam aspernatur.
           </p> */}
         </div>
-        <div className="mx-auto mt-8 grid grid-cols-1 md:grid-cols-3 max-w-full gap-6 *:text-center md:mt-16">
-          <Card className="group shadow-zinc-950/5">
-            <CardHeader className="pb-3">
-              <CardDecorator>
-                <Zap className="size-6" aria-hidden />
-              </CardDecorator>
+        <div className="mx-auto mt-8 grid grid-cols-1 md:grid-cols-3 max-w-full gap-12 *:text-center md:mt-16">
+          <Card className="group flex flex-col rounded-md bg-transparent border-none">
+            <div className="flex justify-center items-center h-[300px] bg-gradient-to-tr from-zinc-700 via-zinc-800 to-zinc-900 rounded-md border-2 border-white">
+              <Image
+                src={imageGroup}
+                alt="Step 1"
+                className="max-h-full w-auto object-contain"
+              />
+            </div>
 
-              <h3 className="mt-6 font-medium">Customizable</h3>
-            </CardHeader>
-
-            <CardContent>
-              <p className="text-sm">
+            <CardContent className="flex-grow text-white p-2">
+              <h3 className="mt-6 font-semibold">
+                Upload a few images of yourself
+              </h3>
+              {/* <p className="mt-3 text-sm">
                 Extensive customization options, allowing you to tailor every
                 aspect to meet your specific needs.
-              </p>
+              </p> */}
             </CardContent>
           </Card>
 
-          <Card className="group shadow-zinc-950/5">
-            <CardHeader className="pb-3">
-              <CardDecorator>
-                <Settings2 className="size-6" aria-hidden />
-              </CardDecorator>
+          <Card className="group flex flex-col rounded-md bg-transparent border-none">
+            <div className="flex justify-center items-center h-[300px] bg-gradient-to-tr from-zinc-700 via-zinc-800 to-zinc-900 rounded-md border-2 border-white">
+              <Image
+                src={imageTwoBg}
+                alt="Step 2"
+                className="max-h-full w-auto object-contain"
+              />
+            </div>
 
-              <h3 className="mt-6 font-medium">You have full control</h3>
-            </CardHeader>
-
-            <CardContent>
-              <p className="mt-3 text-sm">
+            <CardContent className="flex-grow text-white p-2">
+              <h3 className="mt-6 font-semibold">Upload an outfit you like</h3>
+              {/* <p className="mt-3 text-sm">
                 From design elements to functionality, you have complete control
-                to create a unique and personalized experience.
-              </p>
+                to create a unique.
+              </p> */}
             </CardContent>
           </Card>
 
-          <Card className="group shadow-zinc-950/5">
-            <CardHeader className="pb-3">
-              <CardDecorator>
-                <Sparkles className="size-6" aria-hidden />
-              </CardDecorator>
+          <Card className="group flex flex-col rounded-md bg-transparent border-none">
+            <div className="flex justify-center items-center h-[300px] bg-gradient-to-tr from-zinc-700 via-zinc-800 to-zinc-900 rounded-md border-2 border-white">
+              <Image
+                src={imageThreeBg}
+                alt="Step 3"
+                className="max-h-full w-auto object-contain"
+              />
+            </div>
 
-              <h3 className="mt-6 font-medium">Powered By AI</h3>
-            </CardHeader>
-
-            <CardContent>
-              <p className="mt-3 text-sm">
-                Elements to functionality, you have complete control to create a
-                unique experience.
-              </p>
+            <CardContent className="flex-grow text-white p-2">
+              <h3 className="mt-6 font-semibold">
+                Generate images of you wearing it
+              </h3>
+              {/* <p className="mt-3 text-sm">
+                From design elements to functionality, you have complete control
+                to create a unique.
+              </p> */}
             </CardContent>
           </Card>
         </div>
@@ -71,19 +81,3 @@ export default function Features() {
     </section>
   );
 }
-
-const CardDecorator = ({ children }: { children: ReactNode }) => (
-  <div className="relative mx-auto size-36 duration-200 [--color-border:color-mix(in_oklab,var(--color-zinc-950)10%,transparent)] group-hover:[--color-border:color-mix(in_oklab,var(--color-zinc-950)20%,transparent)] dark:[--color-border:color-mix(in_oklab,var(--color-white)15%,transparent)] dark:group-hover:bg-white/5 dark:group-hover:[--color-border:color-mix(in_oklab,var(--color-white)20%,transparent)]">
-    <div
-      aria-hidden
-      className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-[size:24px_24px]"
-    />
-    <div
-      aria-hidden
-      className="bg-radial to-background absolute inset-0 from-transparent to-75%"
-    />
-    <div className="bg-background absolute inset-0 m-auto flex size-12 items-center justify-center border-l border-t">
-      {children}
-    </div>
-  </div>
-);

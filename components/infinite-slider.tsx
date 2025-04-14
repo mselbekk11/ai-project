@@ -30,7 +30,7 @@ const images = [
 
 export function InfiniteSliderHoverSpeed() {
   return (
-    <div className="bgpink py-24">
+    <div className="bg-gray-50 py-24">
       <div className="px-8">
         <InfiniteSlider speedOnHover={1} gap={24} speed={30}>
           {images.map((item, idx) => (

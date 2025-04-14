@@ -10,7 +10,8 @@ import { InfiniteSliderHoverSpeed } from "@/components/infinite-slider";
 // import Grid from "@/components/grid";
 // import Pricing from "@/components/pricing";
 import PricingHome from "@/components/pricing-home";
-import SplitTwo from "@/components/split-two";
+// import SplitTwo from "@/components/split-two";
+import Video from "@/components/video";
 
 export default function Home() {
   return (
@@ -18,7 +19,8 @@ export default function Home() {
       <HeroSectionTwo />
       <Features />
       <InfiniteSliderHoverSpeed />
-      <SplitTwo />
+      {/* <SplitTwo /> */}
+      <Video />
       <Bento />
       {/* <Grid /> */}
       <PricingHome />

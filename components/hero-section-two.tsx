@@ -10,7 +10,7 @@ import "swiper/css/effect-coverflow";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 // import Navigation from "./navigation";
-import Image from "next/image";
+// import Image from "next/image";
 import NavigationTwo from "./navigation-two";
 
 export default function HeroSectionTwo() {
@@ -47,7 +47,7 @@ export default function HeroSectionTwo() {
       />
 
       {/* Bottom Left Square */}
-      <div className="absolute bottom-0 left-0 bg-white z-10 pr-2 pt-2 rounded-tr-md shadow-2xl shadow-black/90">
+      {/* <div className="absolute bottom-0 left-0 bg-white z-10 pr-2 pt-2 rounded-tr-md shadow-2xl shadow-black/90">
         <Image
           src="/h-1.png"
           width={400}
@@ -55,10 +55,10 @@ export default function HeroSectionTwo() {
           alt="Hero Section Two"
           className="rounded-tr-md"
         />
-      </div>
+      </div> */}
 
       {/* Bottom Right Square */}
-      <div className="absolute bottom-0 right-0 bg-white z-10 pl-2 pt-2 rounded-tl-md shadow-2xl shadow-black/90">
+      {/* <div className="absolute bottom-0 right-0 bg-white z-10 pl-2 pt-2 rounded-tl-md shadow-2xl shadow-black/90">
         <Image
           src="/h-1.png"
           width={400}
@@ -66,7 +66,7 @@ export default function HeroSectionTwo() {
           alt="Hero Section Two"
           className="rounded-tl-md"
         />
-      </div>
+      </div> */}
 
       <div className="relative py-24 lg:pt-56 lg:pb-64">
         <div className="mx-auto max-w-7xl px-6 md:px-12">

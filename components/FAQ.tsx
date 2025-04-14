@@ -35,7 +35,7 @@ const CONTENT = [
 
 export function Faq() {
   return (
-    <div className="relative mx-auto max-w-6xl px-6 py-12 bg-white-200 w-full">
+    <div className="relative mx-auto max-w-6xl px-6 py-24 bg-white-200 w-full">
       <div className="mb-10 text-left">
         {/* <h2 className="mb-4 text-2xl font-medium text-zinc-900 dark:text-white">
           Frequently asked questions
@@ -56,11 +56,11 @@ export function Faq() {
         <div className="mx-auto max-w-6xl space-y-2 text-center">
           <p className="font-semibold text-indigo-400">Award winning support</p>
           <h1 className="text-4xl font-extrabold md:text-5xl xl:text-4xl xl:[line-height:1.125]">
-          Frequently asked questions
+            Frequently asked questions
           </h1>
           <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-md sm:block">
-          Here are some of the most common questions we receive from our
-          users.
+            Here are some of the most common questions we receive from our
+            users.
           </p>
         </div>
       </div>

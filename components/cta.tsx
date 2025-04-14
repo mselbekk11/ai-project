@@ -13,10 +13,7 @@ export function Cta() {
   }
 
   return (
-    <div
-      className="mx-auto w-full bg-zinc-800 px-4 py-8 sm:py-16 lg:px-6"
-      ref={ref}
-    >
+    <div className="mx-auto w-full bg-gray-50 px-4 py-24 lg:px-6" ref={ref}>
       <div className="relative mx-auto max-w-2xl py-12 text-center bg-white">
         <div className="relative">
           {/* <h2 className="mb-4 text-3xl text-zinc-900 dark:text-white">

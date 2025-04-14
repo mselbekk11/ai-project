@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 
 export default function SplitTwo() {
   return (
-    <div className="mx-auto sm:px-0 lg:px-8 bg-zinc-800 w-full py-12">
+    <div className="mx-auto sm:px-0 lg:px-8 bg-zinc-800 w-full py-36">
       <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
         <div className="bg-blue-500">
           <div className="bg-gray-300 h-[400px] flex items-center justify-center">
