@@ -7,19 +7,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import SectionHeading from "./section-heading";
 
 export default function PricingHome() {
   return (
-    <section className="py-24 bgpinktwo flex flex-col items-center">
+    <section className="py-24 bg-zinc-800 flex flex-col items-center relative">
       <div className="mx-auto max-w-6xl px-6 w-full">
-        <div className="mx-auto max-w-6xl space-y-2 text-center">
-          <p className="font-semibold text-indigo-400">Award winning support</p>
-          <h1 className="text-4xl font-extrabold md:text-5xl xl:text-4xl xl:[line-height:1.125]">
-            Buy some Credits
-          </h1>
-          <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-md sm:block">
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: "url('/stars.png')",
+            backgroundRepeat: "repeat",
+            backgroundSize: "500px",
+            opacity: 0.6,
+          }}
+        ></div>
+        <div className="mx-auto max-w-6xl text-center">
+          <SectionHeading
+            subheading="No Subscriptions"
+            heading="Buy some Credits"
+            textColor="text-white"
+          />
+          <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-md sm:block text-white">
             Pay once,{" "}
-            <span className="font-bold">no subscriptions or hidden fees</span>.
+            <span className="font-bold text-fuchsia-300">no subscriptions or hidden fees</span>.
             We do not offer trials due to high costs, <br /> but we will refund
             you if you&apos;re unsatisfied.
           </p>

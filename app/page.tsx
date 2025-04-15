@@ -19,10 +19,8 @@ export default function Home() {
       <HeroSectionTwo />
       <Features />
       <InfiniteSliderHoverSpeed />
-      {/* <SplitTwo /> */}
       <Video />
       <Bento />
-      {/* <Grid /> */}
       <PricingHome />
       <Faq />
       <Cta />

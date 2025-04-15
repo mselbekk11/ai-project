@@ -1,13 +1,14 @@
+import SectionHeading from "./section-heading";
+
 export default function Bento() {
   return (
     <div className="bg-gray-50 py-24 sm:py-32">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-        <h3 className="text-center font-semibold text-indigo-400">
-          Deploy faster
-        </h3>
-        <h2 className="text-center mx-auto mt-2 max-w-lg text-4xl font-extrabold">
-          Everything you need to deploy your app
-        </h2>
+        <SectionHeading
+          subheading="The Benefits"
+          heading="Why try on clothes virtually?"
+          textColor="text-black"
+        />
         <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
           <div className="relative lg:row-span-2">
             <div className="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
