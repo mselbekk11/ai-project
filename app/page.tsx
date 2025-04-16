@@ -1,17 +1,13 @@
 "use client";
 
-// import Bento from "@/components/bento";
 import BentoTwo from "@/components/bento-two";
 import { Cta } from "@/components/cta";
 import { Faq } from "@/components/FAQ";
 import Features from "@/components/features-1";
-import FooterSection from "@/components/footer";
+import { FooterTwo } from "@/components/footer-two";
 import HeroSectionTwo from "@/components/hero-section-two";
 import { InfiniteSliderHoverSpeed } from "@/components/infinite-slider";
-// import Grid from "@/components/grid";
-// import Pricing from "@/components/pricing";
-import PricingHome from "@/components/pricing-home";
-// import SplitTwo from "@/components/split-two";
+import PricingTwo from "@/components/pricing-two";
 import Video from "@/components/video";
 
 export default function Home() {
@@ -21,12 +17,11 @@ export default function Home() {
       <Features />
       <InfiniteSliderHoverSpeed />
       <Video />
-      {/* <Bento /> */}
       <BentoTwo />
-      <PricingHome />
+      <PricingTwo />
       <Faq />
       <Cta />
-      <FooterSection />
+      <FooterTwo />
     </main>
   );
 }

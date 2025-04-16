@@ -9,34 +9,47 @@ import SectionHeading from "./section-heading";
 
 const CONTENT = [
   {
-    title: "Getting Started",
-    value: "getting-started",
+    title: "How many images do I need to train a custom model?",
+    value: "how-many-images",
     content:
-      "Discover the fundamental concepts of Motion-Primitives. This section guides you through the installation process and provides an overview of how to integrate these components into your projects. Learn about the core functionalities and how to set up your first animation effectively.",
+      "Use shots with the subject centered in the frame, Include only one subject per image, Avoid accessories like sunglasses or hats, Ensure the subject is clearly visible in all images. For best results, we recommend using 10-20 high-quality images, some shout be headshots, some should be waist up and some should be full body shots. Remember, the better your input images, the better your AI-generated results will be.",
   },
   {
-    title: "Animation Properties",
-    value: "animation-properties",
+    title: "How long does it take to train a custom AI model?",
+    value: "how-long",
     content:
-      "Explore the comprehensive range of animation properties available in Motion-Primitives. Understand how to manipulate timing, easing, and delays to create smooth, dynamic animations. This segment also covers the customization of animations to fit the flow and style of your web applications.",
+      "Training custom AI image models takes 15-30 minutes. Once finished, you can generate custom images with it in <30 seconds.",
   },
   {
-    title: "Advanced Usage",
-    value: "advanced-usage",
+    title: "Who owns my AI photos?",
+    value: "who-owns",
     content:
-      "Dive deeper into advanced techniques and features of Motion-Primitives. Learn about chaining animations, creating complex sequences, and utilizing motion sensors for interactive animations. Gain insights on how to leverage these advanced features to enhance user experience and engagement.",
+      "You do. We grant you full commercial license and ownership over your photos.",
+  },
+
+  {
+    title: "What do people misunderstand about AI headshots?",
+    value: "people-misunderstand",
+    content:
+      "Not every photo is perfect. Due to the nature of AI, you might see some strange photos.",
   },
   {
-    title: "Community and Support",
-    value: "community-and-support",
+    title: "Can I use the generated images commercially?",
+    value: "use-commercially",
     content:
-      "Engage with the Motion-Primitives community to gain additional support and insight. Find out how to participate in discussions, contribute to the project, and access a wealth of shared knowledge and resources. Learn about upcoming features, best practices, and how to get help with your specific use cases.",
+      "Yes, all our plans offer full, commercial ownership of the images you generate. This means you can use the AI-generated images without any restrictions.",
+  },
+  {
+    title: "Do you offer support for using the platform?",
+    value: "platform-support",
+    content:
+      "Yes, we provide comprehensive support to help you succeed with our platform. Our team offers guidance and assistance to ensure you get the most out of our services.",
   },
 ];
 
 export function Faq() {
   return (
-    <div className="relative mx-auto max-w-6xl px-6 py-24 bg-white-200 w-full">
+    <div className="relative mx-auto w-full px-6 py-24 bg-gray-50">
       <div className="mb-24">
         <SectionHeading
           subheading="Answers to common questions"
@@ -44,26 +57,32 @@ export function Faq() {
           textColor="text-black"
         />
       </div>
-      <Accordion
-        className="flex w-full flex-col divide-y divide-zinc-200 border-t border-zinc-200 dark:divide-zinc-700 dark:border-zinc-700"
-        transition={{ duration: 0.2, ease: "easeInOut" }}
-      >
-        {CONTENT.map((item) => (
-          <AccordionItem value={item.value} className="py-4" key={item.value}>
-            <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-              <div className="flex items-center justify-between">
-                <div>{item.title}</div>
-                <ChevronUp className="h-4 w-4 -rotate-180 text-zinc-950 transition-transform duration-200 group-data-[expanded]:rotate-0 dark:text-zinc-50" />
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <p className="pt-2 text-zinc-500 dark:text-zinc-400">
-                {item.content}
-              </p>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      <div className="border border-gray-200 bg-white rounded-md px-6 py-2 max-w-6xl mx-auto">
+        <Accordion
+          className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+        >
+          {CONTENT.map((item, index) => (
+            <AccordionItem
+              value={item.value}
+              className={`py-4 ${index === 0 ? "border-t-0" : "border-t border-zinc-200 dark:border-zinc-700"}`}
+              key={item.value}
+            >
+              <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
+                <div className="flex items-center justify-between">
+                  <div>{item.title}</div>
+                  <ChevronUp className="h-4 w-4 -rotate-180 text-zinc-950 transition-transform duration-200 group-data-[expanded]:rotate-0 dark:text-zinc-50" />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className="pt-2 text-zinc-500 dark:text-zinc-400">
+                  {item.content}
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
     </div>
   );
 }
