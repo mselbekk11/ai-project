@@ -84,7 +84,7 @@ export default function HeroSectionTwo() {
             <p className="text-lg"> Need one more sentence here, and here</p>
 
             <div className="mt-8 flex items-center gap-4 justify-center">
-              <Button size="lg" variant="default">
+              <Button size="xl" variant="purple">
                 <Link href="#">Try on clothes</Link>
               </Button>
               {/* <Button size="lg" variant="outline">
