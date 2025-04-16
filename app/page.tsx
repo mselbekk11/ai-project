@@ -1,6 +1,7 @@
 "use client";
 
-import Bento from "@/components/bento";
+// import Bento from "@/components/bento";
+import BentoTwo from "@/components/bento-two";
 import { Cta } from "@/components/cta";
 import { Faq } from "@/components/FAQ";
 import Features from "@/components/features-1";
@@ -20,7 +21,8 @@ export default function Home() {
       <Features />
       <InfiniteSliderHoverSpeed />
       <Video />
-      <Bento />
+      {/* <Bento /> */}
+      <BentoTwo />
       <PricingHome />
       <Faq />
       <Cta />
