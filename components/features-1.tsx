@@ -1,5 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
-
+import { Card } from "@/components/ui/card";
 import imageTwoBg from "@/public/image-two-bg.png";
 import imageThreeBg from "@/public/image-three-bg.png";
 import imageGroup from "@/public/group.png";
@@ -26,67 +25,61 @@ export default function Features() {
           textColor="text-white"
         />
         <div className="mx-auto my-8 grid grid-cols-1 md:grid-cols-3 max-w-full gap-12 *:text-center md:mt-16">
-          <Card className="group flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500">
-            <div className="flex justify-center items-center h-[300px] bg-zinc-900 rounded-t-md border-b border-zinc-500">
+          <Card className="group/card relative flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500 overflow-hidden h-[350px]">
+            <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
+              <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
               <Image
                 src={imageGroup}
                 alt="Step 1"
-                className="max-h-[70%] w-auto object-contain"
+                className="max-h-[60%] w-auto object-contain relative z-10 mb-8"
               />
-            </div>
-
-            <CardContent className="flex-grow text-white p-4 bg-zinc-800 rounded-b-md">
-              <div className="flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-800 text-sm font-bold mr-2 flex flex-col items-center justify-center">
-                  <div>1</div>
-                </div>
-                <h3 className="text-sm font-semibold text-white">
-                  Upload a few images of yourself
+              <div className="absolute bottom-0 left-0 p-4 text-left">
+                <h3 className="font-bold text-xl text-gray-50 relative z-10">
+                  Step 1
                 </h3>
+                <p className="font-normal text-sm text-gray-50 relative z-10 my-2">
+                  Upload a few images of yourself
+                </p>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
-          <Card className="group flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500">
-            <div className="flex justify-center items-center h-[300px] bg-zinc-900 rounded-t-md border-b border-zinc-500">
+          <Card className="group/card relative flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500 overflow-hidden h-[350px]">
+            <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
+              <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
               <Image
                 src={imageTwoBg}
-                alt="Step 1"
-                className="max-h-full w-auto object-contain"
+                alt="Step 2"
+                className="max-h-[100%] w-auto object-contain relative z-10"
               />
-            </div>
-
-            <CardContent className="flex-grow text-white p-4 bg-zinc-800 rounded-b-md">
-              <div className="flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-800 text-sm font-bold mr-2 flex flex-col items-center justify-center">
-                  <div>2</div>
-                </div>
-                <h3 className="text-sm font-semibold text-white">
-                  Upload an outfit you like
+              <div className="absolute bottom-0 left-0 p-4 text-left">
+                <h3 className="font-bold text-xl text-gray-50 relative z-10">
+                  Step 2
                 </h3>
+                <p className="font-normal text-sm text-gray-50 relative z-10 my-2">
+                  Upload an outfit you like
+                </p>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
-          <Card className="group flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500">
-            <div className="flex justify-center items-center h-[300px] bg-zinc-900 rounded-t-md border-b border-zinc-500">
+          <Card className="group/card relative flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500 overflow-hidden h-[350px]">
+            <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
+              <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
               <Image
                 src={imageThreeBg}
-                alt="Step 1"
-                className="max-h-full w-auto object-contain"
+                alt="Step 3"
+                className="max-h-[100%] w-auto object-contain relative z-10"
               />
-            </div>
-
-            <CardContent className="flex-grow text-white p-4 bg-zinc-800 rounded-b-md">
-              <div className="flex items-center justify-center">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-800 text-sm font-bold mr-2 flex flex-col items-center justify-center">
-                  <div>3</div>
-                </div>
-                <h3 className="text-sm font-semibold text-white">
-                  Generate images of yourself
+              <div className="absolute bottom-0 left-0 p-4 text-left">
+                <h3 className="font-bold text-xl text-gray-50 relative z-10">
+                  Step 3
                 </h3>
+                <p className="font-normal text-sm text-gray-50 relative z-10 my-2">
+                  Generate images of yourself
+                </p>
               </div>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </div>
