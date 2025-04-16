@@ -8,7 +8,7 @@ import SectionHeading from "./section-heading";
 
 export default function Features() {
   return (
-    <section className="bg-zinc-800 py-16 md:py-24 dark:bg-transparent relative">
+    <section className="bg-zinc-800 py-32 dark:bg-transparent relative">
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -31,7 +31,7 @@ export default function Features() {
               <Image
                 src={imageGroup}
                 alt="Step 1"
-                className="max-h-full w-auto object-contain"
+                className="max-h-[70%] w-auto object-contain"
               />
             </div>
 

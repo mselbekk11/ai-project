@@ -15,9 +15,9 @@ export default function Home() {
     <main className="flex flex-col h-100vh">
       <HeroSectionTwo />
       <Features />
-      <InfiniteSliderHoverSpeed />
-      <Video />
       <BentoTwo />
+      <Video />
+      <InfiniteSliderHoverSpeed />
       <PricingTwo />
       <Faq />
       <Cta />

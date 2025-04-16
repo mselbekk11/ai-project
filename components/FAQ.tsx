@@ -49,7 +49,7 @@ const CONTENT = [
 
 export function Faq() {
   return (
-    <div className="relative mx-auto w-full px-6 py-24 bg-gray-50">
+    <div className="relative mx-auto w-full px-6 py-32 bg-gray-50">
       <div className="mb-24">
         <SectionHeading
           subheading="Answers to common questions"

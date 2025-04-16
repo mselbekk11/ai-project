@@ -11,7 +11,7 @@ import SectionHeading from "./section-heading";
 
 export default function PricingTwo() {
   return (
-    <section className="py-24 bg-zinc-800 flex flex-col items-center relative">
+    <section className="py-32 bg-zinc-800 flex flex-col items-center relative">
       <div className="mx-auto max-w-6xl px-6 w-full">
         <div
           className="absolute inset-0 z-0"

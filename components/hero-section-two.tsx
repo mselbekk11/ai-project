@@ -68,7 +68,7 @@ export default function HeroSectionTwo() {
         />
       </div> */}
 
-      <div className="relative py-24 lg:pt-56 lg:pb-64">
+      <div className="relative py-24 lg:pt-64 lg:pb-64">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
             <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">

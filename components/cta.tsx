@@ -15,7 +15,7 @@ export function Cta() {
 
   return (
     <div
-      className="mx-auto w-full px-4 pb-24 lg:px-6 bg-gray-50 relative"
+      className="mx-auto w-full px-4 pb-32 lg:px-6 bg-gray-50 relative"
       ref={ref}
     >
       <div className="relative mx-auto max-w-6xl py-12 text-center bg-zinc-800 rounded-md">

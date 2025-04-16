@@ -33,7 +33,7 @@ export default function NavigationTwo({}: {
           className={cn(
             `flex w-full items-center justify-between rounded-xl border transition-all duration-200 ease-out`,
             hasScrolled
-              ? "border-neutral-200 bg-white/80 px-2 backdrop-blur-sm"
+              ? "border-neutral-200 bg-white/90 px-2 backdrop-blur-sm"
               : "border-transparent bg-transparent px-2 backdrop-blur-0",
           )}
         >

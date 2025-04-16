@@ -3,8 +3,8 @@ import SectionHeading from "./section-heading";
 
 export default function Video() {
   return (
-    <section className="bg-zinc-800 py-24 mx-auto w-full relative">
-      <div>
+    <section className="bg-zinc-800 py-32 mx-auto w-full relative">
+      <div className="max-w-6xl mx-auto">
         <div
           className="absolute inset-0 z-0"
           style={{
