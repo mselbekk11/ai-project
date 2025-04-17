@@ -18,6 +18,17 @@ export default function HeroSectionTwo() {
 
   return (
     <section className="relative overflow-hidden bgpink">
+      {/* Background pattern with bg-hero.png */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: "url('/bg-hero-two.png')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "200px",
+          opacity: 0.05,
+        }}
+      ></div>
+
       {/* <Navigation menuState={menuState} setMenuState={setMenuState} /> */}
       <NavigationTwo
         companyName="Motion Agent"

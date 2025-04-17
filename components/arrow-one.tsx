@@ -22,7 +22,7 @@ export default function ArrowOne() {
             width="80.1396"
             height="40.4258"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
             <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feColorMatrix
