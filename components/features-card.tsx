@@ -1,9 +1,9 @@
-import { Card, CardContent } from "@/components/ui/card";
+// import { Card, CardContent } from "@/components/ui/card";
 
-import imageTwoBg from "@/public/image-two-bg.png";
-import imageThreeBg from "@/public/image-three-bg.png";
-import imageGroup from "@/public/group.png";
-import Image from "next/image";
+// import imageTwoBg from "@/public/image-two-bg.png";
+// import imageThreeBg from "@/public/image-three-bg.png";
+// import imageGroup from "@/public/group.png";
+// import Image from "next/image";
 import SectionHeading from "./section-heading";
 import { CardDemo } from "./card-demo";
 

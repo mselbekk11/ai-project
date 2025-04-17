@@ -33,11 +33,16 @@ export default function Features() {
                 alt="Step 1"
                 className="max-h-[60%] w-auto object-contain relative z-10 mb-8"
               />
-              <div className="absolute bottom-0 left-0 p-4 text-left">
-                <h3 className="font-bold text-xl text-gray-50 relative z-10">
-                  Step 1
-                </h3>
-                <p className="font-normal text-sm text-gray-50 relative z-10 my-2">
+              <div
+                className="absolute inset-0 z-10"
+                style={{
+                  background:
+                    "linear-gradient(189deg, transparent 40%, rgba(0,0,0,0.95) 100%)",
+                }}
+              ></div>
+              <div className="absolute bottom-0 left-0 p-4 text-left z-20">
+                <h3 className="font-bold text-xl text-gray-50">Step 1</h3>
+                <p className="font-normal text-sm text-gray-50 my-2">
                   Upload a few images of yourself
                 </p>
               </div>
@@ -52,11 +57,16 @@ export default function Features() {
                 alt="Step 2"
                 className="max-h-[100%] w-auto object-contain relative z-10"
               />
-              <div className="absolute bottom-0 left-0 p-4 text-left">
-                <h3 className="font-bold text-xl text-gray-50 relative z-10">
-                  Step 2
-                </h3>
-                <p className="font-normal text-sm text-gray-50 relative z-10 my-2">
+              <div
+                className="absolute inset-0 z-10"
+                style={{
+                  background:
+                    "linear-gradient(189deg, transparent 40%, rgba(0,0,0,0.95) 100%)",
+                }}
+              ></div>
+              <div className="absolute bottom-0 left-0 p-4 text-left z-20">
+                <h3 className="font-bold text-xl text-gray-50">Step 2</h3>
+                <p className="font-normal text-sm text-gray-50 my-2">
                   Upload an outfit you like
                 </p>
               </div>
@@ -71,11 +81,16 @@ export default function Features() {
                 alt="Step 3"
                 className="max-h-[100%] w-auto object-contain relative z-10"
               />
-              <div className="absolute bottom-0 left-0 p-4 text-left">
-                <h3 className="font-bold text-xl text-gray-50 relative z-10">
-                  Step 3
-                </h3>
-                <p className="font-normal text-sm text-gray-50 relative z-10 my-2">
+              <div
+                className="absolute inset-0 z-10"
+                style={{
+                  background:
+                    "linear-gradient(189deg, transparent 40%, rgba(0,0,0,0.95) 100%)",
+                }}
+              ></div>
+              <div className="absolute bottom-0 left-0 p-4 text-left z-20">
+                <h3 className="font-bold text-xl text-gray-50">Step 3</h3>
+                <p className="font-normal text-sm text-gray-50 my-2">
                   Generate images of yourself
                 </p>
               </div>
