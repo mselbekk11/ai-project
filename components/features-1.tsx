@@ -4,6 +4,8 @@ import imageThreeBg from "@/public/image-three-bg.png";
 import imageGroup from "@/public/group.png";
 import Image from "next/image";
 import SectionHeading from "./section-heading";
+import ArrowOne from "./arrow-one";
+import ArrowTwo from "./arrow-two";
 
 export default function Features() {
   return (
@@ -24,7 +26,7 @@ export default function Features() {
           heading="3 Easy Steps"
           textColor="text-white"
         />
-        <div className="mx-auto my-8 grid grid-cols-1 md:grid-cols-3 max-w-full gap-12 *:text-center md:mt-16">
+        <div className="mx-auto my-8 grid grid-cols-1 md:grid-cols-3 max-w-full gap-12 *:text-center md:mt-16 relative">
           <Card className="group/card relative flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500 overflow-hidden h-[350px]">
             <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
               <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
@@ -49,6 +51,11 @@ export default function Features() {
             </div>
           </Card>
 
+          {/* Arrow One - between card 1 and 2 */}
+          <div className="absolute left-[33%] top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
+            <ArrowOne />
+          </div>
+
           <Card className="group/card relative flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500 overflow-hidden h-[350px]">
             <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
               <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
@@ -72,6 +79,11 @@ export default function Features() {
               </div>
             </div>
           </Card>
+
+          {/* Arrow Two - between card 2 and 3 */}
+          <div className="absolute left-[68%] top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
+            <ArrowTwo />
+          </div>
 
           <Card className="group/card relative flex flex-col rounded-md bg-transparent shadow-lg shadow-black/80 border border-zinc-500 overflow-hidden h-[350px]">
             <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">

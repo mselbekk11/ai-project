@@ -4,7 +4,6 @@ import BentoTwo from "@/components/bento-two";
 import { Cta } from "@/components/cta";
 import { Faq } from "@/components/FAQ";
 import Features from "@/components/features-1";
-// import FeaturesCard from "@/components/features-card";
 import { FooterTwo } from "@/components/footer-two";
 import HeroSectionTwo from "@/components/hero-section-two";
 import { InfiniteSliderHoverSpeed } from "@/components/infinite-slider";
@@ -16,7 +15,6 @@ export default function Home() {
     <main className="flex flex-col h-100vh">
       <HeroSectionTwo />
       <Features />
-      {/* <FeaturesCard /> */}
       <BentoTwo />
       <Video />
       <InfiniteSliderHoverSpeed />
