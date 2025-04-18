@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import SectionHeading from "./section-heading";
+import { ShimmerButton } from "./magicui/shimmer-button";
 
 export default function PricingTwo() {
   return (
@@ -112,9 +113,18 @@ export default function PricingTwo() {
             </CardContent>
 
             <CardFooter>
-              <Button variant="purple" className="w-full">
+              {/* <Button variant="purple" className="w-full">
                 Get Started
-              </Button>
+              </Button> */}
+              <ShimmerButton
+                className="shadow-2xl w-full"
+                gradientFrom="rgb(92 6 226)"
+                gradientTo="rgb(142 56 276)"
+              >
+                <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10  px-4 font-semibold">
+                  Get Started
+                </span>
+              </ShimmerButton>
             </CardFooter>
           </Card>
 

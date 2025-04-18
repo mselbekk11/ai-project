@@ -7,12 +7,13 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+// import Link from "next/link";
+// import { Button } from "@/components/ui/button";
 // import Navigation from "./navigation";
 // import Image from "next/image";
 import NavigationTwo from "./navigation-two";
 import { BackgroundCarousel } from "./background-carousel";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 // Image arrays for the carousels
 const carouselImages1 = [
@@ -173,7 +174,7 @@ export default function HeroSectionTwo() {
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
             <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
-              Virtually Try On Any Outfit, <br /> Anytime, Anywhere
+              Virtually Try On Clothes <br /> Anytime, Anywhere
             </h1>
             <p className="mx-auto mt-8 max-w-2xl text-wrap text-lg">
               Explore a world of styles with our AI-driven platform
@@ -185,9 +186,20 @@ export default function HeroSectionTwo() {
             <p className="text-lg"> Need one more sentence here, and here</p>
 
             <div className="mt-8 flex items-center gap-4 justify-center">
-              <Button size="xl" variant="purple">
+              {/* <Button size="xl" variant="purple">
                 <Link href="#">Try on clothes</Link>
-              </Button>
+              </Button> */}
+
+              <ShimmerButton
+                className="shadow-2xl"
+                gradientFrom="rgb(92 6 226)"
+                gradientTo="rgb(142 56 276)"
+              >
+                <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 py-1  px-4 font-semibold">
+                  Try on clothes
+                </span>
+              </ShimmerButton>
+
               {/* <Button size="lg" variant="outline">
                 <Link href="#">Watch Demo</Link>
               </Button> */}
