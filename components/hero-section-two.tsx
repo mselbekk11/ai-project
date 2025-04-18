@@ -12,22 +12,112 @@ import { Button } from "@/components/ui/button";
 // import Navigation from "./navigation";
 // import Image from "next/image";
 import NavigationTwo from "./navigation-two";
+import { BackgroundCarousel } from "./background-carousel";
+
+// Image arrays for the carousels
+const carouselImages1 = [
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+];
+const carouselImages2 = [
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+];
+const carouselImages3 = [
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+];
+const carouselImages4 = [
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+  "/single.png",
+];
 
 export default function HeroSectionTwo() {
   // const [menuState, setMenuState] = React.useState(false);
 
   return (
     <section className="relative overflow-hidden bgpink">
-      {/* Background pattern with bg-hero.png */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: "url('/bg-hero-two.png')",
-          backgroundRepeat: "repeat",
-          backgroundSize: "200px",
-          opacity: 0.05,
-        }}
-      ></div>
+      {/* Replace static background with stacked carousels */}
+      <div className="absolute inset-0 z-0">
+        <div className="flex flex-col h-full gap-2">
+          <div className="flex-1">
+            <BackgroundCarousel
+              images={carouselImages1}
+              speed={30}
+              reverse={true}
+            />
+          </div>
+          <div className="flex-1">
+            <BackgroundCarousel
+              images={carouselImages2}
+              speed={30}
+              reverse={true}
+            />
+          </div>
+          <div className="flex-1">
+            <BackgroundCarousel
+              images={carouselImages3}
+              speed={30}
+              reverse={true}
+            />
+          </div>
+          <div className="flex-1">
+            <BackgroundCarousel
+              images={carouselImages4}
+              speed={30}
+              reverse={true}
+            />
+          </div>
+        </div>
+      </div>
 
       {/* <Navigation menuState={menuState} setMenuState={setMenuState} /> */}
       <NavigationTwo
