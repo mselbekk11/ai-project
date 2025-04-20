@@ -115,7 +115,7 @@ export default function PricingTwo() {
             <CardFooter>
               {/* <Button variant="purple" className="w-full">
                 Get Started
-              </Button> */}
+              </Button> */} 
               <ShimmerButton
                 className="shadow-2xl w-full"
                 gradientFrom="rgb(92 6 226)"
