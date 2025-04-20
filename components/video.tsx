@@ -1,4 +1,3 @@
-import Image from "next/image";
 import SectionHeading from "./section-heading";
 
 export default function Video() {
@@ -19,10 +18,18 @@ export default function Video() {
           heading="Try on clothes virtually"
           textColor="text-white"
         />
-        <div className="flex justify-center items-center mt-12 max-w-3xl mx-auto">
-          <Image src="/software.png" alt="video" width={1000} height={1000} />
-          {/* <div className="bg-gray-300 rounded-md w-full p-2">
-        </div> */}
+        <div className="flex justify-center items-center mt-12 max-w-3xl mx-auto relative z-20">
+          <div className="w-full rounded-lg overflow-hidden shadow-lg shadow-black/80">
+            <video
+              className="w-full h-auto"
+              src="https://polished-bullfrog-577.convex.cloud/api/storage/1624bb2e-df30-41a4-81b4-9499adb28172"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+            />
+          </div>
         </div>
       </div>
     </section>
