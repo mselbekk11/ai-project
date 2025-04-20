@@ -15,7 +15,7 @@ export default function Video() {
         ></div>
         <SectionHeading
           subheading="Virtual Fitting Room"
-          heading="Try on clothes virtually"
+          heading="See how it works"
           textColor="text-white"
         />
         <div className="flex justify-center items-center mt-12 max-w-3xl mx-auto relative z-20">

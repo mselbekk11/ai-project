@@ -9,25 +9,23 @@ export default function BentoTwo() {
     {
       title: "Style Experimentation",
       description:
-        "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.",
+        "Discover fresh trends and see what suits you before you spend",
       icon: <Style mode="loop" size="w-16 h-16" />,
     },
     {
       title: "Reduced Returns",
       description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit.",
+        "See what fits before buying to avoid disappointing returns later",
       icon: <Returns mode="loop" size="w-16 h-16" />,
     },
     {
       title: "Sustainable",
-      description:
-        "Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi.",
+      description: "Cut down waste by only buying what truly fits and flatters",
       icon: <Globe mode="loop" size="w-16 h-16" />,
     },
     {
       title: "Time Saving",
-      description:
-        "Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida.",
+      description: "No more changing rooms—try on outfits virtually in seconds",
       icon: <Time mode="loop" size="w-16 h-16" />,
     },
   ];
@@ -37,7 +35,7 @@ export default function BentoTwo() {
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <SectionHeading
           subheading="The Benefits"
-          heading="Why try on clothes virtually?"
+          heading="Why you should use Trizzy?"
           textColor="text-black"
         />
         <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">

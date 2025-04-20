@@ -188,13 +188,15 @@ export default function HeroSectionTwo() {
               Virtually Try On Clothes <br /> Anytime, Anywhere
             </h1>
             <p className="mx-auto mt-8 max-w-2xl text-wrap text-lg">
-              Explore a world of styles with our AI-driven platform
+              Explore a world of styles with our AI-driven platform.
             </p>
             {/* <p className="text-lg">
               perfect your look before you buy! perfect your look before you
               buy!
             </p> */}
-            <p className="text-lg"> Need one more sentence here, and here</p>
+            <p className="text-lg">
+              See how clothes fit on your body before you buy.
+            </p>
 
             <div className="mt-8 flex items-center gap-4 justify-center">
               {/* <Button size="xl" variant="purple">

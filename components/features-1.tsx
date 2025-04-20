@@ -22,7 +22,7 @@ export default function Features() {
 
       <div className="@container mx-auto max-w-5xl px-6 relative z-10">
         <SectionHeading
-          subheading="Try on clothes virtually in"
+          subheading="Try on clothes in"
           heading="3 Easy Steps"
           textColor="text-white"
         />
