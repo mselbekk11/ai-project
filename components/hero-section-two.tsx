@@ -15,6 +15,21 @@ import NavigationTwo from "./navigation-two";
 import { BackgroundCarousel } from "./background-carousel";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { Zap } from "lucide-react";
+import { motion } from "motion/react";
+
+// Define animation variants
+const ENTRY_VARIANTS = {
+  hidden: {
+    opacity: 0,
+    y: 10,
+    filter: "blur(10px)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+  },
+};
 
 // Image arrays for the carousels
 const carouselImages1 = [
@@ -176,43 +191,94 @@ export default function HeroSectionTwo() {
           <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
             {/* Pill Component */}
             <div className="flex items-center justify-center mb-8">
-              <div className="bg-indigo-200 backdrop-blur-sm px-4 py-1 rounded-full shadow-md flex items-center gap-2 border border-[#5C06E5]">
+              <motion.div
+                className="bg-indigo-200 backdrop-blur-sm px-4 py-1 rounded-full shadow-md flex items-center gap-2 border border-[#5C06E5]"
+                variants={ENTRY_VARIANTS}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  duration: 0.5,
+                  delay: 0.2,
+                  ease: "easeOut",
+                }}
+              >
                 <Zap color="#5C06E5" fill="#5C06E5" size={16} />
                 <span className="text-sm font-semibold text-gray-800">
                   5,000+ outfits tried on
                 </span>
-              </div>
+              </motion.div>
             </div>
 
-            <h1 className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
+            <motion.h1
+              className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]"
+              variants={ENTRY_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 0.5,
+                delay: 0.3,
+                ease: "easeOut",
+              }}
+            >
               Virtually Try On Clothes <br /> Anytime, Anywhere
-            </h1>
-            <p className="mx-auto mt-8 max-w-2xl text-wrap text-lg">
+            </motion.h1>
+            <motion.p
+              className="mx-auto mt-8 max-w-2xl text-wrap text-lg"
+              variants={ENTRY_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 0.5,
+                delay: 0.4,
+                ease: "easeOut",
+              }}
+            >
               Explore a world of styles with our AI-driven platform.
-            </p>
+            </motion.p>
             {/* <p className="text-lg">
               perfect your look before you buy! perfect your look before you
               buy!
             </p> */}
-            <p className="text-lg">
+            <motion.p
+              className="text-lg"
+              variants={ENTRY_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 0.5,
+                delay: 0.5,
+                ease: "easeOut",
+              }}
+            >
               See how clothes fit on your body before you buy.
-            </p>
+            </motion.p>
 
             <div className="mt-8 flex items-center gap-4 justify-center">
               {/* <Button size="xl" variant="purple">
                 <Link href="#">Try on clothes</Link>
               </Button> */}
 
-              <ShimmerButton
-                className="shadow-2xl"
-                gradientFrom="rgb(92 6 226)"
-                gradientTo="rgb(84 84 236)"
-                // gradientTo="rgb(142 56 276)"
+              <motion.div
+                variants={ENTRY_VARIANTS}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  duration: 0.5,
+                  delay: 0.6,
+                  ease: "easeOut",
+                }}
               >
-                <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 py-1  px-4 font-semibold">
-                  Try on clothes
-                </span>
-              </ShimmerButton>
+                <ShimmerButton
+                  className="shadow-2xl"
+                  gradientFrom="rgb(92 6 226)"
+                  gradientTo="rgb(84 84 236)"
+                  // gradientTo="rgb(142 56 276)"
+                >
+                  <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 py-1  px-4 font-semibold">
+                    Try on clothes
+                  </span>
+                </ShimmerButton>
+              </motion.div>
 
               {/* <Button size="lg" variant="outline">
                 <Link href="#">Watch Demo</Link>

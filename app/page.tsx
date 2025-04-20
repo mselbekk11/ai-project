@@ -5,6 +5,7 @@ import { Cta } from "@/components/cta";
 import { Faq } from "@/components/FAQ";
 import Features from "@/components/features-1";
 import { FooterTwo } from "@/components/footer-two";
+import HeroGrid from "@/components/hero-grid";
 import HeroSectionTwo from "@/components/hero-section-two";
 import { InfiniteSliderHoverSpeed } from "@/components/infinite-slider";
 // import { InfiniteSliderHoverSpeedTwo } from "@/components/infinite-slider-two";
@@ -15,6 +16,7 @@ export default function Home() {
   return (
     <main className="flex flex-col h-100vh">
       <HeroSectionTwo />
+      <HeroGrid />
       <Features />
       <BentoTwo />
       <Video />
