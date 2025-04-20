@@ -14,8 +14,9 @@ import "swiper/css/effect-coverflow";
 import NavigationTwo from "./navigation-two";
 import { BackgroundCarousel } from "./background-carousel";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
-import { Zap } from "lucide-react";
+// import { Zap } from "lucide-react";
 import { motion } from "motion/react";
+import Bolt from "./lottie/bolt";
 
 // Define animation variants
 const ENTRY_VARIANTS = {
@@ -202,7 +203,8 @@ export default function HeroSectionTwo() {
                   ease: "easeOut",
                 }}
               >
-                <Zap color="#5C06E5" fill="#5C06E5" size={16} />
+                {/* <Zap color="#5C06E5" fill="#5C06E5" size={16} /> */}
+                <Bolt mode="loop" size="w-5 h-5" />
                 <span className="text-sm font-semibold text-gray-800">
                   5,000+ outfits tried on
                 </span>
