@@ -40,7 +40,7 @@ export function Cta() {
           <ShimmerButton
             className="shadow-2xl"
             gradientFrom="rgb(92 6 226)"
-            gradientTo="rgb(142 56 276)"
+            gradientTo="rgb(84 84 236)"
           >
             <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10  px-4 font-semibold">
               Try on clothes

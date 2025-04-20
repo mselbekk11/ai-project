@@ -28,7 +28,7 @@ export default function NavigationTwo({}: {
 
   return (
     <div className="fixed top-8 z-50 w-full">
-      <div className="mx-auto w-full max-w-screen-lg px-4">
+      <div className="mx-auto w-full max-w-6xl px-4">
         <div
           className={cn(
             `flex w-full items-center justify-between rounded-xl border transition-all duration-200 ease-out`,
