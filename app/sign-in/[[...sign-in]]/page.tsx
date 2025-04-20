@@ -4,7 +4,9 @@ import { AuthLayout } from "../../../components/auth-layout";
 export default function SignInPage() {
   return (
     <AuthLayout>
-      <SignIn />
+      <div className="shadow-lg shadow-black/80">
+        <SignIn />
+      </div>
     </AuthLayout>
   );
 }
