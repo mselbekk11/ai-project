@@ -13,7 +13,6 @@ import { useUser } from "@clerk/nextjs";
 // import Credits from "@/components/Credits";
 import { toast } from "sonner";
 import { Loader2, Check } from "lucide-react";
-import SectionHeading from "@/components/section-heading";
 
 export default function BuyCredits() {
   const { user } = useUser();
