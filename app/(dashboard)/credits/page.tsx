@@ -13,6 +13,7 @@ import { useUser } from "@clerk/nextjs";
 // import Credits from "@/components/Credits";
 import { toast } from "sonner";
 import { Loader2, Check } from "lucide-react";
+import SectionHeading from "@/components/section-heading";
 
 export default function BuyCredits() {
   const { user } = useUser();
@@ -53,10 +54,21 @@ export default function BuyCredits() {
   };
 
   return (
-    <section className="h-full flex flex-col items-center justify-start  p-4">
+    <section className="h-full flex flex-col items-center justify-start p-4">
       <Card className="w-full h-full bg-sidebar">
         <div className="mx-auto max-w-6xl px-6 w-full">
-          <div className="mt-8 grid gap-6 md:mt-20 md:grid-cols-3">
+          <div className="text-center my-12">
+            <h1 className="text-center mx-auto mt-2 max-w-xl text-2xl font-extrabold">
+              Buy some Credits
+            </h1>
+            <p className="mx-auto mt-4 hidden max-w-2xl text-wrap text-md sm:block text-black">
+              Pay once,{" "}
+              <span className="font-bold text-purple-500">
+                no subscriptions or hidden fees
+              </span>
+            </p>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             <Card className="flex flex-col">
               <CardHeader>
                 <CardTitle className="font-medium">Starter</CardTitle>
@@ -82,7 +94,6 @@ export default function BuyCredits() {
 
               <CardFooter>
                 <Button
-                  variant="outline"
                   className="w-full"
                   onClick={() => handleBuyCredits("starter")}
                   disabled={isProcessing}
@@ -99,7 +110,7 @@ export default function BuyCredits() {
               </CardFooter>
             </Card>
 
-            <Card className="relative flex flex-col">
+            <Card className="relative flex flex-col border border-purple-600">
               <span className="bg-purple-600 absolute inset-x-0 -top-3 mx-auto flex h-6 w-fit items-center rounded-full px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/40 ring-offset-1 ring-offset-gray-950/5">
                 Popular
               </span>
@@ -116,10 +127,12 @@ export default function BuyCredits() {
                     "2 Model Credits",
                     "40 Clothing Credits",
                     "40 Generation Credits",
-                    "Priority Support",
                   ].map((item, index) => (
                     <li key={index} className="flex items-center gap-2">
-                      <Check className="size-3" />
+                      <Check
+                        className="size-3"
+                        color="oklch(72.3% 0.219 149.579)"
+                      />
                       {item}
                     </li>
                   ))}
@@ -158,11 +171,12 @@ export default function BuyCredits() {
                     "3 Model Credits",
                     "60 Clothing Credits",
                     "60 Generation Credits",
-                    "Priority Support",
-                    "Early Access to New Features",
                   ].map((item, index) => (
                     <li key={index} className="flex items-center gap-2">
-                      <Check className="size-3" />
+                      <Check
+                        className="size-3"
+                        color="oklch(72.3% 0.219 149.579)"
+                      />
                       {item}
                     </li>
                   ))}
@@ -171,7 +185,6 @@ export default function BuyCredits() {
 
               <CardFooter>
                 <Button
-                  variant="outline"
                   className="w-full"
                   onClick={() => handleBuyCredits("premium")}
                   disabled={isProcessing}
