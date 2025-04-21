@@ -14,54 +14,54 @@ export default function SuccessPage() {
   const [verifying, setVerifying] = useState(true);
   const clerk = useClerk();
 
-  useEffect(() => {
-    // Wait for Clerk to load
-    if (!isLoaded) return;
+  // useEffect(() => {
+  //   // Wait for Clerk to load
+  //   if (!isLoaded) return;
 
-    // If user is not signed in, redirect to sign-in page with this page as redirect
-    if (!isSignedIn) {
-      const currentUrl = window.location.href;
-      // Redirect to sign-in with the success page as the return URL
-      clerk.redirectToSignIn({ redirectUrl: currentUrl });
-      return;
-    }
+  //   // If user is not signed in, redirect to sign-in page with this page as redirect
+  //   if (!isSignedIn) {
+  //     const currentUrl = window.location.href;
+  //     // Redirect to sign-in with the success page as the return URL
+  //     clerk.redirectToSignIn({ redirectUrl: currentUrl });
+  //     return;
+  //   }
 
-    // If no session ID is provided, redirect to onboarding
-    if (!sessionId) {
-      toast.error("Missing payment information");
-      router.push("/onboarding");
-      return;
-    }
+  //   // If no session ID is provided, redirect to onboarding
+  //   if (!sessionId) {
+  //     toast.error("Missing payment information");
+  //     router.push("/onboarding");
+  //     return;
+  //   }
 
-    // Verify the payment was successful
-    const verifyPayment = async () => {
-      try {
-        const response = await fetch(
-          `/api/verify-payment?session_id=${sessionId}`,
-        );
-        const data = await response.json();
+  //   // Verify the payment was successful
+  //   const verifyPayment = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `/api/verify-payment?session_id=${sessionId}`,
+  //       );
+  //       const data = await response.json();
 
-        if (data.success) {
-          toast.success(
-            "Payment successful! Your credits have been added to your account.",
-          );
-          // Successfully paid, redirect to dashboard
-          router.push("/home");
-        } else {
-          toast.error("Payment verification failed. Please contact support.");
-          router.push("/onboarding");
-        }
-      } catch (error) {
-        console.error("Error verifying payment:", error);
-        toast.error("Failed to verify payment. Please contact support.");
-        router.push("/onboarding");
-      } finally {
-        setVerifying(false);
-      }
-    };
+  //       if (data.success) {
+  //         toast.success(
+  //           "Payment successful! Your credits have been added to your account.",
+  //         );
+  //         // Successfully paid, redirect to dashboard
+  //         router.push("/home");
+  //       } else {
+  //         toast.error("Payment verification failed. Please contact support.");
+  //         router.push("/onboarding");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error verifying payment:", error);
+  //       toast.error("Failed to verify payment. Please contact support.");
+  //       router.push("/onboarding");
+  //     } finally {
+  //       setVerifying(false);
+  //     }
+  //   };
 
-    verifyPayment();
-  }, [sessionId, router, isSignedIn, isLoaded, clerk]);
+  //   verifyPayment();
+  // }, [sessionId, router, isSignedIn, isLoaded, clerk]);
 
   return (
     <div className="bg-zinc-800 min-h-screen flex flex-col items-center justify-center p-4 relative">
