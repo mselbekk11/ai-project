@@ -7,7 +7,7 @@ import {
   CardTitle,
   CardDescription,
 } from "./ui/card";
-import LogoThree from "./logoThree";
+import LogoSix from "./logo-six";
 // import { Upload } from "lucide-react";
 
 export default function Info() {
@@ -21,7 +21,7 @@ export default function Info() {
                 <Upload className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
               </div> */}
               <div className="w-12 h-12">
-                <LogoThree />
+                <LogoSix />
               </div>
             </div>
             <CardTitle className="text-xl font-semibold text-center">

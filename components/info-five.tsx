@@ -1,4 +1,4 @@
-import LogoThree from "./logoThree";
+import LogoSix from "./logo-six";
 import StepIndicator from "./step-indicator";
 import { Card, CardContent, CardTitle, CardDescription } from "./ui/card";
 
@@ -10,7 +10,7 @@ export default function InfoFive() {
           <div className="space-y-5 text-center">
             <div className="flex justify-center mb-4">
               <div className="w-12 h-12">
-                <LogoThree />
+                <LogoSix />
               </div>
             </div>
             <CardTitle className="text-xl font-semibold text-center">
@@ -40,7 +40,7 @@ export default function InfoFive() {
                 />
                 <StepIndicator
                   number={2}
-                  text="Upload 5-10 clear, front-facing photos of yourself"
+                  text="Upload 5-20 clear, front-facing photos of yourself"
                 />
                 <StepIndicator
                   number={3}
