@@ -60,7 +60,7 @@ export default function BuyCredits() {
             <h1 className="text-center mx-auto mt-2 max-w-xl text-2xl font-extrabold">
               Buy some Credits
             </h1>
-            <p className="mx-auto mt-4 hidden max-w-2xl text-wrap text-md sm:block text-black">
+            <p className="mx-auto mt-4 hidden max-w-2xl text-wrap text-md sm:block">
               Pay once,{" "}
               <span className="font-bold text-purple-500">
                 no subscriptions or hidden fees

@@ -11,8 +11,8 @@ export default function SectionHeading({
     <div className="">
       {/* Pill Component */}
       <div className="flex items-center justify-center mb-4">
-        <div className="bg-indigo-200 backdrop-blur-sm px-4 py-1 rounded-full shadow-md flex items-center gap-2 border border-[#5C06E5]">
-          <span className="text-sm font-semibold text-gray-800">
+        <div className="bg-violet-200 backdrop-blur-sm px-4 py-1 rounded-full shadow-md flex items-center gap-2 border border-[#5C06E5]">
+          <span className="text-sm font-semibold text-[#5C06E5]">
             {subheading}
           </span>
         </div>

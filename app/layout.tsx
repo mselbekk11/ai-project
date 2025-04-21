@@ -5,7 +5,6 @@ import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import ConvexClerkUserSync from "@/components/ConvexClerkUserSync";
-import { ThemeProvider } from "@/components/layout/theme-provider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
@@ -38,18 +37,9 @@ export default function RootLayout({
         <ClerkProvider dynamic>
           <ConvexClientProvider>
             <ConvexClerkUserSync />
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-              enableSystem={false}
-              // forcedTheme="dark"
-            >
-              <NextSSRPlugin
-                routerConfig={extractRouterConfig(ourFileRouter)}
-              />
-              {children}
-              <Toaster />
-            </ThemeProvider>
+            <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+            {children}
+            <Toaster />
           </ConvexClientProvider>
         </ClerkProvider>
       </body>

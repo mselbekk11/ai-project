@@ -289,7 +289,7 @@ export default function Gallery() {
         {generations.map((generation) => (
           <div
             key={generation._id}
-            className="relative bg-gray-100 rounded-sm overflow-hidden cursor-pointer shadow-md"
+            className="relative rounded-sm overflow-hidden cursor-pointer shadow-md"
             style={{ aspectRatio: "768/1280" }}
             onClick={() => handleImageClick(generation)}
           >
