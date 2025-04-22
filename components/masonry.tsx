@@ -84,6 +84,17 @@ export default function Masonry() {
 
   return (
     <section className="relative w-full bg-zinc-800 overflow-hidden">
+      {/* Stars background overlay */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: "url('/stars.png')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "500px",
+          opacity: 0.6,
+        }}
+      ></div>
+
       {/* Top gradient */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10"></div>
 
@@ -91,7 +102,7 @@ export default function Masonry() {
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent z-10"></div>
 
       {/* Masonry grid */}
-      <div className="mx-auto px-4 relative">
+      <div className="mx-auto px-4 relative z-1">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4">
           {/* Generate 8 columns */}
           {Array.from({ length: 8 }).map((_, columnIndex) => {
@@ -110,7 +121,7 @@ export default function Masonry() {
                   ? columnImages.map((image) => (
                       <div
                         key={image.id}
-                        className="relative aspect-[3/4] w-full bg-black rounded-md overflow-hidden flex items-center justify-center border border-zinc-700"
+                        className="relative aspect-[3/4] w-full bg-black hover:bg-zinc-900 rounded-md overflow-hidden flex items-center justify-center border border-zinc-700 transition-colors duration-200"
                       >
                         <div className="relative w-full h-full">
                           <Image
@@ -128,7 +139,7 @@ export default function Masonry() {
                       (_, imageIndex) => (
                         <div
                           key={`empty-${columnIndex}-${imageIndex}`}
-                          className="relative aspect-[3/4] w-full bg-black rounded-lg overflow-hidden flex items-center justify-center"
+                          className="relative aspect-[3/4] w-full bg-black hover:bg-zinc-900 rounded-lg overflow-hidden flex items-center justify-center transition-colors duration-200"
                         >
                           <div className="relative w-full h-full">
                             <Image
