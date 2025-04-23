@@ -102,7 +102,7 @@ export default function Home() {
     const garmentType = selectedClothing.class || "clothing";
     const formattedGarmentType = garmentType.replace(/_/g, " ");
     const modelGender = selectedModel.gender || "person";
-    const fullPrompt = `${loraId} ${faceId} ${modelGender} model flux ${formattedGarmentType} ${prompt}`;
+    const fullPrompt = `${loraId} ${faceId} ${modelGender} model flux ${formattedGarmentType} ${prompt} waist up`;
 
     console.log("Sending request with prompt:", fullPrompt);
 

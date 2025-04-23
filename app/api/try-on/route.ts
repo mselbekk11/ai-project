@@ -57,6 +57,7 @@ export async function POST(req: Request) {
     formData.append('prompt[text]', body.prompt);
     formData.append('prompt[super_resolution]', 'true');
     formData.append('prompt[inpaint_faces]', 'true');
+    formData.append('prompt[seed]', Math.floor(Math.random() * 2000) + 1 + '');
     formData.append('prompt[face_correct]', 'false');
     formData.append('prompt[face_swap]', 'false');
     formData.append('prompt[film_grain]', 'false');
