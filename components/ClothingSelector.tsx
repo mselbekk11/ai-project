@@ -216,6 +216,7 @@ export default function ClothingSelector({
               </div>
               <div className="flex gap-4">
                 <Button
+                  type="button"
                   onClick={handleTrainGarment}
                   disabled={!pendingUpload.type || loading}
                   className="flex-1"
@@ -230,6 +231,7 @@ export default function ClothingSelector({
                   )}
                 </Button>
                 <Button
+                  type="button"
                   variant="outline"
                   onClick={() => setPendingUpload(null)}
                   disabled={loading}

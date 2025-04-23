@@ -33,7 +33,8 @@ export default function GoodPictures() {
           Choose good pictures
         </CardTitle>
         <CardDescription className="text-sm text-muted-foreground">
-          5-10 high quality images, front-facing, 1 person in the frame, variety
+          10-20 high quality images, front-facing, 1 person in the frame. A
+          variety of poses, headshots, waist up, full body,
         </CardDescription>
       </CardHeader>
       <CardContent className="px-4 pb-4">
