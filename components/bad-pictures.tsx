@@ -27,30 +27,30 @@ export default function BadPictures() {
 
   return (
     <Card className="rounded-sm mb-4 bg-sidebar">
-    <CardHeader className="p-4">
-      <CardTitle className="text-sm font-semibold font-heading flex items-center">
-        <X className="w-4 h-4 mr-2 text-red-500" />
-        Examples of bad pictures
-      </CardTitle>
-      <CardDescription className="text-sm text-muted-foreground">
-        Multiple people, blurry, uncropped, low quality
-      </CardDescription>
-    </CardHeader>
-    <CardContent className="px-4 pb-4">
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-        {badImageUrls.map((item, idx) => (
-          <div key={idx}>
-            <Image
-              src={item.url}
-              alt={`Image ${idx + 1}`}
-              width={100}
-              height={100}
-              className="rounded-sm"
-            />
-          </div>
-        ))}
-      </div>
-    </CardContent>
-  </Card>
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm font-semibold font-heading flex items-center">
+          <X className="w-4 h-4 mr-2 text-red-500" />
+          Examples of bad pictures
+        </CardTitle>
+        <CardDescription className="text-sm text-muted-foreground">
+          Multiple people, blurry, low quality
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="px-4 pb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+          {badImageUrls.map((item, idx) => (
+            <div key={idx}>
+              <Image
+                src={item.url}
+                alt={`Image ${idx + 1}`}
+                width={100}
+                height={100}
+                className="rounded-sm"
+              />
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
