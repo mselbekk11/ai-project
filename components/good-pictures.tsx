@@ -17,6 +17,9 @@ export default function GoodPictures() {
     {
       url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIApoBJ8IAD2Z7AjUfI91Pk4O0MiaCzJxNlbtLm",
     },
+    // {
+    //   url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIAdnTickEro16QBesLZI8M7AtaX3WSxTjGz0FO",
+    // },
     {
       url: "https://7gjsu8414g.ufs.sh/f/hdGLEyqzBbIAH2STNt6VQk7cayU4jBhJTP6Rvs2mXG0q95nd",
     },

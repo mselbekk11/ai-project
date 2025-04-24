@@ -29,7 +29,8 @@ export default function Info() {
             </CardTitle>
             <CardDescription className="text-center">
               You don&apos;t have any trained models yet. To get started with
-              Trizzy, you&apos;ll need to train an AI model on your face.
+              Trizzy, you&apos;ll need to train an AI model on your face and
+              body.
             </CardDescription>
           </div>
         </CardContent>

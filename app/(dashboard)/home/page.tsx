@@ -183,8 +183,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 h-full">
-      {/* Left column - Form section (30% width) */}
-      <div className="w-[27%] p-4">
+      {/* Left column - Form section (fixed 350px width) */}
+      <div className="w-[350px] p-4">
         <Card className="p-4 rounded-sm sticky" style={{ top: "4rem" }}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
@@ -281,8 +281,8 @@ export default function Home() {
         </Card>
       </div>
 
-      {/* Right column - Results (70% width) */}
-      <div className="w-[73%] h-full py-4 pr-4">
+      {/* Right column - Results (flexible width) */}
+      <div className="flex-1 h-full py-4 pr-4">
         <Card className="w-full h-full rounded-sm bg-sidebar">
           <Gallery />
         </Card>
