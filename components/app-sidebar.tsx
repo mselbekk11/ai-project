@@ -61,9 +61,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <LogoFive />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  {/* <span className="font-semibold text-1xl font-heading">
+                  <span className="font-bold text-1xl font-heading">
                     Trizzy
-                  </span> */}
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>
