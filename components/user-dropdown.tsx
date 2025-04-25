@@ -102,7 +102,7 @@ export default function UserDropdown({ setOpenMobile }: UserDropdownProps) {
                 </span>
               )} */}
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="center" className="w-52 border">
+        <DropdownMenuContent align="center" className="w-64 md:w-52 border">
           <div className="px-2 py-2">
             <p className="font-medium text-sm">{`${user?.firstName} ${user?.lastName}`}</p>
             <p className="text-xs text-gray-400">{`${user?.emailAddresses[0].emailAddress}`}</p>
