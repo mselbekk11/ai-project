@@ -21,7 +21,7 @@ export default function SectionHeading({
         {subheading}
       </h3> */}
       <h2
-        className={`text-center mx-auto mt-2 max-w-xl text-4xl font-extrabold ${textColor}`}
+        className={`text-center mx-auto mt-2 max-w-xl text-2xl md:text-4xl font-extrabold ${textColor}`}
       >
         {heading}
       </h2>

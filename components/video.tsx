@@ -2,7 +2,7 @@ import SectionHeading from "./section-heading";
 
 export default function Video() {
   return (
-    <section className="bg-zinc-800 py-32 mx-auto w-full relative">
+    <section className="bg-zinc-800 py-24 md:py-32 mx-auto w-full relative">
       <div className="max-w-6xl mx-auto">
         <div
           className="absolute inset-0 z-0"
@@ -18,7 +18,7 @@ export default function Video() {
           heading="See how it works"
           textColor="text-white"
         />
-        <div className="flex justify-center items-center mt-12 max-w-3xl mx-auto relative z-20">
+        <div className="flex justify-center items-center mt-12 max-w-3xl mx-auto relative z-20 px-4">
           <div className="w-full rounded-lg overflow-hidden shadow-lg shadow-black/80">
             <video
               className="w-full h-auto"

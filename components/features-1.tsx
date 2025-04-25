@@ -9,7 +9,7 @@ import ArrowTwo from "./arrow-two";
 
 export default function Features() {
   return (
-    <section className="bg-zinc-800 py-32 dark:bg-transparent relative">
+    <section className="bg-zinc-800 py-24 md:py-32 dark:bg-transparent relative">
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -33,7 +33,7 @@ export default function Features() {
               <Image
                 src={imageGroup}
                 alt="Step 1"
-                className="max-h-[60%] w-auto object-contain relative z-10 mb-8"
+                className="h-[180px] md:h-[120px] w-auto object-contain relative z-10 mb-8"
               />
               <div
                 className="absolute inset-0 z-10"

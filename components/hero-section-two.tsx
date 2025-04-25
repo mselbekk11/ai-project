@@ -207,7 +207,7 @@ export default function HeroSectionTwo() {
         />
       </div> */}
 
-      <div className="relative py-24 lg:pt-44 lg:pb-44">
+      <div className="relative py-44 lg:pt-44 lg:pb-44">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
             {/* Pill Component */}
@@ -232,7 +232,7 @@ export default function HeroSectionTwo() {
             </div>
 
             <motion.h1
-              className="text-4xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]"
+              className="text-2xl font-extrabold md:text-5xl xl:text-5xl xl:[line-height:1.125]"
               variants={ENTRY_VARIANTS}
               initial="hidden"
               animate="visible"
@@ -245,7 +245,7 @@ export default function HeroSectionTwo() {
               Virtually Try On Clothes <br /> Anytime, Anywhere
             </motion.h1>
             <motion.p
-              className="mx-auto mt-8 max-w-2xl text-wrap text-lg"
+              className="mx-auto mt-8 max-w-2xl text-wrap text-sm md:text-lg"
               variants={ENTRY_VARIANTS}
               initial="hidden"
               animate="visible"
@@ -262,7 +262,7 @@ export default function HeroSectionTwo() {
               buy!
             </p> */}
             <motion.p
-              className="text-lg"
+              className="text-sm md:text-lg"
               variants={ENTRY_VARIANTS}
               initial="hidden"
               animate="visible"

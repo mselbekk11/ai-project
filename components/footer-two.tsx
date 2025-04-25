@@ -14,7 +14,7 @@ export function FooterTwo() {
           opacity: 0.6,
         }}
       ></div>
-      <div className="mx-auto flex max-w-6xl flex-col justify-center py-12 md:flex-row md:justify-between items-center">
+      <div className="mx-auto flex max-w-6xl flex-col-reverse gap-4 md:gap-0 justify-center py-12 md:flex-row md:justify-between items-center">
         <TextEffect className="text-sm text-zinc-400">
           {`© ${new Date().getFullYear()} Trizzy, Inc. All rights reserved.`}
         </TextEffect>

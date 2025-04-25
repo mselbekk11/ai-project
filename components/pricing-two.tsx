@@ -12,8 +12,8 @@ import { ShimmerButton } from "./magicui/shimmer-button";
 
 export default function PricingTwo() {
   return (
-    <section className="py-32 bg-zinc-800 flex flex-col items-center relative">
-      <div className="mx-auto max-w-6xl px-6 w-full">
+    <section className="pt-0 pb-24 md:py-32 bg-zinc-800 flex flex-col items-center relative">
+      <div className="mx-auto max-w-6xl px-4 w-full">
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -39,7 +39,7 @@ export default function PricingTwo() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-6 md:mt-20 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 md:gap-6 md:mt-20 md:grid-cols-3">
           <Card className="flex flex-col bg-zinc-900 z-10 border border-zinc-500">
             <CardHeader>
               <CardTitle className="font-medium text-white">Starter</CardTitle>
@@ -115,7 +115,7 @@ export default function PricingTwo() {
             <CardFooter>
               {/* <Button variant="purple" className="w-full">
                 Get Started
-              </Button> */} 
+              </Button> */}
               <ShimmerButton
                 className="shadow-2xl w-full"
                 gradientFrom="rgb(92 6 226)"

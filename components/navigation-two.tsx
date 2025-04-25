@@ -27,7 +27,7 @@ export default function NavigationTwo({}: {
   });
 
   return (
-    <div className="fixed top-8 z-50 w-full">
+    <div className="fixed top-4 md:top-8 z-50 w-full">
       <div className="mx-auto w-full max-w-6xl px-4">
         <div
           className={cn(
@@ -64,7 +64,7 @@ export default function NavigationTwo({}: {
                   {link.label}
                 </a>
               ))} */}
-              <div className="hidden lg:flex lg:items-center lg:gap-3">
+              <div className="flex items-center gap-3">
                 <SignedOut>
                   <SignInButton>
                     <Button size="sm">Sign in</Button>

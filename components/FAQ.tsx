@@ -9,7 +9,7 @@ import SectionHeading from "./section-heading";
 
 const CONTENT = [
   {
-    title: "How many images do I need to train a custom model?",
+    title: "How many images do I need to train a model?",
     value: "how-many-images",
     content:
       "Use shots with the subject centered in the frame, Include only one subject per image, Avoid accessories like sunglasses or hats, Ensure the subject is clearly visible in all images. For best results, we recommend using 10-20 high-quality images, some shout be headshots, some should be waist up and some should be full body shots. Remember, the better your input images, the better your AI-generated results will be.",
@@ -49,7 +49,7 @@ const CONTENT = [
 
 export function Faq() {
   return (
-    <div className="relative mx-auto w-full px-6 py-32 bg-gray-50">
+    <div className="relative mx-auto w-full px-4 py-24 md:py-32 bg-gray-50">
       <div className="mb-24">
         <SectionHeading
           subheading="Answers to common questions"
@@ -59,7 +59,7 @@ export function Faq() {
       </div>
       <div className="border border-gray-200 bg-white rounded-md px-6 py-2 max-w-6xl mx-auto">
         <Accordion
-          className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
+          className="text-xs md:text-base flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
           transition={{ duration: 0.2, ease: "easeInOut" }}
         >
           {CONTENT.map((item, index) => (

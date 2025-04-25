@@ -30,7 +30,7 @@ export function Cta() {
           }}
         ></div>
         <div className="mx-auto max-w-6xl text-center mb-8">
-          <h1 className="font-extrabold text-3xl xl:[line-height:1.125] text-white">
+          <h1 className="font-extrabold text-2xl md:text-3xl xl:[line-height:1.125] text-white">
             Virtually Try On Clothes <br />
             Anytime, Anywhere
           </h1>

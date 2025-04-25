@@ -31,7 +31,7 @@ export default function BentoTwo() {
   ];
 
   return (
-    <div className="bg-gray-50 py-32">
+    <div className="bg-gray-50 py-24 md:py-32">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <SectionHeading
           subheading="The Benefits"
@@ -44,12 +44,12 @@ export default function BentoTwo() {
             <div key={idx}>
               {/* <div className="absolute inset-px rounded-lg bg-white"></div> */}
               <div className="flex h-full flex-col rounded-md border border-gray-200 bg-white">
-                <div className="flex flex-col items-center px-8 py-8">
+                <div className="flex flex-col items-center p-4 md:p-8">
                   {item.icon}
-                  <p className="text-lg font-medium tracking-tight text-gray-950 text-center mt-4">
+                  <p className="text-sm md:text-lg font-medium tracking-tight text-gray-950 text-center mt-4">
                     {item.title}
                   </p>
-                  <p className="mt-2 text-sm/6 text-gray-600 text-center">
+                  <p className="mt-2 text-xs md:text-sm/6 text-gray-600 text-center">
                     {item.description}
                   </p>
                 </div>

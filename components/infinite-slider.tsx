@@ -30,14 +30,14 @@ const images = [
 
 export function InfiniteSliderHoverSpeed() {
   return (
-    <div className="bg-zinc-900 border-t border-b border-zinc-500 py-4">
-      <div className=" flex flex-col gap-4">
+    <div className="bg-zinc-800 py-4 hidden md:block">
+      <div className="px-8 flex flex-col gap-4">
         <InfiniteSlider
           speedOnHover={1}
           gap={2}
           speed={20}
           reverse={true}
-          className=""
+          className="overflow-visible"
         >
           {images.map((item, idx) => (
             <div
@@ -59,7 +59,7 @@ export function InfiniteSliderHoverSpeed() {
           gap={2}
           speed={20}
           reverse={false}
-          className=""
+          className="overflow-visible"
         >
           {images.map((item, idx) => (
             <div

@@ -113,7 +113,7 @@ export default function Masonry() {
   };
 
   return (
-    <section className="relative w-full bg-zinc-800 overflow-hidden py-8">
+    <section className="hidden xl:block relative w-full bg-zinc-800 overflow-hidden py-8">
       {/* Stars background overlay */}
       <div
         className="absolute inset-0 z-0"
