@@ -15,7 +15,11 @@ import { Monitor, Sun, Moon, MoreHorizontal } from "lucide-react";
 import { useUser, SignOutButton, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default function UserDropdown() {
+interface UserDropdownProps {
+  setOpenMobile?: (open: boolean) => void;
+}
+
+export default function UserDropdown({ setOpenMobile }: UserDropdownProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const { user } = useUser();
@@ -25,6 +29,13 @@ export default function UserDropdown() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Function to close the mobile sidebar
+  const closeMobileSidebar = () => {
+    if (setOpenMobile) {
+      setOpenMobile(false);
+    }
+  };
 
   // Register keyboard shortcuts
   useEffect(() => {
@@ -99,14 +110,17 @@ export default function UserDropdown() {
           <DropdownMenuSeparator className="" />
           <DropdownMenuItem
             className="py-2 cursor-pointer flex justify-between"
-            onClick={() => openUserProfile()}
+            onClick={() => {
+              openUserProfile();
+              closeMobileSidebar();
+            }}
           >
             <div className="flex items-center">
               <span>Profile</span>
             </div>
             <span className="text-xs text-gray-400">⌘ ⇧ P</span>
           </DropdownMenuItem>
-          <Link href="/credits">
+          <Link href="/credits" onClick={closeMobileSidebar}>
             <DropdownMenuItem className="py-2 cursor-pointer flex justify-between">
               <div className="flex items-center">
                 <span>Credits</span>

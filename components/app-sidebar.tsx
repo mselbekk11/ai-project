@@ -116,7 +116,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="mt-auto p-2">
           <SignedIn>
             <div className="flex items-center gap-3">
-              <UserDropdown />
+              <UserDropdown setOpenMobile={setOpenMobile} />
             </div>
           </SignedIn>
         </div>
