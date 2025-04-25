@@ -51,9 +51,26 @@ export default function Home() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [modelToDelete, setModelToDelete] =
     useState<Id<"headshot_models"> | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Track data loading state
   const [isDataLoading, setIsDataLoading] = useState(true);
+
+  // Check if the device is mobile on component mount and window resize
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Check on initial load
+    checkIfMobile();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkIfMobile);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
 
   const models = useQuery(api.headshot_models.listUserModels, {
     user_id: user?.id ?? "",
@@ -180,152 +197,173 @@ export default function Home() {
     }
   };
 
+  // Mobile notification banner component
+  const MobileBanner = () => (
+    <Card className="w-full py-4 text-center p-6 rounded-sm flex flex-col items-center bg-purple-600 shadow-lg shadow-black/40 border-none mb-4">
+      <h2 className="text-lg font-semibold mb-2 text-white">
+        Mobile Experience Limited
+      </h2>
+      <p className="text-white text-md">
+        To train models and use all features, please visit Trizzy on desktop.
+      </p>
+    </Card>
+  );
+
   return (
-    <div className="flex flex-1 h-full">
-      <div className="w-[350px] p-4">
-        <Card className="p-4 rounded-sm mb-4">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="modelName">Model Name</Label>
-              <Input
-                id="modelName"
-                value={modelName}
-                onChange={(e) => setModelName(e.target.value)}
-                placeholder="Enter your model name"
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="gender">Gender</Label>
-              <Select
-                value={gender}
-                onValueChange={(value) => setGender(value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select gender" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Male">Male</SelectItem>
-                  <SelectItem value="Female">Female</SelectItem>
-                  <SelectItem value="unisex">Unisex</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Training Images</Label>
-              <UploadDropzone
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                  if (!res) {
-                    console.error("No response from upload");
-                    toast.error("Upload failed - no response");
-                    return;
-                  }
-
-                  console.log("🎯 Upload complete!", res);
-
-                  // Simple URL extraction, matching your working project approach
-                  const newUrls = res.map((file) => file.url);
-                  console.log("📦 Received URLs:", newUrls);
-
-                  setImages((prev) => {
-                    const updated = [...prev, ...newUrls];
-                    console.log("✅ Updated images:", updated);
-                    return updated;
-                  });
-
-                  // Only show success notification
-                  if (res.length > 0) {
-                    toast.success(`Successfully uploaded ${res.length} images`);
-                  }
-                }}
-                onUploadError={(error: Error) => {
-                  console.error("❌ Upload error:", error);
-
-                  if (error.message.includes("Headers Timeout")) {
-                    toast.error(
-                      "Upload timed out. Please try again with a smaller file or better connection.",
-                    );
-                  } else {
-                    toast.error(`Upload failed: ${error.message}`);
-                  }
-                }}
-                onUploadBegin={(fileName) => {
-                  console.log("🚀 Upload beginning for:", fileName);
-                  // Don't show any toast for upload start
-                }}
-                config={{
-                  mode: "auto",
-                  appendOnPaste: true,
-                }}
-                className="ut-label:text-md border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-sm ut-label:text-xs ut-allowed-content:text-xs"
-                appearance={{
-                  container: {
-                    padding: "1rem",
-                  },
-                  button: {
-                    backgroundColor: "hsl(var(--primary))",
-                    color: "hsl(var(--primary-foreground))",
-                    fontSize: "0.775rem",
-                    fontWeight: "600",
-                  },
-                  label: {
-                    color: "inherit",
-                  },
-                }}
-                content={{
-                  uploadIcon: () => <Upload />,
-                  label: "Drop your training images",
-                  allowedContent: "Supported formats: JPG, PNG, WEBP",
-                }}
-              />
-              <p className="text-xs">Max 20 images | 4MB</p>
-            </div>
-
-            {images.length > 0 && (
+    <div className="flex flex-1 h-full flex-col md:flex-row">
+      {/* Left column - Form section (hidden on mobile, visible on desktop) */}
+      {!isMobile && (
+        <div className="w-full md:w-[350px] p-4">
+          <Card className="p-4 rounded-sm mb-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label>Uploaded Images</Label>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-                  {images.map((url, index) => (
-                    <div key={index} className="relative group">
-                      <Image
-                        src={url}
-                        alt={`Upload ${index + 1}`}
-                        width={100}
-                        height={100}
-                        className="w-full object-cover rounded-sm"
-                      />
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setImages(images.filter((_, i) => i !== index))
-                        }
-                        className="absolute top-2 right-2 bg-black text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-xs"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                <Label htmlFor="modelName">Model Name</Label>
+                <Input
+                  id="modelName"
+                  value={modelName}
+                  onChange={(e) => setModelName(e.target.value)}
+                  placeholder="Enter your model name"
+                  required
+                />
               </div>
-            )}
 
-            <Button
-              className="w-full"
-              type="submit"
-              disabled={loading || !modelName || images.length === 0}
-            >
-              {loading ? "Training..." : "Train Model"}
-            </Button>
-          </form>
-        </Card>
-        <GoodPictures />
-        <BadPictures />
-      </div>
-      <div className="flex-1 h-full pr-4 py-4">
-        <Card className="rounded-sm h-full p-4 bg-sidebar">
+              <div className="space-y-2">
+                <Label htmlFor="gender">Gender</Label>
+                <Select
+                  value={gender}
+                  onValueChange={(value) => setGender(value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
+                    <SelectItem value="unisex">Unisex</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Training Images</Label>
+                <UploadDropzone
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    if (!res) {
+                      console.error("No response from upload");
+                      toast.error("Upload failed - no response");
+                      return;
+                    }
+
+                    console.log("🎯 Upload complete!", res);
+
+                    // Simple URL extraction, matching your working project approach
+                    const newUrls = res.map((file) => file.url);
+                    console.log("📦 Received URLs:", newUrls);
+
+                    setImages((prev) => {
+                      const updated = [...prev, ...newUrls];
+                      console.log("✅ Updated images:", updated);
+                      return updated;
+                    });
+
+                    // Only show success notification
+                    if (res.length > 0) {
+                      toast.success(
+                        `Successfully uploaded ${res.length} images`,
+                      );
+                    }
+                  }}
+                  onUploadError={(error: Error) => {
+                    console.error("❌ Upload error:", error);
+
+                    if (error.message.includes("Headers Timeout")) {
+                      toast.error(
+                        "Upload timed out. Please try again with a smaller file or better connection.",
+                      );
+                    } else {
+                      toast.error(`Upload failed: ${error.message}`);
+                    }
+                  }}
+                  onUploadBegin={(fileName) => {
+                    console.log("🚀 Upload beginning for:", fileName);
+                    // Don't show any toast for upload start
+                  }}
+                  config={{
+                    mode: "auto",
+                    appendOnPaste: true,
+                  }}
+                  className="ut-label:text-md border-2 border-dashed border-gray-300 dark:border-gray-800 rounded-sm ut-label:text-xs ut-allowed-content:text-xs"
+                  appearance={{
+                    container: {
+                      padding: "1rem",
+                    },
+                    button: {
+                      backgroundColor: "hsl(var(--primary))",
+                      color: "hsl(var(--primary-foreground))",
+                      fontSize: "0.775rem",
+                      fontWeight: "600",
+                    },
+                    label: {
+                      color: "inherit",
+                    },
+                  }}
+                  content={{
+                    uploadIcon: () => <Upload />,
+                    label: "Drop your training images",
+                    allowedContent: "Supported formats: JPG, PNG, WEBP",
+                  }}
+                />
+                <p className="text-xs">Max 20 images | 4MB</p>
+              </div>
+
+              {images.length > 0 && (
+                <div className="space-y-2">
+                  <Label>Uploaded Images</Label>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+                    {images.map((url, index) => (
+                      <div key={index} className="relative group">
+                        <Image
+                          src={url}
+                          alt={`Upload ${index + 1}`}
+                          width={100}
+                          height={100}
+                          className="w-full object-cover rounded-sm"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setImages(images.filter((_, i) => i !== index))
+                          }
+                          className="absolute top-2 right-2 bg-black text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <Button
+                className="w-full"
+                type="submit"
+                disabled={loading || !modelName || images.length === 0}
+              >
+                {loading ? "Training..." : "Train Model"}
+              </Button>
+            </form>
+          </Card>
+          <GoodPictures />
+          <BadPictures />
+        </div>
+      )}
+
+      {/* Right column - Results (full width on mobile) */}
+      <div className="flex-1 h-full py-4 px-4 md:pr-4 md:pl-0 flex flex-col">
+        {/* Mobile banner only shown on mobile devices */}
+        {isMobile && <MobileBanner />}
+        <Card className="rounded-sm h-full p-4 bg-sidebar mt-2">
           {isDataLoading ? (
             <div className="flex justify-center items-center h-full">
               <Loader2 className="h-8 w-8 animate-spin text-slate-600" />
@@ -345,9 +383,6 @@ export default function Home() {
                       <TableHead className="h-12 px-4 text-sm font-semibold">
                         Type
                       </TableHead>
-                      {/* <TableHead className="h-12 px-4 text-sm font-semibold">
-                Lora ID
-              </TableHead> */}
                       <TableHead className="h-12 px-4 text-sm font-semibold">
                         Images
                       </TableHead>
@@ -379,9 +414,6 @@ export default function Home() {
                         <TableCell className="py-0 h-12 px-4 text-sm">
                           {model.gender ?? "unknown"}
                         </TableCell>
-                        {/* <TableCell className="py-0 h-12 px-4 text-sm">
-                  {model.lora_id ? `${model.lora_id}` : "N/A"}
-                </TableCell> */}
                         <TableCell className="py-0 h-12 px-4">
                           <div className="flex items-center">
                             {model.images.slice(0, 3).map((image, index) => (

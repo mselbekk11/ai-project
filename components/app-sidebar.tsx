@@ -23,6 +23,9 @@ import UserDropdown from "./user-dropdown";
 import LogoFive from "./logoFive";
 // import LogoFour from "./logoFour";
 
+// Import useSidebar hook
+import { useSidebar } from "@/components/ui/sidebar";
+
 const data = {
   navMain: [
     {
@@ -45,6 +48,14 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
+  // Get the setOpenMobile function from the sidebar context
+  const { setOpenMobile } = useSidebar();
+
+  // Function to handle navigation link click
+  const handleNavClick = () => {
+    // Close the mobile sidebar when a navigation link is clicked
+    setOpenMobile(false);
+  };
 
   return (
     <Sidebar {...props}>
@@ -52,7 +63,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="/home" className="hover:bg-transparent">
+              <Link
+                href="/home"
+                className="hover:bg-transparent"
+                onClick={handleNavClick}
+              >
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
                   {/* <img src="/logo2.png" alt="Trizzy Logo" className="size-4" /> */}
                   {/* <LogoTwo /> */}
@@ -83,6 +98,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         ? "bg-accent text-accent-foreground"
                         : ""
                     }`}
+                    onClick={handleNavClick}
                   >
                     {item.icon}
                     {item.title}

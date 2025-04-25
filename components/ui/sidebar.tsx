@@ -53,6 +53,9 @@ function useSidebar() {
   return context;
 }
 
+// Export the useSidebar hook
+export { useSidebar };
+
 const SidebarProvider = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
@@ -777,5 +780,4 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  useSidebar,
 };
