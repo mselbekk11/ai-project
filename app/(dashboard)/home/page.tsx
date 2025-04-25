@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,23 @@ export default function Home() {
   );
   const [loading, setLoading] = useState(false);
   const [numImages, setNumImages] = useState<number>(2);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if the device is mobile on component mount and window resize
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Check on initial load
+    checkIfMobile();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkIfMobile);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
 
   // Fetch user's models from Convex
   const models = useQuery(api.headshot_models.listUserModels, {
@@ -181,109 +198,128 @@ export default function Home() {
     }
   };
 
+  // Mobile notification banner component
+  const MobileBanner = () => (
+    <Card className=" w-full py-4 text-center p-6 rounded-sm flex flex-col items-center bg-purple-600 shadow-lg shadow-black/40 border-none mb-4">
+      <h2 className="text-lg font-semibold mb-2 text-white">
+        Mobile Experience Limited
+      </h2>
+      <p className="text-white text-md">
+        To try on clothes and use all features, please visit Trizzy on desktop.
+      </p>
+    </Card>
+  );
+
   return (
-    <div className="flex flex-1 h-full">
-      {/* Left column - Form section (fixed 350px width) */}
-      <div className="w-[350px] p-4">
-        <Card className="p-4 rounded-sm sticky" style={{ top: "4rem" }}>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="modelSelect" className="">
-                Select Model
-              </Label>
-              <Select
-                value={selectedModelId}
-                onValueChange={(value) => {
-                  if (value === "create-new") {
-                    router.push("/train-model");
-                    return;
-                  }
-                  setSelectedModelId(value);
-                }}
+    <div className="flex flex-1 h-full flex-col md:flex-row">
+      {/* Left column - Form section (hidden on mobile, visible on desktop) */}
+      {!isMobile && (
+        <div className="w-full md:w-[350px] p-4">
+          <Card className="p-4 rounded-sm sticky" style={{ top: "4rem" }}>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="modelSelect" className="">
+                  Select Model
+                </Label>
+                <Select
+                  value={selectedModelId}
+                  onValueChange={(value) => {
+                    if (value === "create-new") {
+                      router.push("/train-model");
+                      return;
+                    }
+                    setSelectedModelId(value);
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {models
+                      ?.filter(
+                        (model) => model.status === "finished" && model.lora_id,
+                      )
+                      .map((model) => (
+                        <SelectItem key={model._id} value={model._id}>
+                          {model.name}
+                        </SelectItem>
+                      ))}
+                    <SelectItem
+                      value="create-new"
+                      className="border-t mt-2 pt-2"
+                    >
+                      + Create new model
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <ClothingSelector
+                  selectedClothingId={selectedClothingId}
+                  onClothingSelect={setSelectedClothingId}
+                  onClothingUpload={handleClothingUpload}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="prompt">
+                  Give me {numImages} {numImages === 1 ? "image" : "images"}
+                </Label>
+                <Slider
+                  value={[numImages]}
+                  onValueChange={(value) => setNumImages(value[0])}
+                  min={1}
+                  max={4}
+                  step={1}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="prompt">Prompt</Label>
+
+                <Textarea
+                  id="prompt"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  className="w-full rounded-sm border border-input bg-background px-3 py-2 min-h-[100px]"
+                  required
+                />
+                <p className="text-xs text-muted-foreground">
+                  Please update the prompt above to your choosing
+                </p>
+              </div>
+
+              <Button
+                className="w-full"
+                type="submit"
+                disabled={
+                  loading ||
+                  !selectedModelId ||
+                  !selectedClothingId ||
+                  !prompt ||
+                  numImages < 1
+                }
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a model" />
-                </SelectTrigger>
-                <SelectContent>
-                  {models
-                    ?.filter(
-                      (model) => model.status === "finished" && model.lora_id,
-                    )
-                    .map((model) => (
-                      <SelectItem key={model._id} value={model._id}>
-                        {model.name}
-                      </SelectItem>
-                    ))}
-                  <SelectItem value="create-new" className="border-t mt-2 pt-2">
-                    + Create new model
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+                {loading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Getting Changed
+                  </>
+                ) : (
+                  "Try it on"
+                )}
+              </Button>
+            </form>
+          </Card>
+        </div>
+      )}
 
-            <div className="space-y-2">
-              <ClothingSelector
-                selectedClothingId={selectedClothingId}
-                onClothingSelect={setSelectedClothingId}
-                onClothingUpload={handleClothingUpload}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="prompt">
-                Give me {numImages} {numImages === 1 ? "image" : "images"}
-              </Label>
-              <Slider
-                value={[numImages]}
-                onValueChange={(value) => setNumImages(value[0])}
-                min={1}
-                max={4}
-                step={1}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="prompt">Prompt</Label>
-
-              <Textarea
-                id="prompt"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                className="w-full rounded-sm border border-input bg-background px-3 py-2 min-h-[100px]"
-                required
-              />
-              <p className="text-xs text-muted-foreground">
-                Please update the prompt above to your choosing
-              </p>
-            </div>
-
-            <Button
-              className="w-full"
-              type="submit"
-              disabled={
-                loading ||
-                !selectedModelId ||
-                !selectedClothingId ||
-                !prompt ||
-                numImages < 1
-              }
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Getting Changed
-                </>
-              ) : (
-                "Try it on"
-              )}
-            </Button>
-          </form>
-        </Card>
-      </div>
-
-      {/* Right column - Results (flexible width) */}
-      <div className="flex-1 h-full py-4 pr-4">
-        <Card className="w-full h-full rounded-sm bg-sidebar">
+      {/* Right column - Results (full width on mobile) */}
+      <div className="flex-1 h-full py-4 px-4 md:pr-4 md:pl-0 flex flex-col">
+        {/* Mobile banner only shown on mobile devices */}
+        {isMobile && <MobileBanner />}
+        <Card className="w-full h-full rounded-sm bg-sidebar mt-2">
           <Gallery />
         </Card>
       </div>
