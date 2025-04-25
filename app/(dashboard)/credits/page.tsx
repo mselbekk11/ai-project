@@ -55,12 +55,12 @@ export default function BuyCredits() {
   return (
     <section className="h-full flex flex-col items-center justify-start p-4">
       <Card className="w-full h-full bg-sidebar">
-        <div className="mx-auto max-w-6xl px-6 w-full">
-          <div className="text-center my-12">
-            <h1 className="text-center mx-auto mt-2 max-w-xl text-2xl font-extrabold">
+        <div className="mx-auto max-w-6xl p-4 w-full">
+          <div className="text-center mb-12 mt-10">
+            <h1 className="text-center mx-auto mt-2 max-w-xl text-xl md:text-2xl font-extrabold">
               Buy some Credits
             </h1>
-            <p className="mx-auto mt-4 hidden max-w-2xl text-wrap text-md sm:block">
+            <p className="mx-auto mt-4 max-w-2xl text-wrap text-sm md:text-md sm:block">
               Pay once,{" "}
               <span className="font-bold text-purple-500">
                 no subscriptions or hidden fees
