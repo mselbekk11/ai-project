@@ -101,8 +101,17 @@ export default function Masonry() {
   };
 
   return (
-    <section className="relative w-full bg-black overflow-hidden py-8">
+    <section className="relative w-full bg-zinc-800 overflow-hidden py-8">
       {/* Stars background overlay */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: "url('/stars.png')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "500px",
+          opacity: 0.6,
+        }}
+      ></div>
 
       {/* Top gradient */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent z-10"></div>
@@ -130,7 +139,7 @@ export default function Masonry() {
                   ? columnImages.map((image) => (
                       <div
                         key={image.id}
-                        className="relative aspect-[3/4] w-full bg-gradient-to-tr from-[#bcbcbc] to-[#343434] hover:bg-zinc-900 rounded-md overflow-hidden flex items-center justify-center border border-zinc-500 transition-colors duration-200"
+                        className="relative aspect-[3/4] w-full bg-black hover:bg-zinc-900 rounded-md overflow-hidden flex items-center justify-center border border-zinc-700 transition-colors duration-200"
                       >
                         <div className="relative w-full h-full">
                           <Image
