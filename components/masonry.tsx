@@ -24,7 +24,7 @@ export default function Masonry() {
   // Sample image data - this could come from props, API, or any other source
   // In a real application, you might want to load this from a database or CMS
   const imageData: MasonryImage[] = [
-    { id: "1", src: "/mee-one.png", alt: "Image 1", column: 0, position: 0 },
+    { id: "1", src: "/mee-eleven.png", alt: "Image 1", column: 0, position: 0 },
     { id: "2", src: "/mee-two.png", alt: "Image 2", column: 0, position: 1 },
     { id: "3", src: "/mee-three.png", alt: "Image 3", column: 0, position: 2 },
     { id: "4", src: "/mee-four.png", alt: "Image 4", column: 1, position: 0 },
@@ -36,7 +36,7 @@ export default function Masonry() {
     { id: "10", src: "/mee-ten.png", alt: "Image 10", column: 3, position: 0 },
     {
       id: "11",
-      src: "/mee-one.png",
+      src: "/mee-twelve.png",
       alt: "Image 11",
       column: 3,
       position: 1,
@@ -81,11 +81,23 @@ export default function Masonry() {
       position: 0,
     },
     { id: "20", src: "/mee-ten.png", alt: "Image 20", column: 6, position: 1 },
-    { id: "21", src: "/mee-one.png", alt: "Image 21", column: 6, position: 2 },
-    { id: "22", src: "/mee-two.png", alt: "Image 22", column: 7, position: 0 },
+    {
+      id: "21",
+      src: "/mee-eleven.png",
+      alt: "Image 21",
+      column: 6,
+      position: 2,
+    },
+    {
+      id: "22",
+      src: "/mee-twelve.png",
+      alt: "Image 22",
+      column: 7,
+      position: 0,
+    },
     {
       id: "23",
-      src: "/mee-three.png",
+      src: "/mee-thirteen.png",
       alt: "Image 23",
       column: 7,
       position: 1,
@@ -162,25 +174,34 @@ export default function Masonry() {
                           <div className="relative w-full h-full">
                             <Image
                               src={`/mee-${
-                                (imageIndex % 10) + 1 === 1
-                                  ? "one"
-                                  : (imageIndex % 10) + 1 === 2
+                                (imageIndex % 13) + 1 === 1
+                                  ? "eleven"
+                                  : (imageIndex % 13) + 1 === 2
                                     ? "two"
-                                    : (imageIndex % 10) + 1 === 3
+                                    : (imageIndex % 13) + 1 === 3
                                       ? "three"
-                                      : (imageIndex % 10) + 1 === 4
+                                      : (imageIndex % 13) + 1 === 4
                                         ? "four"
-                                        : (imageIndex % 10) + 1 === 5
+                                        : (imageIndex % 13) + 1 === 5
                                           ? "five"
-                                          : (imageIndex % 10) + 1 === 6
+                                          : (imageIndex % 13) + 1 === 6
                                             ? "six"
-                                            : (imageIndex % 10) + 1 === 7
+                                            : (imageIndex % 13) + 1 === 7
                                               ? "seven"
-                                              : (imageIndex % 10) + 1 === 8
+                                              : (imageIndex % 13) + 1 === 8
                                                 ? "eight"
-                                                : (imageIndex % 10) + 1 === 9
+                                                : (imageIndex % 13) + 1 === 9
                                                   ? "nine"
-                                                  : "ten"
+                                                  : (imageIndex % 13) + 1 === 10
+                                                    ? "ten"
+                                                    : (imageIndex % 13) + 1 ===
+                                                        11
+                                                      ? "eleven"
+                                                      : (imageIndex % 13) +
+                                                            1 ===
+                                                          12
+                                                        ? "twelve"
+                                                        : "thirteen"
                               }.png`}
                               alt={`Placeholder image ${columnIndex}-${imageIndex}`}
                               fill
