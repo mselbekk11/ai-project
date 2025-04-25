@@ -21,7 +21,7 @@ export default function Pricing({
   processingPlan,
 }: PricingProps) {
   return (
-    <section className="py-32 bg-zinc-800 flex flex-col items-center relative h-screen">
+    <section className="py-12 md:py-24 bg-zinc-800 flex flex-col items-center relative min-h-screen">
       <div className="mx-auto max-w-6xl px-6 w-full">
         <div
           className="absolute inset-0 z-0"
@@ -33,15 +33,15 @@ export default function Pricing({
           }}
         ></div>
         <div className="mx-auto max-w-6xl text-center">
-          <h1 className="mt-8 text-4xl font-extrabold md:text-5xl xl:text-4xl xl:[line-height:1.125] text-white">
+          <h1 className="mt-8 text-2xl font-extrabold md:text-4xl xl:[line-height:1.125] text-white">
             Buy some Credits
           </h1>
-          <p className="mx-auto mt-8 hidden max-w-2xl text-wrap text-md sm:block text-white">
+          <p className="mx-auto mt-8 max-w-2xl text-wrap text-xs md:text-base sm:block text-white">
             Pay once,{" "}
             <span className="font-bold text-fuchsia-300">
               no subscriptions or hidden fees
             </span>
-            . We do not offer trials due to high costs, <br /> but we will
+            . We do not offer trials due to high costs, <br className="hidden md:block" /> but we will
             refund you if you&apos;re unsatisfied.
           </p>
         </div>

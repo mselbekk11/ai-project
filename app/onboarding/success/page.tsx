@@ -75,7 +75,7 @@ export default function SuccessPage() {
         }}
       ></div>
       <div className="text-center max-w-md mx-auto">
-        <h1 className="text-2xl font-bold mb-4 text-white">
+        <h1 className="text-1xl font-bold mb-4 text-white">
           {verifying ? "Processing your payment..." : "Payment Complete!"}
         </h1>
         <p className="mb-6 text-gray-400">
