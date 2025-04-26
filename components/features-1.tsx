@@ -1,7 +1,4 @@
 import { Card } from "@/components/ui/card";
-import imageTwoBg from "../public/image-two-bg.png";
-import imageThreeBg from "../public/image-three-bg.png";
-import imageGroup from "../public/group.png";
 import Image from "next/image";
 import SectionHeading from "./section-heading";
 import ArrowOne from "./arrow-one";
@@ -31,9 +28,11 @@ export default function Features() {
             <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
               <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
               <Image
-                src={imageGroup}
+                src="/group.png"
                 alt="Step 1"
-                className="h-[180px] md:h-[120px] w-auto object-contain relative z-10 mb-8"
+                width={180}
+                height={120}
+                className="h-[180px] md:h-[160px] w-auto object-contain relative z-10 mb-8"
               />
               <div
                 className="absolute inset-0 z-10"
@@ -60,8 +59,10 @@ export default function Features() {
             <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
               <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
               <Image
-                src={imageTwoBg}
+                src="/image-two-bg.png"
                 alt="Step 2"
+                width={300}
+                height={300}
                 className="max-h-[100%] w-auto object-contain relative z-10"
               />
               <div
@@ -89,8 +90,10 @@ export default function Features() {
             <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
               <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
               <Image
-                src={imageThreeBg}
+                src="/image-three-bg.png"
                 alt="Step 3"
+                width={300}
+                height={300}
                 className="max-h-[100%] w-auto object-contain relative z-10"
               />
               <div
