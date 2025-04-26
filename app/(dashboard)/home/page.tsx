@@ -18,9 +18,13 @@ import {
 import ClothingSelector from "@/components/ClothingSelector";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import Gallery from "@/components/Gallery";
+import dynamic from "next/dynamic";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+// Dynamically import Gallery with no SSR to prevent hydration issues
+const Gallery = dynamic(() => import("@/components/Gallery"), { ssr: false });
 
 export default function Home() {
   const { user } = useUser();
@@ -32,23 +36,7 @@ export default function Home() {
   );
   const [loading, setLoading] = useState(false);
   const [numImages, setNumImages] = useState<number>(2);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if the device is mobile on component mount and window resize
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Check on initial load
-    checkIfMobile();
-
-    // Add event listener for window resize
-    window.addEventListener("resize", checkIfMobile);
-
-    // Cleanup the event listener on component unmount
-    return () => window.removeEventListener("resize", checkIfMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Fetch user's models from Convex
   const models = useQuery(api.headshot_models.listUserModels, {
