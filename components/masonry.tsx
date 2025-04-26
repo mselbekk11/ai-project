@@ -25,8 +25,14 @@ export default function Masonry() {
   // In a real application, you might want to load this from a database or CMS
   const imageData: MasonryImage[] = [
     { id: "1", src: "/mee-eleven.png", alt: "Image 1", column: 0, position: 0 },
-    { id: "2", src: "/mee-two.png", alt: "Image 2", column: 0, position: 1 },
-    { id: "3", src: "/mee-three.png", alt: "Image 3", column: 0, position: 2 },
+    {
+      id: "2",
+      src: "/mee-fourteen.png",
+      alt: "Image 2",
+      column: 0,
+      position: 1,
+    },
+    { id: "3", src: "/mee-twelve.png", alt: "Image 3", column: 0, position: 2 },
     { id: "4", src: "/mee-four.png", alt: "Image 4", column: 1, position: 0 },
     { id: "5", src: "/mee-five.png", alt: "Image 5", column: 1, position: 1 },
     { id: "6", src: "/mee-six.png", alt: "Image 6", column: 1, position: 2 },
@@ -41,7 +47,13 @@ export default function Masonry() {
       column: 3,
       position: 1,
     },
-    { id: "12", src: "/mee-two.png", alt: "Image 12", column: 3, position: 2 },
+    {
+      id: "12",
+      src: "/mee-fourteen.png",
+      alt: "Image 12",
+      column: 3,
+      position: 2,
+    },
     // Add more images as needed for columns 4-7
     {
       id: "13",
