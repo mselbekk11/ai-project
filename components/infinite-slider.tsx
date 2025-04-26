@@ -26,6 +26,21 @@ const images = [
   {
     image: "/h-4.png",
   },
+  {
+    image: "/h-5.png",
+  },
+  {
+    image: "/h-6.png",
+  },
+  {
+    image: "/h-9.png",
+  },
+  {
+    image: "/h-7.png",
+  },
+  {
+    image: "/h-8.png",
+  },
 ];
 
 export function InfiniteSliderHoverSpeed() {
