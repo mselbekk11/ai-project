@@ -319,7 +319,7 @@ export default function Home() {
       <div className="flex-1 h-full py-4 px-4 md:pr-4 md:pl-0 flex flex-col">
         {/* Mobile banner only shown on mobile devices */}
         {isMobile && <MobileBanner />}
-        <Card className="w-full h-full rounded-sm bg-sidebar mt-2">
+        <Card className="w-full h-full rounded-sm bg-sidebar">
           <Gallery />
         </Card>
       </div>

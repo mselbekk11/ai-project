@@ -363,7 +363,7 @@ export default function Home() {
       <div className="flex-1 h-full py-4 px-4 md:pr-4 md:pl-0 flex flex-col">
         {/* Mobile banner only shown on mobile devices */}
         {isMobile && <MobileBanner />}
-        <Card className="rounded-sm h-full p-4 bg-sidebar mt-2">
+        <Card className="rounded-sm h-full p-4 bg-sidebar">
           {isDataLoading ? (
             <div className="flex justify-center items-center h-full">
               <Loader2 className="h-8 w-8 animate-spin text-slate-600" />
