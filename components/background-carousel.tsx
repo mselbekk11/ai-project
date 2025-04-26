@@ -24,7 +24,10 @@ export function BackgroundCarousel({
         className="w-full h-full"
       >
         {images.map((image, idx) => (
-          <div key={idx} className="relative h-[200px] w-[120px] mr-1">
+          <div
+            key={idx}
+            className="relative h-[170px] w-[101px] mr-1 bg-zinc-400"
+          >
             <Image
               src={image}
               alt="Background fashion image"
