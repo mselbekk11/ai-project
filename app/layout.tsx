@@ -16,12 +16,24 @@ const openSans = Open_Sans({
   subsets: ["latin"],
 });
 
+// Metadata for SEO
 export const metadata: Metadata = {
+  metadataBase: new URL("https://trizzy.ai"),
   title: "Trizzy",
-  description: "Try clothes before you buy, using AI ",
-  // icons: {
-  //   icon: "/convex.svg",
-  // },
+  description: "Try on clothes before you buy, using AI",
+  openGraph: {
+    type: "website",
+    title: "Trizzy",
+    description: "Try on clothes before you buy, using AI",
+    images: "/og-image.png",
+    url: "https://trizzy.ai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Trizzy",
+    description: "Try on clothes before you buy, using AI",
+    images: "/og-image-twitter.png",
+  },
 };
 
 export default function RootLayout({
