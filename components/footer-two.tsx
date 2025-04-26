@@ -1,4 +1,4 @@
-import { TextEffect } from "@/components/motion-primitives/text-effect";
+// import { TextEffect } from "@/components/motion-primitives/text-effect";
 // import GitHubIcon from '../website/icons/github';
 // import XIcon from '../website/icons/x';
 
@@ -15,9 +15,9 @@ export function FooterTwo() {
         }}
       ></div>
       <div className="mx-auto flex max-w-6xl flex-col-reverse gap-4 md:gap-0 justify-center py-12 md:flex-row md:justify-between items-center">
-        <TextEffect className="text-sm text-zinc-400">
+        <p className="text-sm text-zinc-400">
           {`© ${new Date().getFullYear()} Trizzy, Inc. All rights reserved.`}
-        </TextEffect>
+        </p>
         <div className="flex w-auto justify-between items-center gap-2">
           <div className="animate-spin-slow">
             <svg
