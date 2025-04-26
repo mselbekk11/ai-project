@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
-import imageTwoBg from "@/public/image-two-bg.png";
-import imageThreeBg from "@/public/image-three-bg.png";
-import imageGroup from "@/public/group.png";
+import imageTwoBg from "../public/image-two-bg.png";
+import imageThreeBg from "../public/image-three-bg.png";
+import imageGroup from "../public/group.png";
 import Image from "next/image";
 import SectionHeading from "./section-heading";
 import ArrowOne from "./arrow-one";
