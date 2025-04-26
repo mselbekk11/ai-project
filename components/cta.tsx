@@ -1,14 +1,30 @@
 "use client";
 
 import { useInView } from "motion/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 // import { Button } from "./ui/button";
 import { ShimmerButton } from "./magicui/shimmer-button";
+import Link from "next/link";
 
 export function Cta() {
   const [value, setValue] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref);
+
+  // Check user authentication status
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      // Example: Check if a user token exists in localStorage
+      const userToken = localStorage.getItem("userToken");
+      setIsLoggedIn(!!userToken);
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  // Determine the link destination based on auth status
+  const linkDestination = isLoggedIn ? "/home" : "/sign-up";
 
   if (isInView && value === 0) {
     setValue(10000);
@@ -37,15 +53,17 @@ export function Cta() {
         </div>
         <div className="flex items-center justify-center gap-4">
           {/* <Button variant="purple">Try on clothes</Button> */}
-          <ShimmerButton
-            className="shadow-2xl"
-            gradientFrom="rgb(92 6 226)"
-            gradientTo="rgb(84 84 236)"
-          >
-            <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10  px-4 font-semibold">
-              Try on clothes
-            </span>
-          </ShimmerButton>
+          <Link href={linkDestination}>
+            <ShimmerButton
+              className="shadow-2xl cursor-pointer"
+              gradientFrom="rgb(92 6 226)"
+              gradientTo="rgb(84 84 236)"
+            >
+              <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 px-4 font-semibold">
+                Try on clothes
+              </span>
+            </ShimmerButton>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { Swiper, SwiperSlide } from "swiper/react";
 // import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
@@ -7,7 +7,7 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
-// import Link from "next/link";
+import Link from "next/link";
 // import { Button } from "@/components/ui/button";
 // import Navigation from "./navigation";
 // import Image from "next/image";
@@ -132,6 +132,23 @@ const carouselImages4 = [
 
 export default function HeroSectionTwo() {
   // const [menuState, setMenuState] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check user authentication status
+  useEffect(() => {
+    // You can replace this with your actual authentication check
+    // For example: checking cookies, localStorage, or your auth context
+    const checkAuthStatus = () => {
+      // Example: Check if a user token exists in localStorage
+      const userToken = localStorage.getItem("userToken");
+      setIsLoggedIn(!!userToken);
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  // Determine the link destination based on auth status
+  const linkDestination = isLoggedIn ? "/home" : "/sign-up";
 
   return (
     <section className="relative overflow-hidden bgpink">
@@ -302,16 +319,18 @@ export default function HeroSectionTwo() {
                   ease: "easeOut",
                 }}
               >
-                <ShimmerButton
-                  className="shadow-2xl"
-                  gradientFrom="rgb(92 6 226)"
-                  gradientTo="rgb(84 84 236)"
-                  // gradientTo="rgb(142 56 276)"
-                >
-                  <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 py-1  px-4 font-semibold">
-                    Try on clothes
-                  </span>
-                </ShimmerButton>
+                <Link href={linkDestination}>
+                  <ShimmerButton
+                    className="shadow-2xl cursor-pointer"
+                    gradientFrom="rgb(92 6 226)"
+                    gradientTo="rgb(84 84 236)"
+                    // gradientTo="rgb(142 56 276)"
+                  >
+                    <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 py-1 px-4 font-semibold">
+                      Try on clothes
+                    </span>
+                  </ShimmerButton>
+                </Link>
               </motion.div>
 
               {/* <Button size="lg" variant="outline">
