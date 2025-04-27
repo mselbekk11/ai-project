@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,8 +11,15 @@ import {
 import { Check } from "lucide-react";
 import SectionHeading from "./section-heading";
 import { ShimmerButton } from "./magicui/shimmer-button";
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 export default function PricingTwo() {
+  const { isSignedIn } = useUser();
+
+  // Determine the destination based on authentication status
+  const destination = isSignedIn ? "/home" : "/sign-up";
+
   return (
     <section className="pt-0 pb-24 md:py-32 bg-zinc-800 flex flex-col items-center relative">
       <div className="mx-auto max-w-6xl px-4 w-full">
@@ -72,9 +81,11 @@ export default function PricingTwo() {
             </CardContent>
 
             <CardFooter>
-              <Button variant="outline" className="w-full">
-                Get Started
-              </Button>
+              <Link href={destination} className="w-full">
+                <Button variant="outline" className="w-full">
+                  Get Started
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
 
@@ -113,18 +124,17 @@ export default function PricingTwo() {
             </CardContent>
 
             <CardFooter>
-              {/* <Button variant="purple" className="w-full">
-                Get Started
-              </Button> */}
-              <ShimmerButton
-                className="shadow-2xl w-full"
-                gradientFrom="rgb(92 6 226)"
-                gradientTo="rgb(84 84 236)"
-              >
-                <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10  px-4 font-semibold">
-                  Get Started
-                </span>
-              </ShimmerButton>
+              <Link href={destination} className="w-full">
+                <ShimmerButton
+                  className="shadow-2xl w-full"
+                  gradientFrom="rgb(92 6 226)"
+                  gradientTo="rgb(84 84 236)"
+                >
+                  <span className="whitespace-pre-wrap text-center text-sm leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10  px-4 font-semibold">
+                    Get Started
+                  </span>
+                </ShimmerButton>
+              </Link>
             </CardFooter>
           </Card>
 
@@ -160,9 +170,11 @@ export default function PricingTwo() {
             </CardContent>
 
             <CardFooter>
-              <Button variant="outline" className="w-full">
-                Get Started
-              </Button>
+              <Link href={destination} className="w-full">
+                <Button variant="outline" className="w-full">
+                  Get Started
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
         </div>
