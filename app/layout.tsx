@@ -9,6 +9,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 const openSans = Open_Sans({
   // Initialize Open Sans
@@ -55,6 +56,7 @@ export default function RootLayout({
           </ConvexClientProvider>
         </ClerkProvider>
       </body>
+      <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
     </html>
   );
 }
