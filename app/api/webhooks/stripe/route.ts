@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "@/convex/_generated/api";
 
+// Use the original API version to match the type requirements
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-03-31.basil",
 });
@@ -11,9 +12,10 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(request: Request) {
   try {
-    console.log("Webhook received");
+    console.log("Webhook received - Using webhook secret:", webhookSecret.substring(0, 5) + "...");
     const body = await request.text();
     const signature = request.headers.get("stripe-signature") as string;
+    console.log("Webhook signature received:", signature ? "✓" : "✗");
     
     let event: Stripe.Event;
     
@@ -31,6 +33,7 @@ export async function POST(request: Request) {
     if (event.type === "checkout.session.completed") {
       console.log("Processing checkout.session.completed");
       const session = event.data.object as Stripe.Checkout.Session;
+      console.log("Session data:", JSON.stringify(session, null, 2));
       
       // Extract user and credit information from metadata
       const userId = session.metadata?.userId;
@@ -51,35 +54,38 @@ export async function POST(request: Request) {
       const plan = session.metadata?.plan || "unknown";
       
       console.log(`Adding credits: ${modelCredits} model, ${clothingCredits} clothing, ${generationCredits} generation`);
+      console.log("isOnboarding:", isOnboarding);
       
       // Initialize Convex client
       const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
-      console.log("Convex client initialized");
+      console.log("Convex client initialized with URL:", process.env.NEXT_PUBLIC_CONVEX_URL);
       
       try {
         // If it's onboarding, initialize user credits
         if (isOnboarding) {
           console.log("Initializing user credits (onboarding)");
-          await convex.mutation(api.credits.initializeUserCredits, {
+          const result = await convex.mutation(api.credits.initializeUserCredits, {
             user_id: userId,
             model_credits: modelCredits,
             clothing_credits: clothingCredits,
             generation_credits: generationCredits,
           });
+          console.log("Initialize credits result:", result);
         } else {
           console.log("Updating existing user credits");
           // For top-ups, add credits to existing account
-          await convex.mutation(api.credits.updateCredits, {
+          const result = await convex.mutation(api.credits.updateCredits, {
             user_id: userId,
             model_credits: modelCredits,
             clothing_credits: clothingCredits,
             generation_credits: generationCredits,
           });
+          console.log("Update credits result:", result);
         }
         
         console.log("Logging transaction");
         // Log the transaction
-        await convex.mutation(api.credits.logCreditTransaction, {
+        const transactionResult = await convex.mutation(api.credits.logCreditTransaction, {
           user_id: userId,
           transaction_type: isOnboarding ? "initial_purchase" : "top_up",
           amount_paid: session.amount_total ? session.amount_total / 100 : 0,
@@ -95,6 +101,7 @@ export async function POST(request: Request) {
             isOnboarding
           },
         });
+        console.log("Transaction log result:", transactionResult);
         
         console.log("Transaction processed successfully");
       } catch (error) {

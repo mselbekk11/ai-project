@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-03-31.basil",
+  apiVersion: "2025-03-31.basil" as any,
 });
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { plan, userId, isOnboarding = false } = body;
+    
+    console.log("Creating checkout session for:", { plan, userId, isOnboarding });
 
     if (!userId) {
       return NextResponse.json(
@@ -61,6 +63,9 @@ export async function POST(request: Request) {
           { status: 400 }
         );
     }
+    
+    console.log("Using price ID:", priceId);
+    console.log("Setting metadata:", metadata);
 
     // Create a checkout session
     const session = await stripe.checkout.sessions.create({
@@ -80,6 +85,9 @@ export async function POST(request: Request) {
       }`,
       metadata,
     });
+    
+    console.log("Checkout session created:", session.id);
+    console.log("Session URL:", session.url);
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
