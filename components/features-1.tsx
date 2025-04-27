@@ -59,7 +59,7 @@ export default function Features() {
             <div className="relative h-full w-full bg-zinc-900 rounded-md flex justify-center items-center">
               <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
               <Image
-                src="/image-two-bg.png"
+                src="/Image-two-bg.png"
                 alt="Step 2"
                 width={300}
                 height={300}
