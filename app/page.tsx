@@ -1,6 +1,6 @@
 "use client";
 
-import BentoTwo from "@/components/bento-two";
+// import BentoTwo from "@/components/bento-two";
 import { Cta } from "@/components/cta";
 import { Faq } from "@/components/FAQ";
 import Features from "@/components/features-1";
