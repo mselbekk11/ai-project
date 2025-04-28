@@ -26,14 +26,14 @@ export const metadata: Metadata = {
     type: "website",
     title: "Trizzy",
     description: "Try on clothes before you buy, using AI",
-    images: "https://trizzy.ai/og-image.png",
+    images: [{ url: "https://trizzy.ai/og-image.png" }],
     url: "https://trizzy.ai",
   },
   twitter: {
     card: "summary_large_image",
     title: "Trizzy",
     description: "Try on clothes before you buy, using AI",
-    images: "https://trizzy.ai/og-image-twitter.png",
+    images: [{ url: "https://trizzy.ai/og-image-twitter.png" }],
   },
 };
 
