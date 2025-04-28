@@ -111,6 +111,9 @@ export default function Gallery() {
     );
     console.log("Downloading image: ", imageUrl);
 
+    // Ensure this code only runs in the browser
+    if (typeof window === "undefined") return;
+
     try {
       // Create a suggested filename that's more descriptive
       const baseFilename =
@@ -224,11 +227,13 @@ export default function Gallery() {
     } catch (error) {
       console.error("Error downloading image:", error);
 
-      // As a last resort, open in new tab with instructions
-      window.open(imageUrl, "_blank");
-      alert(
-        "Right-click on the image and select 'Save Image As...' to download",
-      );
+      // Make sure this also checks for window
+      if (typeof window !== "undefined") {
+        window.open(imageUrl, "_blank");
+        alert(
+          "Right-click on the image and select 'Save Image As...' to download",
+        );
+      }
     }
   };
 
