@@ -17,7 +17,7 @@ const openSans = Open_Sans({
   subsets: ["latin"],
 });
 
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
 
 // Metadata for SEO
 export const metadata: Metadata = {
