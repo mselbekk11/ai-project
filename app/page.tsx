@@ -21,7 +21,7 @@ export default function Home() {
       {/* <InfiniteSliderMasonry /> */}
       <Masonry />
       <Features />
-      <BentoTwo />
+      {/* <BentoTwo /> */}
       <Video />
       <InfiniteSliderHoverSpeed />
       <PricingTwo />
