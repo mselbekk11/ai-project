@@ -271,7 +271,7 @@ export default function HeroSectionTwo() {
                 ease: "easeOut",
               }}
             >
-              Virtually Try On Clothes <br /> Anytime, Anywhere.
+              Virtually Try On Clothes <br /> Anytime, Anywhere
             </motion.h1>
             <motion.p
               className="mx-auto mt-8 max-w-2xl text-wrap text-sm md:text-lg"
