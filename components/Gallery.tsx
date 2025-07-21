@@ -11,6 +11,7 @@ import Info from "./info";
 import InfoTwo from "./info-two";
 import InfoThree from "./info-three";
 import { Loader2 } from "lucide-react";
+import { getProxiedImageUrl } from "@/utils/image-proxy";
 
 export default function Gallery() {
   const { user } = useUser();
@@ -299,7 +300,7 @@ export default function Gallery() {
             onClick={() => handleImageClick(generation)}
           >
             <Image
-              src={generation.image_url_generation}
+              src={getProxiedImageUrl(generation.image_url_generation)}
               alt={generation.prompt}
               fill
               className="object-cover"

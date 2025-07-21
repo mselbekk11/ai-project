@@ -9,6 +9,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { getProxiedImageUrl } from "@/utils/image-proxy";
 
 interface ImageSheetProps {
   isOpen: boolean;
@@ -46,7 +47,7 @@ export default function ImageSheet({
               style={{ aspectRatio: "768/1280" }}
             >
               <Image
-                src={imageUrl || "/placeholder.svg"}
+                src={imageUrl ? getProxiedImageUrl(imageUrl) : "/placeholder.svg"}
                 alt={prompt}
                 fill
                 className="object-cover"
@@ -79,7 +80,7 @@ export default function ImageSheet({
                 {/* <div className="text-sm">{itemOfClothing}</div> */}
                 <div className="flex">
                   <Image
-                    src={imageUrl2 || "/placeholder.svg"}
+                    src={imageUrl2 ? getProxiedImageUrl(imageUrl2) : "/placeholder.svg"}
                     alt={itemOfClothing}
                     className="rounded-md"
                     width={60}
