@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as check_image_urls from "../check_image_urls.js";
 import type * as clothing_items from "../clothing_items.js";
 import type * as credits from "../credits.js";
 import type * as generations from "../generations.js";
@@ -29,6 +30,7 @@ import type * as users from "../users.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  check_image_urls: typeof check_image_urls;
   clothing_items: typeof clothing_items;
   credits: typeof credits;
   generations: typeof generations;

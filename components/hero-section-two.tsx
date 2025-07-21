@@ -255,7 +255,7 @@ export default function HeroSectionTwo() {
                 {/* <Zap color="#5C06E5" fill="#5C06E5" size={16} /> */}
                 <Bolt mode="loop" size="w-5 h-5" />
                 <span className="text-sm font-semibold text-gray-800">
-                  5,000+ outfits tried on.
+                  5,000+ outfits tried on
                 </span>
               </motion.div>
             </div>
