@@ -18,6 +18,8 @@ const isPublicRoute = createRouteMatcher([
   // Add onboarding success page to handle Stripe redirects
   '/onboarding/success',
   '/api/webhooks/stripe',
+  // Add image proxy for Astria images
+  '/api/proxy-image',
 ]);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
