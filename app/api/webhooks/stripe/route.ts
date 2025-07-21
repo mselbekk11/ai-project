@@ -5,7 +5,7 @@ import { api } from "@/convex/_generated/api";
 
 // Use the original API version to match the type requirements
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-03-31.basil",
+  apiVersion: "2025-06-30.basil",
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
