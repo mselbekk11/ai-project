@@ -17,6 +17,7 @@ import type * as clothing_items from "../clothing_items.js";
 import type * as credits from "../credits.js";
 import type * as generations from "../generations.js";
 import type * as headshot_models from "../headshot_models.js";
+import type * as migrate_astria_urls from "../migrate_astria_urls.js";
 import type * as users from "../users.js";
 
 /**
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   credits: typeof credits;
   generations: typeof generations;
   headshot_models: typeof headshot_models;
+  migrate_astria_urls: typeof migrate_astria_urls;
   users: typeof users;
 }>;
 export declare const api: FilterApi<
