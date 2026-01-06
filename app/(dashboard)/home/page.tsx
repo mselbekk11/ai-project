@@ -314,3 +314,33 @@ export default function Home() {
     </div>
   );
 }
+
+// Complete Generation Flow Example
+
+//  1. User Setup:
+//     - Selects model: "Morgan Portrait" (lora_id: 2986814)
+//     - Selects clothing: "Blue Shirt" (face_id: 2987006)
+//     - Sets images: 2
+//     - Prompt: "professional headshot, studio lighting"
+
+//  2. Validation:
+//     - Model has lora_id ✓
+//     - Clothing has face_id ✓
+//     - User has 2 generation credits ✓
+
+//  3. Prompt Construction:
+//     "<lora:2986814:1.0> <faceid:2987006:1.0> Male model flux shirt professional headshot, studio lighting waist up"
+
+//  4. Credit Deduction:
+//     - Deducts 2 generation credits
+//     - Prevents failed generations from costing credits
+
+//  5. API Generation:
+//     - POST to /api/try-on
+//     - Polls for completion (~45 seconds)
+//     - Returns 2 generated images
+
+//  6. Results Display:
+//     - Gallery component automatically refreshes
+//     - New images appear in user's history
+//     - Ready for download or sharing

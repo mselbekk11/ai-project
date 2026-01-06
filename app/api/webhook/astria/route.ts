@@ -4,6 +4,16 @@ import { ConvexHttpClient } from "convex/browser";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
+// This endpoint is the callback mechanism that completes the asynchronous model training workflow. It's how Astria notifies your app when a
+//  model training job finishes.
+
+// Key Purpose:
+
+  // - Receives notifications from Astria when training completes
+  // - Updates database from "processing" → "finished"
+  // - Provides the LoRA ID needed for generation
+  // - Public endpoint (no authentication required)
+
 export async function POST(req: Request) {
   console.log("🎯 Webhook received from Astria");
   
@@ -11,6 +21,7 @@ export async function POST(req: Request) {
     const payload = await req.json();
     console.log("📦 Webhook payload:", JSON.stringify(payload, null, 2));
     
+    // Webhook Processing
     const { tune } = payload;
     console.log("🎨 Model ID:", tune.id);
 

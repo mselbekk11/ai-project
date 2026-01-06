@@ -6,6 +6,15 @@ const ASTRIA_BASEURL = 'https://api.astria.ai';
 const FLUX_BASE_MODEL = '1504944'; // Using the flux base model ID from your train-model route
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
+// Key Point: Uses FLUX model for generation (same as person training), not Realistic Vision. The clothing FaceID gets combined with FLUX.
+
+//   Why Polling is Needed:
+//  - AI generation takes time (30 seconds to 2 minutes)
+//  - Not instant like a normal API call
+//  - Checks every 3 seconds for completion
+//  - Exponential backoff on errors to avoid overwhelming the API
+//  - Timeout after 60 attempts (~3 minutes total)
+
 async function pollForCompletion(id: string, maxAttempts = 60) {
   for (let i = 0; i < maxAttempts; i++) {
     console.log(`Polling attempt ${i + 1}/${maxAttempts} for ID: ${id}`);
@@ -52,6 +61,21 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     console.log('API route received request:', body);
+
+  //   Critical Input Data:
+
+  // - body.prompt: The combined prompt like <lora:123:1.0> <faceid:456:1.0> Male model flux shirt
+  // - body.face_id: Clothing model ID (FaceID)
+  // - body.lora_id: Person model ID (LoRA)
+  // - body.user_id: For ownership
+  // - body.image_url: Original clothing image reference
+  // - super_resolution: true (Upscales output quality)
+  // - inpaint_faces: true (Enhances facial details)
+  // - seed: Random number (For consistent results)
+  // - face_correct: false (No face correction)
+  // - face_swap: false (No face swapping)
+  // - film_grain: false (No film grain effect)
+  // - style: Enhance
 
     const formData = new FormData();
     formData.append('prompt[text]', body.prompt);
@@ -113,6 +137,19 @@ export async function POST(req: Request) {
     const result = await pollForCompletion(data.id);
     console.log('Polling completed with result:', result);
 
+
+// const result = await pollForCompletion(data.id);
+
+//   What Happens:
+//   1. Submit generation job to Astria with all parameters
+//   2. Get job ID back immediately
+//   3. Poll for completion until images are ready
+//   4. Return generated image URLs
+
+
+
+
+
     // Save each generated image to the database
     const { image_urls } = result;
     
@@ -149,6 +186,13 @@ export async function POST(req: Request) {
         }
       }
 
+  // Database Record Created:
+
+  // - Links generated image to both models used
+  // - Stores original clothing reference
+  // - Records the exact prompt used
+  // - Associates with user for ownership
+
       return convex.mutation(api.generations.create, {
         created_at: Date.now(),
         face_id: body.face_id,
@@ -179,3 +223,30 @@ export async function POST(req: Request) {
     );
   }
 }
+
+
+//   1. Frontend constructs prompt:
+// "<lora:2986814:1.0> <faceid:2987006:1.0> Male model flux shirt fashion editorial"
+
+// 2. POST to /api/try-on with:
+//    {
+//      prompt: "...",
+//      face_id: 2987006,     // Clothing model
+//      lora_id: 2986814,     // Person model
+//      user_id: "user_123",
+//      num_images: 2
+//    }
+
+// 3. Astria Generation:
+//    - Submits job → Gets ID: "prompt_789"
+//    - Polls every 3s → Checks completion
+//    - After 45s → Images ready
+
+// 4. Database Storage:
+//    - Saves 2 generated images
+//    - Links to both models
+//    - Records prompt used
+
+// 5. Frontend Response:
+//    - Returns generated image URLs
+//    - User sees try-on results

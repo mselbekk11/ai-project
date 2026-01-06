@@ -72,10 +72,12 @@ export default function Home() {
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
+  // Data Fetching with Convex
   const models = useQuery(api.headshot_models.listUserModels, {
     user_id: user?.id ?? "",
   });
 
+  // Delete Model Mutation
   const deleteModel = useMutation(api.headshot_models.deleteHeadshotModel);
 
   // Add these mutations for credits
@@ -111,6 +113,7 @@ export default function Home() {
     setDeleteDialogOpen(true);
   };
 
+  // Delete Model Confirmation
   const confirmDelete = async () => {
     if (!modelToDelete) return;
 
@@ -126,6 +129,7 @@ export default function Home() {
     }
   };
 
+  // Model Training Form Submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -159,6 +163,8 @@ export default function Home() {
       };
 
       console.log("Sending request to API...");
+
+      // POST to API with all training parameters
       const response = await fetch("/api/train-model", {
         method: "POST",
         headers: {
@@ -169,6 +175,7 @@ export default function Home() {
 
       console.log("Response received:", response.status); // Debug log
 
+      // Show success/error feedback to user
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to train model");
@@ -483,3 +490,30 @@ export default function Home() {
     </div>
   );
 }
+
+//   7. Complete User Flow Example
+
+//  1. User Lands on Page:
+//  - Sees existing models table
+//  - Form ready for new model
+
+// 2. User Fills Form:
+//  - Enter name: "Morgan Portrait"
+//  - Select gender: "Male"
+//  - Upload 12 photos via drag & drop
+
+//3. User Submits:
+//  - Validates 1 model credit available
+//  - Deducts credit from account
+//  - Sends data to /api/train-model
+//  - Shows "Training..." button state
+
+// 4. API Response:
+//  - Success: "Model training started"
+//  - Form clears, new row appears
+//  - Status shows "processing" with spinner
+
+//5. 15-30 Minutes Later:
+//  - Webhook updates database
+//  - Status automatically changes to "finished"
+//  - Model ready for try-on generation

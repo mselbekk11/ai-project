@@ -6,12 +6,31 @@ const REALISTIC_VISION_ID = '690204'; // Realistic Vision v5.1
 const VALID_GARMENT_TYPES = ['clothing', 'shirt', 'pants', 'coat', 'swimming_suit'] as const;
 export type GarmentType = typeof VALID_GARMENT_TYPES[number];
 
+//   Data Flow:
+
+//   1. User uploads clothing → UploadThing → URL
+//   2. Frontend calls → /api/garment-upload → Astria
+//   3. Astria trains → FaceID model created
+//   4. Model stored → Ready for try-on generation
+
+//  Key Differences from Person Training:
+
+// - REALISTIC_VISION_ID: Uses Realistic Vision v5.1 (ID: 690204) instead of FLUX
+// - Different base model optimized for clothing and fashion imagery
+// - Predefined garment types for consistent categorization
+
 // Format garment type for Astria API (replace underscores with spaces, etc.)
 function formatGarmentType(type: string): string {
   return type.replace(/_/g, ' ');
 }
 
 export async function POST(req: Request) {
+
+//   Input Requirements:
+//   - clothing_url: UploadThing URL of the clothing item image
+//   - garment_type: Must be one of the valid types (shirt, pants, etc.)
+//   - Single image vs. multiple images for person training
+
   try {
     console.log('Starting garment upload process');
     
@@ -45,8 +64,29 @@ export async function POST(req: Request) {
     garmentFormData.append('tune[base_tune_id]', REALISTIC_VISION_ID);
     garmentFormData.append('tune[image_urls][]', clothing_url);
     garmentFormData.append('tune[class]', formattedGarmentType);
+
+//   tune[model_type]: 'faceid'
+
+// - Different from person training which uses 'lora'
+// - FaceID is Astria's technique for clothing/object training
+// - Creates embeddings that can be referenced in prompts
+
+//   tune[base_tune_id]: '690204'
+
+//   - Realistic Vision v5.1 - specialized for fashion/clothing
+//   - Better at understanding garment details, textures, fits
+//   - Different from FLUX used for person training
+
+//   tune[class]
+
+//   - Categorizes the clothing type
+//   - Used later in generation prompts
+//   - Helps AI understand what kind of garment it's learning
     
     console.log('Sending garment data to Astria');
+
+  // API Call to Astria:
+  // Same endpoint (/tunes) but different parameters create different model types.
 
     const garmentResponse = await fetch(`${ASTRIA_BASEURL}/tunes`, {
       method: 'POST',
@@ -87,6 +127,12 @@ export async function POST(req: Request) {
       console.log('Garment training in progress. ETA:', garmentData.eta);
     }
 
+    //   Key Response Fields:
+    // - garment_id: Astria's ID for this clothing model
+    // - is_trained: Whether training is complete (usually instant for clothing)
+    // - eta: Estimated time for completion
+    // - class: Original garment type for frontend use
+
     return NextResponse.json({
       status: 'success',
       garment_id: garmentData.id,
@@ -106,3 +152,15 @@ export async function POST(req: Request) {
     );
   }
 }
+
+// 7. How It Integrates with Try-On Generation
+
+ // When generating try-on images, both models are combined:
+
+  // From try-on/route.ts
+//  const prompt = `<lora:${personLoraId}:1.0> <faceid:${clothingFaceId}:1.0> ${gender} model flux ${garmentType}`;
+
+//  Dual Model System:
+//   - Person model (<lora:ID>) provides the person's features
+//   - Clothing model (<faceid:ID>) provides the garment to wear
+//   - Combined in a single prompt for generation
